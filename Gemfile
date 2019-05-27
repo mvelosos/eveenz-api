@@ -19,6 +19,7 @@ gem 'active_model_serializers', '~> 0.10.9'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'jwt'
 gem 'config'
+gem 'koala'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
