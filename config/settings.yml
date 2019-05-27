@@ -1,0 +1,4 @@
+# Settings file to all environments
+
+# Expiration time in hours
+JWT_EXPIRATION_TIME: 24
