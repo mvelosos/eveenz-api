@@ -5,8 +5,8 @@ module Api
 
       # POST /auth/login
       def login
-        @user = User.find_by_email(params[:email])
-        if @user && @user.authenticate(params[:password])
+        @user = find_by_username_or_email
+        if @user && @user.authenticate(login_params[:password])
           token = JsonWebToken.encode(user_id: @user.id)
           time = Time.now + 24.hours.to_i
           render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"), username: @user.username }, status: :ok
@@ -18,7 +18,11 @@ module Api
       private
 
         def login_params
-          params.permit(:email, :password)
+          params.require(:user).permit(:login, :password)
+        end
+
+        def find_by_username_or_email
+          @user = User.find_by_username(login_params[:login]) || User.find_by_email(login_params[:login])
         end
 
     end

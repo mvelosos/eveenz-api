@@ -4,12 +4,6 @@ module Api
       before_action :authenticate_by_token, except: :create
       before_action :get_user, except: %i[create index]
 
-      # GET /users
-      def index
-        @users = User.all
-        render json: @users, status: :ok
-      end
-
       # GET /users/{username}
       def show
         render json: @user, status: :ok
@@ -32,21 +26,16 @@ module Api
         end
       end
 
-      # DELETE /users/{username}
-      def destroy
-        @user.destroy
-      end
-
       private
 
         def get_user
-          @user = User.find_by_username!(params[:_username])
+          @user = User.find_by_username!(params[:username])
           rescue ActiveRecord::RecordNotFound
             render json: { errors: 'User not found' }, status: :not_found
         end
 
         def user_params
-          params.permit(:username, :email, :password)
+          params.require(:user).permit(:username, :email, :password)
         end
 
     end
