@@ -2,6 +2,8 @@ module Api
   module V1
     class ApiController < ApplicationController
 
+      attr_accessor :current_user
+
       def not_found
         render json: { error: 'not_found' }
       end
