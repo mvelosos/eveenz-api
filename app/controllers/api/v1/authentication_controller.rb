@@ -27,7 +27,7 @@ module Api
             render json: { error: 'unauthorized' }, status: :unauthorized
           end
         rescue Koala::Facebook::APIError => e
-          render json: { errors: e }, status: :unauthorized
+          render json: { errors: e.message }, status: :unauthorized
         end
       end
 
