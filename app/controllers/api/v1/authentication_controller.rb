@@ -8,7 +8,7 @@ module Api
         @user = find_by_username_or_email
         if @user && @user.authenticate(login_params[:password])
           token = generate_jwt_token(@user)
-          time = Time.now + Settings.JWT_EXPIRATION_TIME.hours.to_i
+          time = jwt_expiration_time
           render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"), username: @user.username }, status: :ok
         else
           render json: { error: 'unauthorized' }, status: :unauthorized
@@ -21,7 +21,7 @@ module Api
           user = AuthenticationService.new(fb_params[:access_token]).facebook_login
           if user
             token = generate_jwt_token(user)
-            time = Time.now + Settings.JWT_EXPIRATION_TIME.hours.to_i
+            time = jwt_expiration_time
             render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"), username: user.username }, status: :ok
           else
             render json: { error: 'unauthorized' }, status: :unauthorized
@@ -35,6 +35,10 @@ module Api
 
         def generate_jwt_token(user)
           @token = JsonWebToken.encode(user_id: user.id)
+        end
+
+        def jwt_expiration_time
+          Time.now + Settings.JWT_EXPIRATION_TIME.hours.to_i
         end
 
         def find_by_username_or_email
