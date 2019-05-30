@@ -12,8 +12,9 @@ module Api
         token = request.headers['Authorization']
         token = token.split(' ').last if token
         begin
-          @decoded = JsonWebToken.decode(token)
-          @current_user = User.find(@decoded[:user_id])
+          @decoded_token = JsonWebToken.decode(token)
+          @current_user = User.find(@decoded_token[:user_id])
+          render json: { errors: Settings.USER_IS_NOT_ACTIVE }, status: :unauthorized unless @current_user.active
         rescue ActiveRecord::RecordNotFound => e
           render json: { errors: e.message }, status: :unauthorized
         rescue JWT::DecodeError => e

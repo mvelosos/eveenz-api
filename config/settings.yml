@@ -2,3 +2,6 @@
 
 # Expiration time in hours
 JWT_EXPIRATION_TIME: 24
+
+# Custom Exception Messages
+USER_IS_NOT_ACTIVE: 'User is not active!'
