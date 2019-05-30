@@ -8,6 +8,9 @@
 #  password_digest :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  uid             :string
+#  provider        :string
+#  active          :boolean          default(TRUE)
 #
 
 class User < ApplicationRecord
