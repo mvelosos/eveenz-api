@@ -1,11 +1,14 @@
 # Settings file to all environments
 
 # Expiration time in hours
-JWT_EXPIRATION_TIME: 720
+Jwt:
+  JWT_EXPIRATION_TIME: 720
 
 # Custom Exception Messages
-UNAUTHORIZED: 'unauthorized'
-USER_IS_NOT_ACTIVE: 'User is not active!'
+Exceptions:
+  UNAUTHORIZED: 'unauthorized'
+  USER_IS_NOT_ACTIVE: 'User is not active!'
 
 # Auth Providers
-FACEBOOK: 'facebook'
+Providers:
+  FACEBOOK: 'facebook'
