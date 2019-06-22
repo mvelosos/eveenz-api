@@ -23,7 +23,7 @@ module Api
                         email: fb_user['email'],
                         password: fb_user['id'],
                         uid: fb_user['id'],
-                        provider: 'facebook'
+                        provider: Settings.FACEBOOK
                         )
           end 
         end
