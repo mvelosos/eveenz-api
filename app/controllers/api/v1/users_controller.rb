@@ -2,7 +2,7 @@ module Api
   module V1
     class UsersController < ApiController
       before_action :authenticate_by_token, except: :create
-      before_action :get_user, except: %i[create index]
+      before_action :get_user, except: %i[create]
 
       # GET /users/{username}
       def show

@@ -21,9 +21,9 @@ module Api
             username = generate_username_from_email(fb_user['email'])
             User.create(username: username, 
                         email: fb_user['email'],
-                        password: fb_user['id'],
+                        password: SecureRandom.hex(16),
                         uid: fb_user['id'],
-                        provider: 'facebook'
+                        provider: Settings.Providers.FACEBOOK
                         )
           end 
         end

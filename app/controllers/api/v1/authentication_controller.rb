@@ -6,12 +6,12 @@ module Api
       # POST /auth/login
       def login
         @user = find_by_username_or_email
-        if @user && @user.authenticate(login_params[:password])
+        if @user && @user.authenticate(login_params[:password]) && @user.active
           token = generate_jwt_token(@user)
           time = jwt_expiration_time
-          render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"), username: @user.username }, status: :ok
+          render json: { token: token, type: 'Bearer', exp: time.strftime("%m-%d-%Y %H:%M"), username: @user.username }, status: :ok
         else
-          render json: { error: 'unauthorized' }, status: :unauthorized
+          render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :unauthorized
         end
       end
 
@@ -19,12 +19,12 @@ module Api
       def facebook
         begin
           user = AuthenticationService.new(fb_params[:access_token]).facebook_login
-          if user
+          if user && user.active
             token = generate_jwt_token(user)
             time = jwt_expiration_time
             render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"), username: user.username }, status: :ok
           else
-            render json: { error: 'unauthorized' }, status: :unauthorized
+            render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :unauthorized
           end
         rescue Koala::Facebook::APIError => e
           render json: { errors: e.message }, status: :unauthorized
@@ -38,7 +38,7 @@ module Api
         end
 
         def jwt_expiration_time
-          Time.now + Settings.JWT_EXPIRATION_TIME.hours.to_i
+          Time.now + Settings.Jwt.JWT_EXPIRATION_TIME.hours.to_i
         end
 
         def find_by_username_or_email
