@@ -9,7 +9,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  uid             :string
-#  provider        :string
+#  provider        :string           default("api")
 #  active          :boolean          default(TRUE)
 #
 
