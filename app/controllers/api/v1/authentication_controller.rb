@@ -22,7 +22,7 @@ module Api
           if user && user.active
             token = generate_jwt_token(user)
             time = jwt_expiration_time
-            render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"), username: user.username }, status: :ok
+            render json: { token: token, type: 'Bearer', exp: time.strftime("%m-%d-%Y %H:%M"), username: user.username }, status: :ok
           else
             render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :unauthorized
           end

@@ -30,7 +30,7 @@ module Api
 
         def generate_username_from_email(email)
           username = email.split('@')[0]
-          username += rand(999).to_s
+          username += rand(9999).to_s
         end
 
     end
