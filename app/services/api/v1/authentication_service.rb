@@ -15,7 +15,10 @@ module Api
 
         def find_or_create_fb_user(fb_user)
           user = User.find_by_email(fb_user['email'])
-          if user
+          if user && user.provider.nil?
+            user.update(uid: fb_user['id'], provider: Settings.Providers.FACEBOOK)
+            return user
+          elsif user
             return user
           else
             username = generate_username_from_email(fb_user['email'])
@@ -30,7 +33,7 @@ module Api
 
         def generate_username_from_email(email)
           username = email.split('@')[0]
-          username += rand(999).to_s
+          username += rand(9999).to_s
         end
 
     end

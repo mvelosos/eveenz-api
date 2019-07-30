@@ -4,7 +4,7 @@ class JsonWebToken
   EXPIRATION_TIME = Settings.Jwt.JWT_EXPIRATION_TIME
 
   def self.encode(payload)
-    payload[:exp] = EXPIRATION_TIME.hours.to_i
+    # payload[:exp] = EXPIRATION_TIME.hours.to_i
     JWT.encode(payload, SECRET_KEY)
   end
 

@@ -6,9 +6,9 @@ Jwt:
 
 # Custom Exception Messages
 Exceptions:
-  UNAUTHORIZED: 'unauthorized'
-  USER_IS_NOT_ACTIVE: 'User is not active!'
+  UNAUTHORIZED: "unauthorized"
+  USER_IS_NOT_ACTIVE: "User is not active!"
 
 # Auth Providers
 Providers:
-  FACEBOOK: 'facebook'
+  FACEBOOK: "facebook"
