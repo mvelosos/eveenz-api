@@ -10,7 +10,7 @@ module Api
     
       def authenticate_by_token
         token = request.headers['Authorization']
-        # token = token.split(' ').last if token
+        token = token.split(' ').last if token
         begin
           @decoded_token = JsonWebToken.decode(token)
           @current_user = User.find(@decoded_token[:user_id])
