@@ -9,7 +9,7 @@ module Api
             render json: '', status: :no_content
           end
         rescue StandardError => e
-          Rails.logger.info('Account update error: ' + e)
+          Rails.logger.info("Account update error:  #{e}")
           render json: 'something occured', status: :not_acceptable
         end
       end
