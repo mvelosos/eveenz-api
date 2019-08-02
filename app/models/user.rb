@@ -23,4 +23,10 @@ class User < ApplicationRecord
   validates :username,  presence: true, uniqueness: true
   validates :username,  format: { with: /\A[a-zA-Z0-9_.]+\Z/ }
   validates :password,  length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
+
+  before_save :create_account
+
+  def create_account
+    self.build_account
+  end
 end
