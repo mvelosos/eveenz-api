@@ -4,7 +4,8 @@ Rails.application.routes.draw do
     namespace :v1 do
 
       resources :users, param: :username, only: [:show, :create, :update]
-      resources :accounts, only: [:update]
+      
+      resource :accounts, only: [:update]
 
       resources 'auth', only: [] do
         collection do
