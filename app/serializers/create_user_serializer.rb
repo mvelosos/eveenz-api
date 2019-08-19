@@ -13,6 +13,19 @@
 #  active          :boolean          default(TRUE)
 #
 
-class UserSerializer < ActiveModel::Serializer
-  attributes :username, :email, :provider, :created_at
+class CreateUserSerializer < ActiveModel::Serializer
+  attributes :username, :provider, :created_at, :token, :type, :exp
+
+  def token
+    @instance_options[:token]
+  end
+
+  def type
+    'Bearer'
+  end
+
+  def exp
+    @instance_options[:time]
+  end
+
 end
