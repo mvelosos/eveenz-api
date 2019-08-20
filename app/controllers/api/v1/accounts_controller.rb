@@ -4,13 +4,11 @@ module Api
 
       # PATCH /accounts
       def update
-        begin 
-          if current_user.account.update(account_params)
-            render json: '', status: :no_content
-          end
-        rescue StandardError => e
-          Rails.logger.info("Account update error:  #{e}")
-          render json: 'something occured', status: :not_acceptable
+        @account = current_user.account
+        if @account.update(account_params)
+          render json: '', status: :no_content
+        else
+          render json: { error: @account.errors.full_messages}, status: :not_acceptable
         end
       end
 

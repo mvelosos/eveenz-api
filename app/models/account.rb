@@ -18,6 +18,9 @@ class Account < ApplicationRecord
   belongs_to :user
   has_one_attached :avatar
 
+  validates :name, length: { minimum: 0, maximum: 60 }, allow_blank: true
+  validates :bio,  length: { minimum: 0, maximum: 500}, allow_blank: true
+
   after_create :set_default_avatar
 
   def set_default_avatar

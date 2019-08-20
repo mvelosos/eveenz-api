@@ -12,6 +12,9 @@ pt-BR:
         username: Nome de usuário
         email: E-mail
         password: Senha
+      account:
+        name: Nome
+        bio: Bio
   date:
     abbr_day_names:
       - dom
