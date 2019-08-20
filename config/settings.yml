@@ -3,6 +3,7 @@
 # Expiration time in hours
 Jwt:
   JWT_EXPIRATION_TIME: 720
+  ENABLE_EXP_TIME: false
 
 # Custom Exception Messages
 Exceptions:
