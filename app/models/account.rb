@@ -14,7 +14,14 @@
 #
 
 class Account < ApplicationRecord
-  belongs_to :user
 
+  belongs_to :user
   has_one_attached :avatar
+
+  after_create :set_default_avatar
+
+  def set_default_avatar
+    self.avatar.attach(io: File.open('./app/assets/images/default_avatar.png'), filename: 'default_avatar.png')
+  end
+
 end
