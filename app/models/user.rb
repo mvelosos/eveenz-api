@@ -25,7 +25,7 @@ class User < ApplicationRecord
   validates :username,  length: { minimum: 3, maximum: 25 }, allow_blank: false
   validates :password,  length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
 
-  before_save :create_account
+  before_create :create_account
 
   def create_account
     self.build_account

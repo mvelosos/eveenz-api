@@ -1,8 +1,8 @@
 module Api
   module V1
     class UsersController < ApiController
-      before_action :authenticate_by_token, except: :create
-      before_action :get_user, except: %i[create]
+      before_action :authenticate_by_token, except: [:create]
+      before_action :set_user, only: [:show]
 
       # GET /users/{username}
       def show
@@ -21,8 +21,9 @@ module Api
         end
       end
 
-      # PUT /users/{username}
+      # PATCH /users/{username}
       def update
+        @user = current_user
         unless @user.update(user_params)
           render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
         end
@@ -30,7 +31,7 @@ module Api
 
       private
 
-        def get_user
+        def set_user
           @user = User.find_by_username!(params[:username])
           rescue ActiveRecord::RecordNotFound
             render json: { errors: 'User not found' }, status: :not_found
