@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_15_022758) do
+ActiveRecord::Schema.define(version: 2019_08_24_234527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,6 @@ ActiveRecord::Schema.define(version: 2019_08_15_022758) do
     t.bigint "user_id"
     t.string "name"
     t.text "bio"
-    t.decimal "latitude", precision: 11, scale: 8
-    t.decimal "longitude", precision: 11, scale: 8
     t.integer "popularity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -48,6 +46,46 @@ ActiveRecord::Schema.define(version: 2019_08_15_022758) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.string "street"
+    t.string "number"
+    t.string "complement"
+    t.string "neighborhood"
+    t.string "zip_code"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "account_id"
+    t.string "name"
+    t.text "description"
+    t.boolean "active", default: true
+    t.string "kind"
+    t.date "date"
+    t.time "time"
+    t.text "tags", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_events_on_account_id"
+  end
+
+  create_table "localizations", force: :cascade do |t|
+    t.string "localizable_type"
+    t.bigint "localizable_id"
+    t.decimal "latitude", precision: 11, scale: 8
+    t.decimal "longitude", precision: 11, scale: 8
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["localizable_type", "localizable_id"], name: "index_localizations_on_localizable_type_and_localizable_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
@@ -61,4 +99,5 @@ ActiveRecord::Schema.define(version: 2019_08_15_022758) do
 
   add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "events", "accounts"
 end
