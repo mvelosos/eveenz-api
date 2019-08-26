@@ -21,6 +21,7 @@ gem 'jwt'
 gem 'config'
 gem 'koala'
 gem "aws-sdk-s3"
+gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

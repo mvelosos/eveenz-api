@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
 
@@ -9,7 +8,17 @@ Rails.application.routes.draw do
         end
       end
       
-      resource :accounts, only: [:update]
+      resource  :accounts, only: [:update]
+      resources :accounts, only: [:index] do
+        collection do
+          get 'following', to: 'accounts#following'
+          get 'followers', to: 'accounts#followers'
+          post   'follows/accounts/:id', to: 'follows#follow_account'
+          delete 'follows/accounts/:id', to: 'follows#unfollow_account'
+          post   'follows/events/:id', to: 'follows#follow_event'
+          delete 'follows/events/:id', to: 'follows#unfollow_event'
+        end
+      end
 
       resources 'auth', only: [] do
         collection do
@@ -22,5 +31,4 @@ Rails.application.routes.draw do
 
     end
   end
-
 end
