@@ -22,6 +22,8 @@ class Event < ApplicationRecord
 
   before_create :build_address_and_localization
 
+  acts_as_followable
+
   def build_address_and_localization
     self.build_address
     self.build_localization
