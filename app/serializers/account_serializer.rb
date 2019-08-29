@@ -12,10 +12,14 @@
 #
 
 class AccountSerializer < ActiveModel::Serializer
-  attributes :username, :name, :bio, :popularity, :following, :followers, :avatar_url
+  attributes :username, :name, :bio, :popularity, :events, :following, :followers, :avatar_url
 
   def username
     object.user.username
+  end
+
+  def events
+    object.events.count
   end
 
   def following
