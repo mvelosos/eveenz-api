@@ -1,6 +1,24 @@
 class EventSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :kind, :date, :time
+  include Rails.application.routes.url_helpers
+
+  has_one :address, serializer: AddressSerializer
   has_one :localization, serializer: LocalizationSerializer
 
-  # TODO: ADICIONAR METODO PARA RETORNAR AS IMAGES
+  attributes :id, :name, :description, :images, :address, :localization, :distance, :kind, :date, :time, :host_avatar, :host_name
+
+  def images
+    []
+  end
+
+  def host_avatar
+    rails_blob_url(object.account.avatar)
+  end
+
+  def host_name
+    object.account.name
+  end
+
+  def distance
+  end
+
 end
