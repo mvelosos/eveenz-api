@@ -54,4 +54,7 @@ Rails.application.configure do
 
   # Outputs logs on terminal
   config.logger = Logger.new(STDOUT)
+
+  # Add default host do development enviroment
+  routes.default_url_options[:host] = '192.168.0.14:3000'
 end

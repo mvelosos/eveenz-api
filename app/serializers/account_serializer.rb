@@ -12,6 +12,8 @@
 #
 
 class AccountSerializer < ActiveModel::Serializer
+  include Rails.application.routes.url_helpers
+
   attributes :username, :name, :bio, :popularity, :events, :following, :followers, :avatar_url
 
   def username
@@ -31,6 +33,6 @@ class AccountSerializer < ActiveModel::Serializer
   end
 
   def avatar_url
-    @instance_options[:avatar]
+    rails_blob_url(object.avatar)
   end
 end

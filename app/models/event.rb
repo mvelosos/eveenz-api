@@ -20,6 +20,8 @@ class Event < ApplicationRecord
   has_one    :address,      as: :addressable
   has_one    :localization, as: :localizable
 
+  has_many_attached :images
+
   before_create :build_address_and_localization
 
   acts_as_followable
