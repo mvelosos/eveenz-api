@@ -24,7 +24,22 @@ class EventSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :images, :address, :localization, :distance, :kind, :date, :time, :host_avatar, :host_name
 
   def images
-    []
+    images = []
+    object.images.each do |image|
+      images << rails_blob_url(image)
+    end
+    images
+  end
+
+  def distance
+  end
+
+  def date
+    object.date.strftime('%d/%m/%Y')
+  end
+
+  def time
+    object.time.strftime('%H:%M')
   end
 
   def host_avatar
@@ -33,9 +48,6 @@ class EventSerializer < ActiveModel::Serializer
 
   def host_name
     object.account.name
-  end
-
-  def distance
   end
 
 end
