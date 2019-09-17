@@ -1,6 +1,6 @@
 class Facebook
   
-  @fields = ['id', 'name', 'email']
+  @fields = ['id', 'name', 'email', 'picture']
 
   def self.client(access_token)
     Koala::Facebook::API.new(access_token)

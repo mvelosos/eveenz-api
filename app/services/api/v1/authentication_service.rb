@@ -22,12 +22,18 @@ module Api
             return user
           else
             username = generate_username_from_email(fb_user['email'])
-            User.create(username: username, 
-                        email: fb_user['email'],
-                        password: SecureRandom.hex(16),
-                        uid: fb_user['id'],
-                        provider: Settings.Providers.FACEBOOK
-                        )
+            user = User.create(username: username, 
+                               email: fb_user['email'],
+                               password: SecureRandom.hex(16),
+                               uid: fb_user['id'],
+                               provider: Settings.Providers.FACEBOOK
+                              )
+            user.account.update(name: fb_user['name'])
+
+            file = URI.open("https://graph.facebook.com/#{fb_user['id']}/picture?height=500&width=500")
+            user.account.avatar.attach(io: file, filename: 'avatar')
+
+            user
           end 
         end
 

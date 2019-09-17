@@ -20,6 +20,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :events, only: [:index]
+
       resources 'auth', only: [] do
         collection do
           post 'login', to: 'authentication#login'

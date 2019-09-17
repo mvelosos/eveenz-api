@@ -5,7 +5,7 @@ module Api
 
       # GET /accounts
       def index
-        render json: @account, avatar: url_for(@account.avatar), status: :ok
+        render json: @account, status: :ok
       end
 
       # PATCH /accounts
