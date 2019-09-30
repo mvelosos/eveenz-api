@@ -16,8 +16,8 @@ module Api
         render json: @events, status: :ok
       end
 
-      # GET /events/following
-      def following
+      # GET /events/confirmed
+      def confirmed
         @events = Event.joins('INNER JOIN follows ON events.id = follows.followable_id')
                        .where('follows.followable_type = ?', Event)
                        .where('follows.follower_type = ?', Account)
