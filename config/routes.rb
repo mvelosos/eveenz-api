@@ -20,7 +20,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :events, only: [:index]
+      resources :events, only: [:index] do
+        collection do
+          get 'my-events', to: 'events#my_events'
+        end
+      end
 
       resources 'auth', only: [] do
         collection do
