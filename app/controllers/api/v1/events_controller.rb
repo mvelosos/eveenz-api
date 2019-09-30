@@ -10,9 +10,18 @@ module Api
         render json: @events, status: :ok
       end
 
-      # GET /events/my-events
-      def my_events
+      # GET /events/mine
+      def mine
         @events = Event.where(account: current_user.account)
+        render json: @events, status: :ok
+      end
+
+      # GET /events/following
+      def following
+        @events = Event.joins('INNER JOIN follows ON events.id = follows.followable_id')
+                       .where('follows.followable_type = ?', Event)
+                       .where('follows.follower_type = ?', Account)
+                       .where('follows.follower_id = ?', current_user.account)
         render json: @events, status: :ok
       end
     

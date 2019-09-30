@@ -22,7 +22,8 @@ Rails.application.routes.draw do
 
       resources :events, only: [:index] do
         collection do
-          get 'my-events', to: 'events#my_events'
+          get 'mine', to: 'events#mine'
+          get 'following', to: 'events#following'
         end
       end
 
