@@ -22,6 +22,10 @@ class Event < ApplicationRecord
 
   has_many_attached :images
 
+  validates :name, presence: true
+  validates :date, presence: true
+  validates :time, presence: true
+
   before_create :build_address_and_localization
 
   acts_as_followable
