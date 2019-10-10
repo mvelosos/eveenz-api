@@ -10,6 +10,11 @@ module Api
         render json: @events, status: :ok
       end
 
+      # POST /events
+      def create
+        p event_params
+      end
+
       # GET /events/mine
       def mine
         @events = Event.where(account: current_user.account)
@@ -24,6 +29,11 @@ module Api
                        .where('follows.follower_id = ?', current_user.account)
         render json: @events, status: :ok
       end
+
+      private
+        def event_params
+          params.require(:event).permit(:name, :description, :date, :time)
+        end
     
     end 
   end

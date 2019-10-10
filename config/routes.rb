@@ -20,7 +20,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :events, only: [:index] do
+      resources :events, only: [:index, :create] do
         collection do
           get 'mine', to: 'events#mine'
           get 'confirmed', to: 'events#confirmed'
