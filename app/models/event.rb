@@ -17,8 +17,12 @@
 
 class Event < ApplicationRecord
   belongs_to :account
-  has_one    :address,      as: :addressable
-  has_one    :localization, as: :localizable
+
+  has_one    :address,      as: :addressable, dependent: :destroy
+  has_one    :localization, as: :localizable, dependent: :destroy
+
+  accepts_nested_attributes_for :address,      allow_destroy: true
+  accepts_nested_attributes_for :localization, allow_destroy: true
 
   has_many_attached :images
 
@@ -26,13 +30,6 @@ class Event < ApplicationRecord
   validates :date, presence: true
   validates :time, presence: true
 
-  before_create :build_address_and_localization
-
   acts_as_followable
-
-  def build_address_and_localization
-    self.build_address
-    self.build_localization
-  end
 
 end
