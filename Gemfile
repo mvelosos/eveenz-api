@@ -24,6 +24,7 @@ gem "aws-sdk-s3"
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 gem 'mini_magick'
 gem "sentry-raven"
+gem 'newrelic_rpm'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
