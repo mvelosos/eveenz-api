@@ -13,4 +13,8 @@
 
 class Localization < ApplicationRecord
   belongs_to :localizable, polymorphic: true
+
+  validates :latitude,  presence: true
+  validates :longitude, presence: true
+  
 end
