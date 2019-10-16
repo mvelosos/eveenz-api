@@ -14,8 +14,8 @@
 class Localization < ApplicationRecord
   belongs_to :localizable, polymorphic: true
 
-  validates :latitude,  presence: true, unless: -> { belongs_to_account }
-  validates :longitude, presence: true, unless: -> { belongs_to_account }
+  validates :latitude,  presence: true, if: -> { !belongs_to_account }
+  validates :longitude, presence: true, if: -> { !belongs_to_account }
 
   private
     def belongs_to_account
