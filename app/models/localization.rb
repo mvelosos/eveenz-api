@@ -19,7 +19,7 @@ class Localization < ApplicationRecord
 
   private
     def belongs_to_account
-      self.addressable_type == Account ? true : false
+      self.localizable_type == Account ? true : false
     end
   
 end
