@@ -20,9 +20,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :events, only: [:index] do
+      resources :events, only: [:index, :create] do
         collection do
-          get 'my-events', to: 'events#my_events'
+          get 'mine', to: 'events#mine'
+          get 'confirmed', to: 'events#confirmed'
         end
       end
 
