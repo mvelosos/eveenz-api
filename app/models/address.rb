@@ -20,13 +20,14 @@
 class Address < ApplicationRecord
   belongs_to :addressable, polymorphic: true
 
-  validates :street,       presence: true, if: -> { !belongs_to_account }
-  validates :number,       presence: true, if: -> { !belongs_to_account }
-  validates :neighborhood, presence: true, if: -> { !belongs_to_account }
-  validates :zip_code,     presence: true, if: -> { !belongs_to_account }
-  validates :city,         presence: true, if: -> { !belongs_to_account }
-  validates :state,        presence: true, if: -> { !belongs_to_account }
-  validates :country,      presence: true, if: -> { !belongs_to_account }
+  # TODO: REMOVE COMMENTS BELOW
+  # validates :street,       presence: true, if: -> { !belongs_to_account }
+  # validates :number,       presence: true, if: -> { !belongs_to_account }
+  # validates :neighborhood, presence: true, if: -> { !belongs_to_account }
+  # validates :zip_code,     presence: true, if: -> { !belongs_to_account }
+  # validates :city,         presence: true, if: -> { !belongs_to_account }
+  # validates :state,        presence: true, if: -> { !belongs_to_account }
+  # validates :country,      presence: true, if: -> { !belongs_to_account }
 
   private
     def belongs_to_account
