@@ -14,13 +14,12 @@
 class Localization < ApplicationRecord
   belongs_to :localizable, polymorphic: true
 
-  # TODO: REMOVE COMMENTS BELOW
-  validates :latitude,  presence: true, if: -> { !belongs_to_account }
-  validates :longitude, presence: true, if: -> { !belongs_to_account }
+  validates :latitude,  presence: true, if: -> { !belongs_to_account? }
+  validates :longitude, presence: true, if: -> { !belongs_to_account? }
 
   private
-    def belongs_to_account
-      self.localizable_type == Account ? true : false
+    def belongs_to_account?
+      self.localizable_type == 'Account' ? true : false
     end
   
 end
