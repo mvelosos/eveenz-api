@@ -13,10 +13,12 @@ module Api
       # POST /events
       def create
         @event = current_user.account.events.build(event_params)
-        p @event
-        p @event.address
-        p @event.localization
-        # @event.save
+        if @event.save
+          stores_event_images
+          render json: @event, serializer: EventSerializer, status: :created
+        else
+          render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity
+        end
       end
 
       # GET /events/mine
@@ -36,7 +38,11 @@ module Api
 
       private
         def event_params
-          params.require(:event).permit(:name, :description, :date, :time,  images: [:uri, :type, :name], :address_attributes => address_attr, :localization_attributes => localization_attr)
+          params.require(:event).permit(:name, :description, :date, :time, :address_attributes => address_attr, :localization_attributes => localization_attr)
+        end
+
+        def event_images_params
+          params.require(:event).permit(:images => [:uri, :name, :type])
         end
 
         def address_attr
@@ -47,12 +53,14 @@ module Api
           [:latitude, :longitude]
         end
 
-        def stores_event_images()
-          decoded_image = Base64.decode64(event_params['images'][0]['uri'])
-          a = Account.first
-          a.avatar.attach(io: StringIO.new(decoded_image), filename: event_params['images'][0]['name'])
+        def stores_event_images
+          images = event_images_params[:images]
+          images.each do |img|
+            decoded_img = Base64.decode64(img[:uri])
+            @event.images.attach(io: StringIO.new(decoded_img), filename: img[:name], content_type: img[:type])
+          end
         end
-    
-    end 
+
+    end
   end
 end
