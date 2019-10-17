@@ -14,14 +14,17 @@
 class Account < ApplicationRecord
 
   belongs_to :user
-  has_one_attached :avatar
+  has_one_attached :avatar, dependent: :destroy
 
-  has_one    :address,      as: :addressable
-  has_one    :localization, as: :localizable
-  has_many   :events
+  has_one    :address,      as: :addressable, dependent: :destroy
+  has_one    :localization, as: :localizable, dependent: :destroy
+  has_many   :events, dependent: :destroy
 
   accepts_nested_attributes_for :address,      update_only: true
   accepts_nested_attributes_for :localization, update_only: true
+
+  validates_associated :address,      on: :create
+  validates_associated :localization, on: :create
 
   validates :name, length: { minimum: 0, maximum: 60 }, allow_blank: true
   validates :bio,  length: { minimum: 0, maximum: 500}, allow_blank: true

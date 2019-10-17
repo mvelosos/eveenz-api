@@ -8,10 +8,10 @@ local:
 
 amazon:
   service: S3
-  access_key_id: AKIAI5FUXSZ5Q7YXQMPQ
-  secret_access_key: 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
-  region: us-west-1
-  bucket: party-staging
+  access_key_id: <%= ENV['AWS_S3_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['AWS_S3_SECRET_ACCESS_KEY'] %>
+  region: <%= ENV['AWS_S3_REGION'] %>
+  bucket: <%= ENV['AWS_S3_BUCKET'] %>
 # Remember not to checkin your GCS keyfile to a repository
 # google:
 #   service: GCS
