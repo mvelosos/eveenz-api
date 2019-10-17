@@ -2,6 +2,7 @@ module Api
   module V1
     class ApiController < ApplicationController
       before_action :authenticate_by_token
+      before_action :set_raven_context
 
       attr_accessor :current_user
 
@@ -22,7 +23,18 @@ module Api
           render json: { errors: e.message }, status: :unauthorized
         end
       end
-        
+
+      private
+        def set_raven_context
+          if current_user
+            Raven.user_context(id: current_user.id, username: current_user.username)
+            Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+          else
+            Raven.user_context(message: 'user not authenticated')
+            Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+          end
+        end
+
     end
   end
 end
