@@ -22,4 +22,6 @@ jobs:
         sudo apt-get install libpq-dev -y
         gem install bundler
         bundle install --jobs 4 --retry 3
+        export RAILS_ENV=test
+        bundle exec rake db:schema:load
         bundle exec rspec spec
