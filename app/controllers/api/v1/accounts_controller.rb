@@ -28,6 +28,7 @@ module Api
       end
 
       private
+
         def account_params
           params.require(:account).permit(:name, :bio, :latitude, :longitude, :localization_attributes => localization_attr, :address_attributes => address_attr)
         end

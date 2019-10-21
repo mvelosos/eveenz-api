@@ -37,6 +37,7 @@ module Api
       end
 
       private
+
         def event_params
           params.require(:event).permit(:name, :description, :date, :time, :address_attributes => address_attr, :localization_attributes => localization_attr)
         end

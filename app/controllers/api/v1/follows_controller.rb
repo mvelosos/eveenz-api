@@ -42,6 +42,7 @@ module Api
       end
 
       private
+
         def set_follow_account
           begin
             @follow_account = Account.find(params[:id])
