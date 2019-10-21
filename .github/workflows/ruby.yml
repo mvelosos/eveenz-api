@@ -19,6 +19,5 @@ jobs:
     - name: Build and test with RSpec
       run: |
         gem install bundler
-        gem install pg
         bundle install --jobs 4 --retry 3
         bundle exec rspec spec
