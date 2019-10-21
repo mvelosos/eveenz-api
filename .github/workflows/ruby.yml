@@ -1,4 +1,4 @@
-name: Ruby
+name: Master Release
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Master Release
+    - name: Set up actions
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.6.x
