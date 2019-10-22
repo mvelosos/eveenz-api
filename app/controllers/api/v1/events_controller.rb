@@ -6,7 +6,13 @@ module Api
       # TODO: Adicionar Haversine
       # GET /events
       def index
-        @events = Event.all
+        account   = current_user.account
+        latitude  = account.localization.latitude
+        longitude = account.localization.longitude
+        settings  = account.account_setting
+
+        @events = Event.findNearBy(latitude, longitude, settings.distance_radius, settings.unit)
+
         render json: @events, status: :ok
       end
 
