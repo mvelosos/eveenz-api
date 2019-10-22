@@ -31,6 +31,7 @@ class User < ApplicationRecord
 
   def build_associations
     self.build_account
+    self.account.build_account_setting
     self.account.build_address
     self.account.build_localization
   end
