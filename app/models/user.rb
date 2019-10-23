@@ -14,6 +14,8 @@
 #
 
 class User < ApplicationRecord
+  searchkick
+
   has_secure_password
 
   has_one :account, dependent: :destroy
@@ -29,10 +31,15 @@ class User < ApplicationRecord
 
   before_create :build_associations, if: -> { new_record? }
 
+  def search_data
+    { username: username }
+  end
+
   def build_associations
     self.build_account
     self.account.build_account_setting
     self.account.build_address
     self.account.build_localization
   end
+
 end
