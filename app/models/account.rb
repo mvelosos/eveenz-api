@@ -12,6 +12,7 @@
 #
 
 class Account < ApplicationRecord
+  searchkick
 
   belongs_to :user
 
@@ -36,6 +37,10 @@ class Account < ApplicationRecord
 
   acts_as_follower
   acts_as_followable
+
+  def search_data
+    { name: name }
+  end
 
   def set_default_avatar
     self.avatar.attach(io: File.open('./app/assets/images/default_avatar.png'), filename: 'default_avatar.png')
