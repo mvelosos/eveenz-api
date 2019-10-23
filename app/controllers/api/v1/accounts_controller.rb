@@ -1,6 +1,6 @@
 module Api
   module V1
-    class AccountsController < ApiController
+    class AccountsController < Api::V1::ApiController
       before_action :set_account
 
       # GET /accounts

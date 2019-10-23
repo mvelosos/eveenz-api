@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Api::V1::EventsController < ApiController
+    class Api::V1::EventsController < Api::V1::ApiController
 
       # TODO: CONTINUAR O DESENVOLVIMENTO DESSE METODO
       # TODO: Adicionar Haversine

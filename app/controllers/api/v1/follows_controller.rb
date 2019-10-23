@@ -1,7 +1,7 @@
 
 module Api
   module V1
-    class FollowsController < ApiController
+    class FollowsController < Api::V1::ApiController
       before_action :set_follow_account, only: [:follow_account, :unfollow_account]
       before_action :set_follow_event, only: [:follow_event, :unfollow_event]
 
