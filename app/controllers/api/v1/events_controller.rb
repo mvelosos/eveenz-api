@@ -2,8 +2,6 @@ module Api
   module V1
     class Api::V1::EventsController < Api::V1::ApiController
 
-      # TODO: CONTINUAR O DESENVOLVIMENTO DESSE METODO
-      # TODO: Adicionar Haversine
       # GET /events
       def index
         account   = current_user.account
@@ -13,7 +11,7 @@ module Api
 
         @events = Event.findNearBy(latitude, longitude, settings.distance_radius, settings.unit)
 
-        render json: @events, status: :ok
+        render json: @events, each_serializer: EventSerializer, current_user: current_user, status: :ok
       end
 
       # POST /events
@@ -30,7 +28,7 @@ module Api
       # GET /events/mine
       def mine
         @events = Event.where(account: current_user.account)
-        render json: @events, status: :ok
+        render json: @events, each_serializer: EventSerializer, current_user: current_user, status: :ok
       end
 
       # GET /events/confirmed
@@ -39,7 +37,7 @@ module Api
                        .where('follows.followable_type = ?', Event)
                        .where('follows.follower_type = ?', Account)
                        .where('follows.follower_id = ?', current_user.account)
-        render json: @events, status: :ok
+        render json: @events, each_serializer: EventSerializer, current_user: current_user, status: :ok
       end
 
       private
