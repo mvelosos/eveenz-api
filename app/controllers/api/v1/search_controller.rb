@@ -18,7 +18,7 @@ module Api
         accounts_json = ActiveModelSerializers::SerializableResource.new(accounts, each_serializer: AccountSerializer)
         events_json   = ActiveModelSerializers::SerializableResource.new(events, each_serializer: EventSerializer, current_user: current_user)
 
-        render json: {accounts: accounts_json, events: events_json}, status: :ok
+        render json: {users: accounts_json, events: events_json}, status: :ok
       end
 
     end
