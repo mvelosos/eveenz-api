@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_26_022108) do
+ActiveRecord::Schema.define(version: 2019_10_22_043030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_settings", force: :cascade do |t|
+    t.bigint "account_id"
+    t.float "distance_radius", default: 10.0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "unit", default: "km", null: false
+    t.index ["account_id"], name: "index_account_settings_on_account_id"
+  end
 
   create_table "accounts", force: :cascade do |t|
     t.bigint "user_id"
@@ -111,6 +120,7 @@ ActiveRecord::Schema.define(version: 2019_08_26_022108) do
     t.boolean "active", default: true
   end
 
+  add_foreign_key "account_settings", "accounts"
   add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "events", "accounts"

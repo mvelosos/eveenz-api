@@ -1,13 +1,17 @@
 module Api
   module V1
-    class Api::V1::EventsController < ApiController
+    class Api::V1::EventsController < Api::V1::ApiController
 
-      # TODO: CONTINUAR O DESENVOLVIMENTO DESSE METODO
-      # TODO: Adicionar Haversine
       # GET /events
       def index
-        @events = Event.all
-        render json: @events, status: :ok
+        account   = current_user.account
+        latitude  = account.localization.latitude
+        longitude = account.localization.longitude
+        settings  = account.account_setting
+
+        @events = Event.findNearBy(latitude, longitude, settings.distance_radius, settings.unit)
+
+        render json: @events, each_serializer: EventSerializer, current_user: current_user, status: :ok
       end
 
       # POST /events
@@ -15,7 +19,7 @@ module Api
         @event = current_user.account.events.build(event_params)
         if @event.save
           stores_event_images
-          render json: @event, serializer: EventSerializer, status: :created
+          render json: @event, serializer: EventSerializer, current_user: current_user, status: :created
         else
           render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity
         end
@@ -24,7 +28,7 @@ module Api
       # GET /events/mine
       def mine
         @events = Event.where(account: current_user.account)
-        render json: @events, status: :ok
+        render json: @events, each_serializer: EventSerializer, current_user: current_user, status: :ok
       end
 
       # GET /events/confirmed
@@ -33,10 +37,11 @@ module Api
                        .where('follows.followable_type = ?', Event)
                        .where('follows.follower_type = ?', Account)
                        .where('follows.follower_id = ?', current_user.account)
-        render json: @events, status: :ok
+        render json: @events, each_serializer: EventSerializer, current_user: current_user, status: :ok
       end
 
       private
+
         def event_params
           params.require(:event).permit(:name, :description, :date, :time, :address_attributes => address_attr, :localization_attributes => localization_attr)
         end

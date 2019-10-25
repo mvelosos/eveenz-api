@@ -31,6 +31,6 @@ Things you may want to cover:
 
 - ...
 
-Codeship
-CI
+GitHub Actions
 Add test suits
+ElasticSearch

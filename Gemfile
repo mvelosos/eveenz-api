@@ -17,6 +17,7 @@ gem 'rack-cors'
 gem 'rack-attack'
 gem 'active_model_serializers', '~> 0.10.9'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
+gem 'searchkick'
 gem 'jwt'
 gem 'config'
 gem 'koala'
@@ -25,6 +26,7 @@ gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 gem 'mini_magick'
 gem "sentry-raven"
 gem 'newrelic_rpm'
+gem 'haversine', '~> 0.3.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

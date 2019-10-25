@@ -1,6 +1,6 @@
 module Api
   module V1
-    class AccountsController < ApiController
+    class AccountsController < Api::V1::ApiController
       before_action :set_account
 
       # GET /accounts
@@ -28,6 +28,7 @@ module Api
       end
 
       private
+
         def account_params
           params.require(:account).permit(:name, :bio, :latitude, :longitude, :localization_attributes => localization_attr, :address_attributes => address_attr)
         end
