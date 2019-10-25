@@ -19,7 +19,7 @@ module Api
         @event = current_user.account.events.build(event_params)
         if @event.save
           stores_event_images
-          render json: @event, serializer: EventSerializer, status: :created
+          render json: @event, serializer: EventSerializer, current_user: current_user, status: :created
         else
           render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity
         end
