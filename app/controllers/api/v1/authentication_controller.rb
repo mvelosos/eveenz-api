@@ -1,6 +1,6 @@
 module Api
   module V1
-    class AuthenticationController < ApplicationController
+    class AuthenticationController < Api::V1::ApiController
       before_action :authenticate_by_token, except: [:login, :facebook]
 
       # POST /auth/login

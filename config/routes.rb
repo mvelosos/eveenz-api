@@ -34,6 +34,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :search, only: [:index]
+
       get '/*a', to: 'api#not_found'
 
     end

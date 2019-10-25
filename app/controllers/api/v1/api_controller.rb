@@ -25,6 +25,7 @@ module Api
       end
 
       private
+
         def set_raven_context
           if current_user
             Raven.user_context(id: current_user.id, username: current_user.username)
