@@ -11,7 +11,7 @@ module Api
           time = jwt_expiration_time
           render json: { token: token, type: 'Bearer', exp: time.strftime("%m-%d-%Y %H:%M"), username: @user.username, provider: @user.provider }, status: :ok
         else
-          render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :unauthorized
+          render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :bad_request
         end
       end
 
@@ -24,10 +24,10 @@ module Api
             time = jwt_expiration_time
             render json: { token: token, type: 'Bearer', exp: time.strftime("%m-%d-%Y %H:%M"), username: user.username, provider: user.provider }, status: :ok
           else
-            render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :unauthorized
+            render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :bad_request
           end
         rescue Koala::Facebook::APIError => e
-          render json: { errors: e.message }, status: :unauthorized
+          render json: { errors: e.message }, status: :bad_request
         end
       end
 
