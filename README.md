@@ -29,7 +29,7 @@ Things you may want to cover:
 
 - Deployment instructions
 
-- ...
+- ....
 
 GitHub Actions
 Add test suits
