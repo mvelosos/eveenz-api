@@ -9,7 +9,8 @@ module Api
         longitude = account.localization.longitude
         settings  = account.account_setting
 
-        @events = Event.findNearBy(latitude, longitude, settings.distance_radius, settings.unit)
+        @events = Event.find_near_by(latitude, longitude, settings.distance_radius, settings.unit)
+                       .order(created_at: :desc)
 
         render json: @events, each_serializer: EventSerializer, current_user: current_user, status: :ok
       end

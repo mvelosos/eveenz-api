@@ -34,7 +34,7 @@ class Event < ApplicationRecord
 
   acts_as_followable
 
-  scope :findNearBy, ->(user_latitude, user_longitude, distance_radius, unit) {
+  scope :find_near_by, ->(user_latitude, user_longitude, distance_radius, unit) {
     unit_value = unit == 'km' ? 6371 : 3959
 
     haversine = "(#{unit_value} * acos(cos(radians(#{user_latitude}))
