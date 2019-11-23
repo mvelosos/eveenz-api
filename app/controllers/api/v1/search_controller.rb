@@ -2,7 +2,7 @@ module Api
   module V1
     class SearchController < Api::V1::ApiController
 
-      # GET /search"?query="
+      # GET /search?query=
       def index
         users    = User.search(params[:query], page: (params[:page] || 1))
         accounts = Account.search(params[:query], page: (params[:page] || 1))
