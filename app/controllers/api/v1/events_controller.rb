@@ -7,9 +7,6 @@ module Api
         account   = current_user.account
         latitude  = account.localization.latitude
         longitude = account.localization.longitude
-        # settings  = account.account_setting
-
-        puts 'alteracao do arquivo'
 
         @events = Event.find_near_by(latitude, longitude, settings.distance_radius, settings.unit)
                        .order(created_at: :desc)
