@@ -1,5 +1,7 @@
 # README
 
+- Need to be updated later
+
 Party API
 
 * Rails: 6.1
