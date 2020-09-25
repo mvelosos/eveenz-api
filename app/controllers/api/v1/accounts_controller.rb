@@ -15,16 +15,6 @@ class Api::V1::AccountsController < Api::V1::ApiController
     end
   end
 
-  # GET /accounts/following
-  def following
-    render json: @account.following_by_type('Account'), status: :ok
-  end
-
-  # GET /accounts/following
-  def followers
-    render json: @account.followers_by_type('Account'), status: :ok
-  end
-
   private
 
   def account
