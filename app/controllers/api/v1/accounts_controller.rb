@@ -13,7 +13,7 @@ module Api
         if @account.update(account_params)
           render json: '', status: :no_content
         else
-          render json: { error: @account.errors.full_messages}, status: :not_acceptable
+          render json: { error: @account.errors.full_messages }, status: :not_acceptable
         end
       end
 
@@ -29,22 +29,21 @@ module Api
 
       private
 
-        def account_params
-          params.require(:account).permit(:name, :bio, :latitude, :longitude, :localization_attributes => localization_attr, :address_attributes => address_attr)
-        end
+      def account_params
+        params.require(:account).permit(:name, :bio, :latitude, :longitude, localization_attributes: localization_attr, address_attributes: address_attr)
+      end
 
-        def localization_attr
-          [:latitude, :longitude]
-        end
+      def localization_attr
+        %i[latitude longitude]
+      end
 
-        def address_attr
-          [:street, :number, :complement, :neighborhood, :zip_code, :city, :state, :country]
-        end
+      def address_attr
+        %i[street number complement neighborhood zip_code city state country]
+      end
 
-        def set_account
-          @account = current_user.account
-        end
-
+      def set_account
+        @account = current_user.account
+      end
     end
   end
 end

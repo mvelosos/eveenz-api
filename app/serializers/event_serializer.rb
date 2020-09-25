@@ -43,11 +43,11 @@ class EventSerializer < ActiveModel::Serializer
     account = instance_options[:current_user].account
     unit    = account.account_setting.unit
 
-    distance = Haversine.distance(account.localization.latitude, 
-                                  account.localization.longitude, 
-                                  object.localization.latitude, 
+    distance = Haversine.distance(account.localization.latitude,
+                                  account.localization.longitude,
+                                  object.localization.latitude,
                                   object.localization.longitude)
-    
+
     unit == 'km' ? "#{distance.to_km.ceil(2)}km" : "#{distance.to_mi.ceil(2)}mi"
   end
 
@@ -66,5 +66,4 @@ class EventSerializer < ActiveModel::Serializer
   def host_name
     object.account.name
   end
-
 end

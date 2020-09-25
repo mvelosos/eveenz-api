@@ -29,8 +29,8 @@ class Address < ApplicationRecord
   validates :country,      presence: true, if: -> { !belongs_to_account? }
 
   private
-    def belongs_to_account?
-      self.addressable_type == 'Account' ? true : false
-    end
 
+  def belongs_to_account?
+    addressable_type == 'Account'
+  end
 end

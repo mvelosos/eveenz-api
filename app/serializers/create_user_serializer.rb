@@ -27,5 +27,4 @@ class CreateUserSerializer < ActiveModel::Serializer
   def exp
     @instance_options[:time]
   end
-
 end

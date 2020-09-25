@@ -19,7 +19,7 @@ class AccountSerializer < ActiveModel::Serializer
   def type
     'account'
   end
-  
+
   def uuid
     SecureRandom.uuid
   end

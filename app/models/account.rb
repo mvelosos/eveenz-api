@@ -31,7 +31,7 @@ class Account < ApplicationRecord
   validates_associated :account_setting, on: :create
 
   validates :name, length: { minimum: 0, maximum: 60 }, allow_blank: true
-  validates :bio,  length: { minimum: 0, maximum: 500}, allow_blank: true
+  validates :bio,  length: { minimum: 0, maximum: 500 }, allow_blank: true
 
   after_create :set_default_avatar
 
@@ -43,7 +43,6 @@ class Account < ApplicationRecord
   end
 
   def set_default_avatar
-    self.avatar.attach(io: File.open('./app/assets/images/default_avatar.png'), filename: 'default_avatar.png')
+    avatar.attach(io: File.open('./app/assets/images/default_avatar.png'), filename: 'default_avatar.png')
   end
-
 end

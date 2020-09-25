@@ -24,31 +24,28 @@ module Api
       # PATCH /users/{username}
       def update
         @user = current_user
-        unless @user.update(user_params)
-          render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
-        end
+        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity unless @user.update(user_params)
       end
 
       private
 
-        def set_user
-          @user = User.find_by_username!(params[:username])
-          rescue ActiveRecord::RecordNotFound
-            render json: { errors: 'User not found' }, status: :not_found
-        end
+      def set_user
+        @user = User.find_by_username!(params[:username])
+      rescue ActiveRecord::RecordNotFound
+        render json: { errors: 'User not found' }, status: :not_found
+      end
 
-        def user_params
-          params.require(:user).permit(:username, :email, :password)
-        end
+      def user_params
+        params.require(:user).permit(:username, :email, :password)
+      end
 
-        def generate_jwt_token(user)
-          @token = JsonWebToken.encode(user_id: user.id)
-        end
+      def generate_jwt_token(user)
+        @token = JsonWebToken.encode(user_id: user.id)
+      end
 
-        def jwt_expiration_time
-          Time.now + Settings.Jwt.JWT_EXPIRATION_TIME.hours.to_i
-        end
-
+      def jwt_expiration_time
+        Time.now + Settings.Jwt.JWT_EXPIRATION_TIME.hours.to_i
+      end
     end
   end
 end

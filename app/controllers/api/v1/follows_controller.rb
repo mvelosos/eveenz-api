@@ -1,9 +1,8 @@
-
 module Api
   module V1
     class FollowsController < Api::V1::ApiController
-      before_action :set_follow_account, only: [:follow_account, :unfollow_account]
-      before_action :set_follow_event, only: [:follow_event, :unfollow_event]
+      before_action :set_follow_account, only: %i[follow_account unfollow_account]
+      before_action :set_follow_event, only: %i[follow_event unfollow_event]
 
       # POST /accounts/follows/accounts/:id
       def follow_account
@@ -43,22 +42,17 @@ module Api
 
       private
 
-        def set_follow_account
-          begin
-            @follow_account = Account.find(params[:id])
-          rescue ActiveRecord::RecordNotFound => errors
-            return render json: { errors: errors.message }, status: :not_found
-          end
-        end
+      def set_follow_account
+        @follow_account = Account.find(params[:id])
+      rescue ActiveRecord::RecordNotFound => e
+        render json: { errors: e.message }, status: :not_found
+      end
 
-        def set_follow_event
-          begin
-            @follow_event = Event.find(params[:id])
-          rescue ActiveRecord::RecordNotFound => errors
-            return render json: { errors: errors.message }, status: :not_found
-          end
-        end
-
-    end 
+      def set_follow_event
+        @follow_event = Event.find(params[:id])
+      rescue ActiveRecord::RecordNotFound => e
+        render json: { errors: e.message }, status: :not_found
+      end
+    end
   end
 end

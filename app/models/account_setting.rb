@@ -15,5 +15,5 @@ class AccountSetting < ApplicationRecord
 
   validates :distance_radius, presence: true
   validates :unit,            presence: true
-  validates :unit,            inclusion: %w(km mi)
+  validates :unit,            inclusion: %w[km mi]
 end

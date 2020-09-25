@@ -1,7 +1,6 @@
 module Api
   module V1
     class Api::V1::EventsController < Api::V1::ApiController
-
       # GET /events
       def index
         account   = current_user.account
@@ -42,30 +41,29 @@ module Api
 
       private
 
-        def event_params
-          params.require(:event).permit(:name, :description, :date, :time, :address_attributes => address_attr, :localization_attributes => localization_attr)
-        end
+      def event_params
+        params.require(:event).permit(:name, :description, :date, :time, address_attributes: address_attr, localization_attributes: localization_attr)
+      end
 
-        def event_images_params
-          params.require(:event).permit(:images => [:uri, :name, :type])
-        end
+      def event_images_params
+        params.require(:event).permit(images: %i[uri name type])
+      end
 
-        def address_attr
-          [:number, :street ,:neighborhood ,:city ,:state ,:country ,:zip_code]
-        end
+      def address_attr
+        %i[number street neighborhood city state country zip_code]
+      end
 
-        def localization_attr
-          [:latitude, :longitude]
-        end
+      def localization_attr
+        %i[latitude longitude]
+      end
 
-        def stores_event_images
-          images = event_images_params[:images]
-          images.each do |img|
-            decoded_img = Base64.decode64(img[:uri])
-            @event.images.attach(io: StringIO.new(decoded_img), filename: img[:name], content_type: img[:type])
-          end
+      def stores_event_images
+        images = event_images_params[:images]
+        images.each do |img|
+          decoded_img = Base64.decode64(img[:uri])
+          @event.images.attach(io: StringIO.new(decoded_img), filename: img[:name], content_type: img[:type])
         end
-
+      end
     end
   end
 end

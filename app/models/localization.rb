@@ -18,8 +18,8 @@ class Localization < ApplicationRecord
   validates :longitude, presence: true, if: -> { !belongs_to_account? }
 
   private
-    def belongs_to_account?
-      self.localizable_type == 'Account' ? true : false
-    end
-  
+
+  def belongs_to_account?
+    localizable_type == 'Account'
+  end
 end

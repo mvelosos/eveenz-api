@@ -34,7 +34,7 @@ class Event < ApplicationRecord
 
   acts_as_followable
 
-  scope :find_near_by, ->(user_latitude, user_longitude, distance_radius, unit) {
+  scope :find_near_by, lambda { |user_latitude, user_longitude, distance_radius, unit|
     unit_value = unit == 'km' ? 6371 : 3959
 
     haversine = "(#{unit_value} * acos(cos(radians(#{user_latitude}))
@@ -45,12 +45,11 @@ class Event < ApplicationRecord
                 * sin(radians(localizations.latitude))))"
 
     joins(:localization)
-    .select("events.*, #{haversine} as distance")
-    .where("#{haversine} <= ?", distance_radius)
+      .select("events.*, #{haversine} as distance")
+      .where("#{haversine} <= ?", distance_radius)
   }
 
   def search_data
     { name: name }
   end
-
 end
