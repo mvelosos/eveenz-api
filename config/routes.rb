@@ -21,22 +21,21 @@ Rails.application.routes.draw do
 
       resources :events, only: [:index, :create] do
         collection do
-          get 'mine', to: 'events#mine'
-          get 'confirmed', to: 'events#confirmed'
+          get :mine
+          get :confirmed
         end
       end
 
-      resources 'auth', only: [] do
+      resources :auth, only: [] do
         collection do
-          post 'login', to: 'authentication#login'
-          post 'facebook', to: 'authentication#facebook'
+          post :login
+          post :facebook
         end
       end
 
       resources :search, only: [:index]
 
       get '/*a', to: 'api#not_found'
-
     end
   end
 end

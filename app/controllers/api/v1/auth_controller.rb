@@ -1,4 +1,4 @@
-class Api::V1::AuthenticationController < Api::V1::ApiController
+class Api::V1::AuthController < Api::V1::ApiController
   before_action :authenticate_by_token, except: %i[login facebook]
 
   # POST /auth/login
