@@ -21,7 +21,20 @@ class EventSerializer < ActiveModel::Serializer
   has_one :address, serializer: AddressSerializer
   has_one :localization, serializer: LocalizationSerializer
 
-  attributes :type, :uuid, :id, :name, :description, :images, :address, :localization, :distance, :kind, :date, :time, :host_avatar, :host_name
+  attributes :type,
+             :uuid,
+             :id,
+             :name,
+             :description,
+             :images,
+             :address,
+             :localization,
+             :distance,
+             :kind,
+             :date,
+             :time,
+             :host_avatar,
+             :host_name
 
   def type
     'event'

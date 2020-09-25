@@ -32,7 +32,7 @@ class Api::V1::AccountsController < Api::V1::ApiController
       :name,
       :bio,
       :latitude,
-      :longitude, 
+      :longitude,
       localization_attributes: localization_attr,
       address_attributes: address_attr
     ).to_unsafe_h.to_snake_keys
