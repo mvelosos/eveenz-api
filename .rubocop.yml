@@ -1,0 +1,54 @@
+AllCops:
+  Exclude:
+    - 'spec/**/*'
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'script/**/*'
+    - 'lib/mina/**/*'
+    - 'lib/tasks/**/*'
+    - 'config/**/*'
+    - 'Guardfile'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'node_modules/**/*'
+    - 'scripts/**/*'
+  TargetRubyVersion: 2.6
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Metrics/AbcSize:
+  Max: 35
+Metrics/BlockLength:
+  Enabled: false
+Layout/LineLength:
+  Max: 120
+Metrics/MethodLength:
+  Max: 100
+Metrics/ClassLength:
+  Max: 250
+Metrics/ModuleLength:
+  Max: 250
+Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+Layout/ClosingParenthesisIndentation:
+  Enabled: false
+Lint/RaiseException:
+  Enabled: true
+Lint/StructNewOverride:
+  Enabled: true
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
