@@ -1,5 +1,5 @@
 class Api::V1::AccountsController < Api::V1::ApiController
-  before_action :set_account
+  before_action :account
 
   # GET /accounts
   def index
@@ -27,6 +27,10 @@ class Api::V1::AccountsController < Api::V1::ApiController
 
   private
 
+  def account
+    @account = current_user.account
+  end
+
   def account_params
     params.require(:account).permit(
       :name,
@@ -44,9 +48,5 @@ class Api::V1::AccountsController < Api::V1::ApiController
 
   def address_attr
     %i[street number complement neighborhood zip_code city state country]
-  end
-
-  def set_account
-    @account = current_user.account
   end
 end

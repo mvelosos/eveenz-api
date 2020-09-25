@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::ApiController
   before_action :authenticate_by_token, except: [:create]
-  before_action :set_user, only: [:show]
+  before_action :user, only: [:show]
 
   # GET /users/{username}
   def show
@@ -19,22 +19,20 @@ class Api::V1::UsersController < Api::V1::ApiController
     end
   end
 
-  # PATCH /users/{username}
-  def update
-    @user = current_user
-    render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity unless @user.update(user_params)
-  end
-
   private
 
-  def set_user
+  def user
     @user = User.find_by_username!(params[:username])
   rescue ActiveRecord::RecordNotFound
     render json: { errors: 'User not found' }, status: :not_found
   end
 
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(
+      :username,
+      :email,
+      :password
+    ).to_unsafe_h.to_snake_keys
   end
 
   def generate_jwt_token(user)

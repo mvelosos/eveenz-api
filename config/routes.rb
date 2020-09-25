@@ -2,12 +2,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
 
-      resources :users, param: :username, only: [:show, :create] do
-        collection do
-          patch '', to: 'users#update'
-        end
-      end
-      
+      resources :users, param: :username, only: %i[show create]
       resource  :accounts, only: [:update]
       resources :accounts, only: [:index] do
         collection do

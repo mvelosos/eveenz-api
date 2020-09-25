@@ -24,6 +24,7 @@ gem "sentry-raven"
 gem 'haversine', '~> 0.3.2'
 gem 'faraday'
 gem 'discard', '~> 1.2'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'pry-byebug'
