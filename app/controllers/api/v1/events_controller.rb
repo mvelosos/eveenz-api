@@ -42,11 +42,20 @@ module Api
       private
 
       def event_params
-        params.require(:event).permit(:name, :description, :date, :time, address_attributes: address_attr, localization_attributes: localization_attr)
+        params.require(:event).permit(
+          :name,
+          :description,
+          :date,
+          :time,
+          address_attributes: address_attr,
+          localization_attributes: localization_attr
+        ).to_unsafe_h.to_snake_keys
       end
 
       def event_images_params
-        params.require(:event).permit(images: %i[uri name type])
+        params.require(:event).permit(
+          images: %i[uri name type]
+        ).to_unsafe_h.to_snake_keys
       end
 
       def address_attr

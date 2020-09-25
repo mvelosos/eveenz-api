@@ -28,7 +28,14 @@ class Api::V1::AccountsController < Api::V1::ApiController
   private
 
   def account_params
-    params.require(:account).permit(:name, :bio, :latitude, :longitude, localization_attributes: localization_attr, address_attributes: address_attr)
+    params.require(:account).permit(
+      :name,
+      :bio,
+      :latitude,
+      :longitude, 
+      localization_attributes: localization_attr,
+      address_attributes: address_attr
+    ).to_unsafe_h.to_snake_keys
   end
 
   def localization_attr
