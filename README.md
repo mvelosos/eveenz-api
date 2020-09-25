@@ -4,7 +4,7 @@
 
 Party API
 
-* Rails: 6.1
+* Rails: 6.0.3
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
@@ -14,7 +14,7 @@ Things you may want to cover:
 - Ruby version
 
 ```
-  2.6.5
+  2.7.1
 ```
 
 - System dependencies
