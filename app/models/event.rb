@@ -16,6 +16,8 @@
 #
 
 class Event < ApplicationRecord
+  include Discard::Model
+
   searchkick
 
   belongs_to :account

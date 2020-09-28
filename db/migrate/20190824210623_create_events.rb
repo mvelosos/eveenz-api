@@ -12,5 +12,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    add_column :events, :discarded_at, :datetime
+    add_index :events, :discarded_at
   end
 end

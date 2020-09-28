@@ -18,6 +18,8 @@
 #
 
 class Address < ApplicationRecord
+  include Discard::Model
+
   belongs_to :addressable, polymorphic: true
 
   validates :street,       presence: true, if: -> { !belongs_to_account? }

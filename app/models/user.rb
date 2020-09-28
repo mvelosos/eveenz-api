@@ -14,6 +14,8 @@
 #
 
 class User < ApplicationRecord
+  include Discard::Model
+
   searchkick
 
   has_secure_password

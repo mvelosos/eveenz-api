@@ -11,6 +11,8 @@
 #
 
 class AccountSetting < ApplicationRecord
+  include Discard::Model
+
   belongs_to :account
 
   validates :distance_radius, presence: true

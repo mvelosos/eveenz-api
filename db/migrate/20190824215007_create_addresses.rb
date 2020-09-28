@@ -13,5 +13,7 @@ class CreateAddresses < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    add_column :addresses, :discarded_at, :datetime
+    add_index :addresses, :discarded_at
   end
 end

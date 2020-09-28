@@ -12,6 +12,8 @@
 #
 
 class Account < ApplicationRecord
+  include Discard::Model
+
   searchkick
 
   belongs_to :user

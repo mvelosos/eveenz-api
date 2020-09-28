@@ -12,6 +12,8 @@
 #
 
 class Localization < ApplicationRecord
+  include Discard::Model
+
   belongs_to :localizable, polymorphic: true
 
   validates :latitude,  presence: true, if: -> { !belongs_to_account? }
