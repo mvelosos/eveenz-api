@@ -16,7 +16,7 @@ Rails.application.routes.draw do
           delete 'follows/events/:id', to: 'follows#unfollow_event'
         end
       end
-      resource :me, only: %i[show] do
+      resource :me, controller: :me, only: %i[show] do
         resource :follows, only: %i[] do
           post :follow_account
           delete :unfollow_account
