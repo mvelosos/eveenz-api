@@ -1,3 +1,3 @@
 bundle check || bundle install
-bundle exec rails s -u=puma &
-bundle exec sidekiq
+bundle exec sidekiq &
+bundle exec rails s -u=puma
