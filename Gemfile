@@ -5,7 +5,7 @@ ruby '2.7.1'
 
 gem 'active_model_serializers', '~> 0.10.9'
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
-gem "awrence"
+gem 'awrence'
 gem 'aws-sdk-s3'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.1.0', require: false
