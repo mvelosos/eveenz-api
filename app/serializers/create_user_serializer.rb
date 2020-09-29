@@ -14,7 +14,12 @@
 #
 
 class CreateUserSerializer < ActiveModel::Serializer
-  attributes :username, :created_at, :token, :type, :exp, :provider
+  attributes :username,
+             :created_at,
+             :token,
+             :type,
+             :exp,
+             :provider
 
   def token
     @instance_options[:token]

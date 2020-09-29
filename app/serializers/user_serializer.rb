@@ -16,5 +16,8 @@
 #
 
 class UserSerializer < ActiveModel::Serializer
-  attributes :username, :email, :provider, :created_at
+  attributes :username,
+             :email,
+             :provider,
+             :created_at
 end

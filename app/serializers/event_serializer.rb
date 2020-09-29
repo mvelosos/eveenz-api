@@ -19,9 +19,6 @@
 class EventSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  has_one :address, serializer: AddressSerializer
-  has_one :localization, serializer: LocalizationSerializer
-
   attributes :type,
              :uuid,
              :id,
@@ -36,6 +33,9 @@ class EventSerializer < ActiveModel::Serializer
              :time,
              :host_avatar,
              :host_name
+
+  has_one :address, serializer: AddressSerializer
+  has_one :localization, serializer: LocalizationSerializer
 
   def type
     'event'
