@@ -20,13 +20,13 @@
 FactoryBot.define do
   factory :address do
     addressable { nil }
-    street { "MyString" }
-    number { "MyString" }
-    complement { "MyString" }
-    neighborhood { "MyString" }
-    zip_code { "MyString" }
-    city { "MyString" }
-    state { "MyString" }
-    country { "MyString" }
+    street { 'MyString' }
+    number { 'MyString' }
+    complement { 'MyString' }
+    neighborhood { 'MyString' }
+    zip_code { 'MyString' }
+    city { 'MyString' }
+    state { 'MyString' }
+    country { 'MyString' }
   end
 end

@@ -9,6 +9,8 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   # POST /users
   def create
+    binding.pry
+
     @user = User.new(user_params)
     if @user.save && @user.active
       token = generate_jwt_token(@user)

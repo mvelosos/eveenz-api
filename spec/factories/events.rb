@@ -18,12 +18,12 @@
 FactoryBot.define do
   factory :event do
     account { nil }
-    name { "MyString" }
-    description { "MyText" }
+    name { 'MyString' }
+    description { 'MyText' }
     status { false }
-    kind { "MyString" }
-    date { "2019-08-24" }
-    time { "2019-08-24 18:06:23" }
-    tags { "" }
+    kind { 'MyString' }
+    date { '2019-08-24' }
+    time { '2019-08-24 18:06:23' }
+    tags { '' }
   end
 end

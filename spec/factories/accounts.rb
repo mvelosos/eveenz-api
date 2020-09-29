@@ -14,10 +14,10 @@
 FactoryBot.define do
   factory :account do
     user { nil }
-    name { "MyString" }
-    bio { "MyText" }
-    latitude { "9.99" }
-    longitude { "9.99" }
+    name { 'MyString' }
+    bio { 'MyText' }
+    latitude { '9.99' }
+    longitude { '9.99' }
     popularity { 1 }
   end
 end

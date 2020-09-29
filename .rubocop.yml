@@ -1,16 +1,13 @@
 AllCops:
   NewCops: enable
   Exclude:
-    - 'spec/**/*'
     - 'vendor/**/*'
     - 'db/**/*'
     - 'bin/**/*'
     - 'script/**/*'
     - 'lib/mina/**/*'
-    - 'lib/tasks/**/*'
     - 'config/**/*'
     - 'Guardfile'
-    - 'Gemfile'
     - 'Rakefile'
     - 'node_modules/**/*'
     - 'scripts/**/*'

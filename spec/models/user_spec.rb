@@ -16,7 +16,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  
   it 'is valid with valid attributes' do
     user = build(:user)
     expect(user).to be_valid
@@ -59,5 +58,4 @@ RSpec.describe User, type: :model do
     user = build(:user, password: FFaker::Internet.password[1..5])
     expect(user).to_not be_valid
   end
-
 end
