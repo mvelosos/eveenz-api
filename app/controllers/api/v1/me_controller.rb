@@ -20,5 +20,4 @@ class Api::V1::MeController < ApplicationController
   def me
     @account = current_user.account
   end
-
 end
