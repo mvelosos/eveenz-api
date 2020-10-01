@@ -39,17 +39,17 @@ RSpec.describe User, type: :model do
   end
 
   it 'is not valid with invalid username' do
-    user = build(:user, username: "#{FFaker::Lorem.word}@-.#{FFaker::Lorem.word}")
+    user = build(:user, username: "#{Faker::Lorem.word}@-.#{Faker::Lorem.word}")
     expect(user).to_not be_valid
   end
 
   it 'is not valid with invalid email' do
-    user = build(:user, email: FFaker::Lorem.word)
+    user = build(:user, email: Faker::Lorem.word)
     expect(user).to_not be_valid
   end
 
   it 'is not valid with already used email' do
-    email = FFaker::Internet.free_email
+    email = Faker::Internet.free_email
     user1 = create(:user, email: email)
     user2 = build(:user, email: email)
     expect(user1).to be_valid
@@ -57,7 +57,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'is not valid with password less than 6 characters' do
-    user = build(:user, password: FFaker::Internet.password[1..5])
+    user = build(:user, password: Faker::Internet.password[1..5])
     expect(user).to_not be_valid
   end
 end

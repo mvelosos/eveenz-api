@@ -31,7 +31,7 @@ gem 'sidekiq'
 
 group :development, :test do
   gem 'factory_bot_rails'
-  gem 'ffaker'
+  gem 'faker'
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.8'
   gem 'rubocop', require: false
