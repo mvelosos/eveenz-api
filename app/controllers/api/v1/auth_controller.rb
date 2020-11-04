@@ -19,7 +19,7 @@ class Api::V1::AuthController < Api::V1::ApiController
 
   # POST /auth/facebook
   def facebook
-    user = AuthenticationService.new(fb_params[:access_token]).facebook_login
+    user = AuthService.new(fb_params[:access_token]).facebook_login
     if user&.active
       token = generate_jwt_token(user)
       time = jwt_expiration_time

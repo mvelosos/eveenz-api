@@ -1,4 +1,4 @@
-class Api::V1::AuthenticationService
+class Api::V1::AuthService
   def initialize(access_token)
     @access_token = access_token
   end
