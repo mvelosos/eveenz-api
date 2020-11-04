@@ -1,37 +1,35 @@
 class Api::V1::AuthService
-  def initialize(access_token)
-    @access_token = access_token
+  def self.call(user)
+    obj = new(user)
+    obj.run
   end
 
-  def facebook_login
-    fb_user = Facebook.info(@access_token)
-    find_or_create_fb_user(fb_user)
+  def initialize(user)
+    @user = user
+  end
+
+  def run
+    JSON.parse({
+      username: @user.username,
+      createdAt: @user.created_at,
+      token: generate_jwt_token,
+      tokenType: token_type,
+      exp: jwt_expiration_time,
+      provider: @user.provider
+    }.to_json)
   end
 
   private
 
-  def find_or_create_fb_user(fb_user)
-    user = User.find_by_email(fb_user['email'])
-    if user && user.provider.nil?
-      user.update(uid: fb_user['id'], provider: Settings.Providers.FACEBOOK)
-    elsif user
-      user
-    else
-      username = generate_username_from_email(fb_user['email'])
-      user = User.create(username: username,
-                         email: fb_user['email'],
-                         password: SecureRandom.hex(16),
-                         uid: fb_user['id'],
-                         provider: Settings.Providers.FACEBOOK)
-      user.account.update(name: fb_user['name'])
-
-      file = URI.open("https://graph.facebook.com/#{fb_user['id']}/picture?height=500&width=500")
-      user.account.avatar.attach(io: file, filename: 'avatar')
-    end
-    user
+  def generate_jwt_token
+    JsonWebToken.encode(user_id: @user.id)
   end
 
-  def generate_username_from_email(email)
-    "#{email.split('@')[0]}#{rand(9999)}"
+  def token_type
+    'Bearer'
+  end
+
+  def jwt_expiration_time
+    (Time.now + Settings.Jwt.JWT_EXPIRATION_TIME.hours.to_i).strftime('%Y-%m-%d %H:%M')
   end
 end
