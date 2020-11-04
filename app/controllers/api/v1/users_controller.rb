@@ -11,9 +11,8 @@ class Api::V1::UsersController < Api::V1::ApiController
   def create
     @user = User.new(user_params)
     if @user.save && @user.active
-      token = generate_jwt_token(@user)
-      time = jwt_expiration_time
-      render json: @user, serializer: CreateUserSerializer, token: token, time: time, status: :created
+      auth_user = Api::V1::AuthService.call(@user)
+      render json: auth_user, status: :created
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -33,13 +32,5 @@ class Api::V1::UsersController < Api::V1::ApiController
       :email,
       :password
     ).to_unsafe_h.to_snake_keys
-  end
-
-  def generate_jwt_token(user)
-    @token = JsonWebToken.encode(user_id: user.id)
-  end
-
-  def jwt_expiration_time
-    Time.now + Settings.Jwt.JWT_EXPIRATION_TIME.hours.to_i
   end
 end
