@@ -33,7 +33,7 @@ class User < ApplicationRecord
 
   validates_associated :account, on: :create
 
-  before_create :build_associations, if: -> { new_record? }
+  after_initialize :build_associations, if: -> { new_record? }
 
   def search_data
     { username: username }

@@ -3,7 +3,7 @@ class Api::V1::FacebookLoginService
     @access_token = access_token
   end
 
-  def facebook_login
+  def login
     fb_user = Facebook.info(@access_token)
     find_or_create_fb_user(fb_user)
   end
@@ -11,27 +11,30 @@ class Api::V1::FacebookLoginService
   private
 
   def find_or_create_fb_user(fb_user)
-    user = User.find_by_email(fb_user['email'])
-    if user && user.provider.nil?
-      user.update(uid: fb_user['id'], provider: Settings.Providers.FACEBOOK)
-    elsif user
-      user
-    else
-      username = generate_username_from_email(fb_user['email'])
-      user = User.create(username: username,
-                         email: fb_user['email'],
-                         password: SecureRandom.hex(16),
-                         uid: fb_user['id'],
-                         provider: Settings.Providers.FACEBOOK)
-      user.account.update(name: fb_user['name'])
-
-      file = URI.open("https://graph.facebook.com/#{fb_user['id']}/picture?height=500&width=500")
-      user.account.avatar.attach(io: file, filename: 'avatar')
+    @user = User.find_or_initialize_by(email: fb_user['email']) do |user|
+      user.username = generate_username_from_email
+      user.email = fb_user['email']
+      user.password = SecureRandom.hex(16)
+      user.uid = fb_user['id']
+      user.provider = Settings.Providers.FACEBOOK
     end
-    user
+
+    if @user.new_record?
+      @user.account.update(name: fb_user['name'])
+      @user.account.avatar.attach(io: fb_avatar(fb_user), filename: 'avatar')
+    end
+
+    @user.update(provider: Settings.Providers.FACEBOOK) if user.provider != Settings.Providers.FACEBOOK
+    @user.save!
+
+    @user
   end
 
   def generate_username_from_email(email)
     "#{email.split('@')[0]}#{rand(9999)}"
+  end
+
+  def fb_avatar(fb_user)
+    URI.open("https://graph.facebook.com/#{fb_user['id']}/picture?height=500&width=500")
   end
 end

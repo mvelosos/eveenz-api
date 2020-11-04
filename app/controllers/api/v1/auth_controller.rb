@@ -1,17 +1,12 @@
 class Api::V1::AuthController < Api::V1::ApiController
   before_action :authenticate_by_token, except: %i[login facebook]
+  before_action :find_by_username_or_email, only: %i[login]
 
   # POST /auth/login
   def login
-    @user = find_by_username_or_email
     if @user&.authenticate(login_params[:password]) && @user&.active
-      token = generate_jwt_token(@user)
-      time = jwt_expiration_time
-      render json: { token: token,
-                     type: 'Bearer',
-                     exp: time.strftime('%m-%d-%Y %H:%M'),
-                     username: @user.username,
-                     provider: @user.provider }, status: :ok
+      auth_user = Api::V1::AuthService.call(@user)
+      render json: auth_user, status: :ok
     else
       render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :bad_request
     end
@@ -19,15 +14,10 @@ class Api::V1::AuthController < Api::V1::ApiController
 
   # POST /auth/facebook
   def facebook
-    user = FacebookLoginService.new(fb_params[:access_token]).facebook_login
+    user = Api::V1::FacebookLoginService.new(fb_params[:access_token]).login
     if user&.active
-      token = generate_jwt_token(user)
-      time = jwt_expiration_time
-      render json: { token: token,
-                     type: 'Bearer',
-                     exp: time.strftime('%m-%d-%Y %H:%M'),
-                     username: user.username,
-                     provider: user.provider }, status: :ok
+      auth_user = Api::V1::AuthService.call(user)
+      render json: auth_user, status: :ok
     else
       render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :bad_request
     end
@@ -37,23 +27,22 @@ class Api::V1::AuthController < Api::V1::ApiController
 
   private
 
-  def generate_jwt_token(user)
-    @token = JsonWebToken.encode(user_id: user.id)
-  end
-
-  def jwt_expiration_time
-    Time.now + Settings.Jwt.JWT_EXPIRATION_TIME.hours.to_i
-  end
-
   def find_by_username_or_email
-    @user = User.find_by_username(login_params[:login]) || User.find_by_email(login_params[:login])
+    @user = User.find_by_username!(login_params[:login]) || User.find_by_email!(login_params[:login])
+  rescue ActiveRecord::RecordNotFound
+    render json: { errors: "User #{login_params[:login]} not found" }, status: :not_found
   end
 
   def login_params
-    params.require(:user).permit(:login, :password)
+    params.require(:user).permit(
+      :login,
+      :password
+    ).to_unsafe_h
   end
 
   def fb_params
-    params.permit(:access_token)
+    params.require(:facebook).permit(
+      :accessToken
+    ).to_unsafe_h.to_snake_keys.symbolize_keys
   end
 end
