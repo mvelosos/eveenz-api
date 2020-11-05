@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 gem 'active_model_serializers', '~> 0.10.9'
+gem 'active_storage_base64', '~> 1.1.0'
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 gem 'awrence'
 gem 'aws-sdk-s3'
