@@ -5,7 +5,7 @@ class Api::V1::AuthController < Api::V1::ApiController
   # POST /auth/login
   def login
     if @user&.authenticate(login_params[:password]) && @user&.active
-      auth_user = Api::V1::AuthService.call(@user)
+      auth_user = Api::V1::Auth::AuthService.call(@user)
       render json: auth_user, status: :ok
     else
       render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :bad_request
@@ -14,9 +14,9 @@ class Api::V1::AuthController < Api::V1::ApiController
 
   # POST /auth/facebook
   def facebook
-    user = Api::V1::FacebookLoginService.new(fb_params[:access_token]).login
+    user = Api::V1::Auth::FacebookLoginService.new(fb_params[:access_token]).login
     if user&.active
-      auth_user = Api::V1::AuthService.call(user)
+      auth_user = Api::V1::Auth::AuthService.call(user)
       render json: auth_user, status: :ok
     else
       render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :bad_request

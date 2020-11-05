@@ -11,7 +11,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   def create
     @user = User.new(user_params)
     if @user.save && @user.active
-      auth_user = Api::V1::AuthService.call(@user)
+      auth_user = Api::V1::Auth::AuthService.call(@user)
       render json: auth_user, status: :created
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity

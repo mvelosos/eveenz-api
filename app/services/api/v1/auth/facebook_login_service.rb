@@ -1,4 +1,4 @@
-class Api::V1::FacebookLoginService
+class Api::V1::Auth::FacebookLoginService
   def initialize(access_token)
     @access_token = access_token
   end

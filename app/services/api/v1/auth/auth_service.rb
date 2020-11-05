@@ -1,4 +1,4 @@
-class Api::V1::AuthService
+class Api::V1::Auth::AuthService
   def self.call(user)
     obj = new(user)
     obj.run
