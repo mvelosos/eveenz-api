@@ -19,7 +19,7 @@ class Account < ApplicationRecord
 
   belongs_to :user
 
-  has_one_attached :avatar, dependent: :destroy
+  has_one_base64_attached :avatar, dependent: :destroy
 
   has_one    :account_setting,  dependent: :destroy
   has_one    :address,          as:  :addressable, dependent: :destroy

@@ -19,9 +19,8 @@
 class EventSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :type,
-             :uuid,
-             :id,
+  attributes :id,
+             :type,
              :name,
              :description,
              :images,
@@ -41,10 +40,6 @@ class EventSerializer < ActiveModel::Serializer
     'event'
   end
 
-  def uuid
-    SecureRandom.uuid
-  end
-
   def images
     images = []
     object.images.each do |image|
@@ -54,7 +49,7 @@ class EventSerializer < ActiveModel::Serializer
   end
 
   def distance
-    account = instance_options[:current_user].account
+    account = instance_options[:account]
     unit    = account.account_setting.unit
 
     distance = Haversine.distance(account.localization.latitude,
