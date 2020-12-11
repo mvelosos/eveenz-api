@@ -12,7 +12,7 @@ class Api::V1::Auth::FacebookLoginService
 
   def find_or_create_fb_user(fb_user)
     @user = User.find_or_initialize_by(email: fb_user['email']) do |user|
-      user.username = generate_username_from_email
+      user.username = generate_username_from_email(user.email)
       user.email = fb_user['email']
       user.password = SecureRandom.hex(16)
       user.uid = fb_user['id']
@@ -24,7 +24,7 @@ class Api::V1::Auth::FacebookLoginService
       @user.account.avatar.attach(io: fb_avatar(fb_user), filename: 'avatar')
     end
 
-    @user.update(provider: Settings.Providers.FACEBOOK) if user.provider != Settings.Providers.FACEBOOK
+    @user.update(provider: Settings.Providers.FACEBOOK) if @user.provider != Settings.Providers.FACEBOOK
     @user.save!
 
     @user
