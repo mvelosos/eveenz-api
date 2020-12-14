@@ -30,7 +30,7 @@ class Api::V1::AuthController < Api::V1::ApiController
   def find_by_username_or_email
     @user = User.find_by_username!(login_params[:login]) || User.find_by_email!(login_params[:login])
   rescue ActiveRecord::RecordNotFound
-    render json: { errors: "User #{login_params[:login]} not found" }, status: :not_found
+    render json: { errors: 'Ops, login ou senha incorreto(s)!' }, status: :bad_request
   end
 
   def login_params
