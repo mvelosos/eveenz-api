@@ -17,21 +17,6 @@ class Api::V1::EventsController < Api::V1::ApiController
     end
   end
 
-  # GET /events/mine
-  def mine
-    @events = Event.where(account: current_user.account)
-    render json: @events, each_serializer: EventSerializer, account: current_user.account, status: :ok
-  end
-
-  # GET /events/confirmed
-  def confirmed
-    @events = Event.joins('INNER JOIN follows ON events.id = follows.followable_id')
-                   .where('follows.followable_type = ?', Event)
-                   .where('follows.follower_type = ?', Account)
-                   .where('follows.follower_id = ?', current_user.account)
-    render json: @events, each_serializer: EventSerializer, account: current_user.account, status: :ok
-  end
-
   private
 
   def event_params

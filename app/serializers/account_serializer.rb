@@ -15,9 +15,7 @@
 class AccountSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :type,
-             :uuid,
-             :username,
+  attributes :username,
              :name,
              :bio,
              :popularity,
@@ -25,14 +23,6 @@ class AccountSerializer < ActiveModel::Serializer
              :following,
              :followers,
              :avatar_url
-
-  def type
-    'account'
-  end
-
-  def uuid
-    SecureRandom.uuid
-  end
 
   def username
     object.user.username

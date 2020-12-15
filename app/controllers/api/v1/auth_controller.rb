@@ -14,7 +14,7 @@ class Api::V1::AuthController < Api::V1::ApiController
 
   # POST /auth/facebook
   def facebook
-    user = Api::V1::Auth::FacebookLoginService.new(fb_params[:access_token]).login
+    user = Api::V1::Auth::FacebookLoginService.new(facebook_params[:access_token]).login
     if user&.active
       auth_user = Api::V1::Auth::AuthService.call(user)
       render json: auth_user, status: :ok
@@ -30,7 +30,7 @@ class Api::V1::AuthController < Api::V1::ApiController
   def find_by_username_or_email
     @user = User.find_by_username!(login_params[:login]) || User.find_by_email!(login_params[:login])
   rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Ops, login ou senha incorreto(s)!' }, status: :bad_request
+    render json: { errors: 'Ops, login ou senha inválido(s)!' }, status: :bad_request
   end
 
   def login_params
@@ -40,7 +40,7 @@ class Api::V1::AuthController < Api::V1::ApiController
     ).to_unsafe_h
   end
 
-  def fb_params
+  def facebook_params
     params.require(:facebook).permit(
       :accessToken
     ).to_unsafe_h.to_snake_keys.symbolize_keys

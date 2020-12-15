@@ -1,12 +1,7 @@
 class Api::V1::AccountsController < Api::V1::ApiController
   before_action :account
 
-  # GET /accounts
-  def index
-    render json: @account, status: :ok
-  end
-
-  # PATCH /accounts
+  # PUT/PATCH /accounts
   def update
     if @account.update(account_params)
       render json: '', status: :no_content
@@ -25,18 +20,9 @@ class Api::V1::AccountsController < Api::V1::ApiController
     params.require(:account).permit(
       :name,
       :bio,
-      :latitude,
-      :longitude,
-      localization_attributes: localization_attr,
-      address_attributes: address_attr
+      :popularity,
+      localizationAttributes: %i[latitude longitude],
+      addressAttributes: %i[street number complement neighborhood zipCode city state country]
     ).to_unsafe_h.to_snake_keys
-  end
-
-  def localization_attr
-    %i[latitude longitude]
-  end
-
-  def address_attr
-    %i[street number complement neighborhood zip_code city state country]
   end
 end

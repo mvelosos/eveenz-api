@@ -2,7 +2,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   before_action :authenticate_by_token, except: [:create]
   before_action :user, only: [:show]
 
-  # GET /users/{username}
+  # GET /users/:username
   def show
     render json: @user, status: :ok
   end
@@ -10,7 +10,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   # POST /users
   def create
     @user = User.new(user_params)
-    if @user.save && @user.active
+    if @user.save
       auth_user = Api::V1::Auth::AuthService.call(@user)
       render json: auth_user, status: :created
     else

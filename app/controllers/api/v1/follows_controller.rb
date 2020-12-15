@@ -2,7 +2,7 @@ class Api::V1::FollowsController < Api::V1::ApiController
   before_action :set_follow_account, only: %i[follow_account unfollow_account]
   before_action :set_follow_event, only: %i[follow_event unfollow_event]
 
-  # POST /accounts/follows/accounts/:id
+  # POST /me/follows/accounts/:id
   def follow_account
     if current_user.account.follow(@follow_account)
       render json: { message: 'account followed with success' }, status: :created
@@ -11,7 +11,7 @@ class Api::V1::FollowsController < Api::V1::ApiController
     end
   end
 
-  # DELETE /accounts/follows/accounts/:id
+  # DELETE /me/follows/accounts/:id
   def unfollow_account
     if current_user.account.stop_following(@follow_account)
       render json: { message: 'account unfollowed with success' }
@@ -20,7 +20,7 @@ class Api::V1::FollowsController < Api::V1::ApiController
     end
   end
 
-  # POST /accounts/follows/events/:id
+  # POST /me/follows/events/:id
   def follow_event
     if current_user.account.follow(@follow_event)
       render json: { message: 'event followed with success' }, status: :created
@@ -29,7 +29,7 @@ class Api::V1::FollowsController < Api::V1::ApiController
     end
   end
 
-  # DELETE /accounts/follows/events/:id
+  # DELETE /me/follows/events/:id
   def unfollow_event
     if current_user.account.stop_following(@follow_event)
       render json: { message: 'event unfollowed with success' }

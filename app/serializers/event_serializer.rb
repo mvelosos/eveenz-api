@@ -20,7 +20,6 @@ class EventSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
   attributes :id,
-             :type,
              :name,
              :description,
              :images,
@@ -35,10 +34,6 @@ class EventSerializer < ActiveModel::Serializer
 
   has_one :address, serializer: AddressSerializer
   has_one :localization, serializer: LocalizationSerializer
-
-  def type
-    'event'
-  end
 
   def images
     images = []

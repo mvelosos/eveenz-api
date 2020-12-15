@@ -6,31 +6,10 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
 
+      resources :accounts, only: [:update]
+      resources :events, only: [:index, :create]
+      resources :search, only: [:index]
       resources :users, param: :username, only: %i[show create]
-      resource  :accounts, only: [:update]
-      resources :accounts, only: [:index] do
-        collection do
-          post   'follows/accounts/:id', to: 'follows#follow_account'
-          delete 'follows/accounts/:id', to: 'follows#unfollow_account'
-          post   'follows/events/:id', to: 'follows#follow_event'
-          delete 'follows/events/:id', to: 'follows#unfollow_event'
-        end
-      end
-      resource :me, controller: :me, only: %i[show] do
-        resource :follows, only: %i[] do
-          post :follow_account
-          delete :unfollow_account
-          post :follow_event
-          delete :unfollow_event
-        end
-      end
-
-      resources :events, only: [:index, :create] do
-        collection do
-          get :mine
-          get :confirmed
-        end
-      end
 
       resources :auth, only: [] do
         collection do
@@ -39,7 +18,20 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :search, only: [:index]
+      resource :me, controller: :me, only: %i[show] do
+        get :following
+        get :followers
+        resource :events, only: [] do
+          get :mine
+          get :confirmed
+        end
+        resource :follows, only: [] do
+          post   '/accounts/:id', to: 'follows#follow_account'
+          delete '/accounts/:id', to: 'follows#unfollow_account'
+          post   '/events/:id', to: 'follows#follow_event'
+          delete '/events/:id', to: 'follows#unfollow_event'
+        end
+      end
 
       get '/*a', to: 'api#not_found'
     end
