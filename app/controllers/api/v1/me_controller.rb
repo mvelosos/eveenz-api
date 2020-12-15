@@ -1,4 +1,4 @@
-class Api::V1::MeController < ApplicationController
+class Api::V1::MeController < Api::V1::ApiController
   before_action :me
 
   def show
