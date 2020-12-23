@@ -3,6 +3,7 @@
 # Table name: accounts
 #
 #  id           :bigint           not null, primary key
+#  uuid         :uuid             not null
 #  user_id      :bigint
 #  name         :string
 #  bio          :text

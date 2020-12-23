@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2019_10_22_024026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "account_settings", force: :cascade do |t|
     t.bigint "account_id"
@@ -27,6 +28,7 @@ ActiveRecord::Schema.define(version: 2019_10_22_024026) do
   end
 
   create_table "accounts", force: :cascade do |t|
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.bigint "user_id"
     t.string "name"
     t.text "bio"
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(version: 2019_10_22_024026) do
   end
 
   create_table "events", force: :cascade do |t|
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.bigint "account_id"
     t.string "name"
     t.text "description"
@@ -120,6 +123,7 @@ ActiveRecord::Schema.define(version: 2019_10_22_024026) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.string "username"
     t.string "email"
     t.string "password_digest"

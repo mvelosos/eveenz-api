@@ -3,6 +3,7 @@
 # Table name: events
 #
 #  id           :bigint           not null, primary key
+#  uuid         :uuid             not null
 #  account_id   :bigint
 #  name         :string
 #  description  :text
