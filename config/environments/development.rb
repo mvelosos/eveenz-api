@@ -53,5 +53,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Add default host to development enviroment
-  routes.default_url_options[:host] = '192.168.0.12:3000'
+  routes.default_url_options[:host] = '127.0.0.1:3000'
 end
