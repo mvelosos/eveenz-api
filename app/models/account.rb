@@ -43,7 +43,7 @@ class Account < ApplicationRecord
   acts_as_followable
 
   def search_data
-    { name: name }
+    { username: user.username, name: name }
   end
 
   def set_default_avatar
