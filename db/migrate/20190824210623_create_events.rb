@@ -1,6 +1,7 @@
 class CreateEvents < ActiveRecord::Migration[5.2]
   def change
     create_table :events do |t|
+      t.uuid :uuid, null: false, unique: true, default: 'uuid_generate_v4()'
       t.references :account, foreign_key: true
       t.string :name
       t.text :description

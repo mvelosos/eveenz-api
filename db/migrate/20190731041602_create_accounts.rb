@@ -1,6 +1,7 @@
 class CreateAccounts < ActiveRecord::Migration[5.2]
   def change
     create_table :accounts do |t|
+      t.uuid :uuid, null: false, unique: true, default: 'uuid_generate_v4()'
       t.references :user, foreign_key: true
       t.string :name
       t.text :bio
