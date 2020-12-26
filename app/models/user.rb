@@ -34,7 +34,6 @@ class User < ApplicationRecord
   after_initialize :build_associations, if: -> { new_record? }
 
   def build_associations
-    # build_account
     account.build_account_setting
     account.build_address
     account.build_localization
