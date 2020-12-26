@@ -3,7 +3,7 @@ module Miscellaneous
 
   def set_raven_context
     if current_user
-      Raven.user_context(id: current_user.id, username: current_user.username)
+      Raven.user_context(id: current_user.id, username: current_user.account.username)
     else
       Raven.user_context(message: 'user not authenticated')
     end
