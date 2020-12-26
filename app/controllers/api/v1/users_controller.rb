@@ -1,11 +1,5 @@
 class Api::V1::UsersController < Api::V1::ApiController
   before_action :authenticate_by_token, except: [:create]
-  before_action :user, only: [:show]
-
-  # GET /users/:username
-  def show
-    render json: @user, status: :ok
-  end
 
   # POST /users
   def create
@@ -20,17 +14,11 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   private
 
-  def user
-    @user = User.find_by_username!(params[:username])
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: "User #{params[:username]} not found" }, status: :not_found
-  end
-
   def user_params
     params.require(:user).permit(
-      :username,
       :email,
-      :password
+      :password,
+      accountAttributes: [:username]
     ).to_unsafe_h.to_snake_keys
   end
 end

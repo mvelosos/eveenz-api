@@ -6,10 +6,10 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
 
-      resources :accounts, only: [:update]
+      resources :accounts, only: %i[show]
       resources :events, only: [:index, :create]
       resources :search, only: [:index]
-      resources :users, param: :username, only: %i[show create]
+      resources :users, param: :username, only: %i[create]
 
       resources :auth, only: [] do
         collection do
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resource :me, controller: :me, only: %i[show] do
+      resource :me, controller: :me, only: %i[show update] do
         get :following
         get :followers
         resource :events, only: [] do

@@ -10,7 +10,7 @@ class Api::V1::Auth::AuthService
 
   def run
     JSON.parse({
-      username: @user.username,
+      username: @user.account.username,
       createdAt: @user.created_at,
       token: generate_jwt_token,
       tokenType: token_type,

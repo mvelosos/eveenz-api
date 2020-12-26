@@ -30,12 +30,15 @@ class Account < ApplicationRecord
   accepts_nested_attributes_for :address,      update_only: true
   accepts_nested_attributes_for :localization, update_only: true
 
+  validates :username, presence: true, uniqueness: true
+  validates :username, format: { with: /\A[a-zA-Z0-9_.]+\Z/ }
+  validates :username, length: { minimum: 3, maximum: 25 }, allow_blank: false
+  validates :name, length: { minimum: 0, maximum: 60 }, allow_blank: true
+  validates :bio,  length: { minimum: 0, maximum: 500 }, allow_blank: true
+
   validates_associated :address,         on: :create
   validates_associated :localization,    on: :create
   validates_associated :account_setting, on: :create
-
-  validates :name, length: { minimum: 0, maximum: 60 }, allow_blank: true
-  validates :bio,  length: { minimum: 0, maximum: 500 }, allow_blank: true
 
   after_create :set_default_avatar
 
@@ -43,7 +46,7 @@ class Account < ApplicationRecord
   acts_as_followable
 
   def search_data
-    { username: user.username, name: name }
+    { username: username, name: name }
   end
 
   def set_default_avatar
