@@ -18,5 +18,8 @@ FactoryBot.define do
   factory :user do
     email { Faker::Internet.free_email }
     password { Faker::Internet.password }
+    after(:create) do |user|
+      user.account = FactoryBot.create(:account, user: user)
+    end
   end
 end

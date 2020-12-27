@@ -23,10 +23,10 @@ class Account < ApplicationRecord
 
   has_one_base64_attached :avatar, dependent: :destroy
 
-  has_one    :account_setting,  dependent: :destroy
-  has_one    :address,          as:  :addressable, dependent: :destroy
-  has_one    :localization,     as:  :localizable, dependent: :destroy
-  has_many   :events,           dependent: :destroy
+  has_one  :account_setting,  dependent: :destroy
+  has_one  :address,          as:  :addressable, dependent: :destroy
+  has_one  :localization,     as:  :localizable, dependent: :destroy
+  has_many :events,           dependent: :destroy
 
   accepts_nested_attributes_for :address,      update_only: true
   accepts_nested_attributes_for :localization, update_only: true
@@ -41,6 +41,8 @@ class Account < ApplicationRecord
   validates_associated :localization,    on: :create
   validates_associated :account_setting, on: :create
 
+  after_initialize :build_associations, if: -> { new_record? }
+
   after_create :set_default_avatar
 
   acts_as_follower
@@ -48,6 +50,12 @@ class Account < ApplicationRecord
 
   def search_data
     { username: username, name: name }
+  end
+
+  def build_associations
+    build_account_setting
+    build_address
+    build_localization
   end
 
   def set_default_avatar

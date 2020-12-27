@@ -16,11 +16,10 @@
 
 FactoryBot.define do
   factory :account do
-    user { nil }
-    name { 'MyString' }
-    bio { 'MyText' }
-    latitude { '9.99' }
-    longitude { '9.99' }
+    user { FactoryBot.create(:user) }
+    username { Faker::Internet.username }
+    name { Faker::Name.name }
+    bio { Faker::Lorem.sentence(word_count: 5) }
     popularity { 1 }
   end
 end
