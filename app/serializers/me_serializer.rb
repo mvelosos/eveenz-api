@@ -17,7 +17,8 @@
 class MeSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :username,
+  attributes :uuid,
+             :username,
              :name,
              :bio,
              :popularity,
