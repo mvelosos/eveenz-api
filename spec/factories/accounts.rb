@@ -5,6 +5,7 @@
 #  id           :bigint           not null, primary key
 #  uuid         :uuid             not null
 #  user_id      :bigint
+#  username     :string
 #  name         :string
 #  bio          :text
 #  popularity   :integer          default(0)
