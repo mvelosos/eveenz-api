@@ -2,7 +2,7 @@ class Api::V1::MeController < Api::V1::ApiController
   before_action :me
 
   def show
-    render json: @account, status: :ok
+    render json: @account, serializer: MeSerializer, status: :ok
   end
 
   # PUT/PATCH /me
