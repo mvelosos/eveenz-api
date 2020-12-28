@@ -5,3 +5,6 @@
   account = FactoryBot.create(:account)
   FactoryBot.create(:event, account: account)
 end
+
+Account.reindex
+Event.reindex
