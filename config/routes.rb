@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
 
-      resources :accounts, param: :username, only: %i[show]
+      resources :accounts, param: :username, only: %i[show], constraints: { username: /[0-z\.]+/ }
       resources :events, only: [:index, :create]
       resources :search, only: [:index]
       resources :users, only: %i[create]
