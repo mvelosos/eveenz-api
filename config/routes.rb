@@ -26,10 +26,10 @@ Rails.application.routes.draw do
           get :confirmed
         end
         resource :follows, only: [] do
-          post   '/accounts/:id', to: 'follows#follow_account'
-          delete '/accounts/:id', to: 'follows#unfollow_account'
-          post   '/events/:id', to: 'follows#follow_event'
-          delete '/events/:id', to: 'follows#unfollow_event'
+          post   '/accounts/:uuid', to: 'follows#follow_account'
+          delete '/accounts/:uuid', to: 'follows#unfollow_account'
+          post   '/events/:uuid', to: 'follows#follow_event'
+          delete '/events/:uuid', to: 'follows#unfollow_event'
         end
       end
 
