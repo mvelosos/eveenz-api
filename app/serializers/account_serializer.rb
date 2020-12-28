@@ -25,7 +25,8 @@ class AccountSerializer < ActiveModel::Serializer
              :events,
              :following,
              :followers,
-             :avatar_url
+             :avatar_url,
+             :followed_by_me
 
   def events
     object.events.count
@@ -41,5 +42,9 @@ class AccountSerializer < ActiveModel::Serializer
 
   def avatar_url
     rails_blob_url(object.avatar)
+  end
+
+  def followed_by_me
+    object.followed_by?(current_user.account)
   end
 end
