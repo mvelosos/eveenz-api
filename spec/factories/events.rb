@@ -19,13 +19,12 @@
 
 FactoryBot.define do
   factory :event do
-    account { nil }
-    name { 'MyString' }
-    description { 'MyText' }
-    status { false }
-    kind { 'MyString' }
-    date { '2019-08-24' }
-    time { '2019-08-24 18:06:23' }
-    tags { '' }
+    account { FactoryBot.create(:account) }
+    name { Faker::Company.bs }
+    description { Faker::Lorem.sentence(word_count: 6) }
+    kind { 'public' }
+    date { Date.today }
+    time { Time.current }
+    tags { {} }
   end
 end
