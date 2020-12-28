@@ -1,6 +1,5 @@
 class Api::V1::AccountsController < Api::V1::ApiController
-  before_action :account, only: [:show]
-  before_action :account_by_uuid, only: %i[followers following]
+  before_action :account, only: %i[show followers following]
 
   # GET /accounts/:username
   def show
@@ -21,12 +20,6 @@ class Api::V1::AccountsController < Api::V1::ApiController
 
   def account
     @account = Account.find_by_username!(params[:username])
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: "User #{params[:username]} not found" }, status: :not_found
-  end
-
-  def account_by_uuid
-    @account = Account.find_by_uuid!(params[:uuid])
   rescue ActiveRecord::RecordNotFound
     render json: { errors: "User #{params[:username]} not found" }, status: :not_found
   end

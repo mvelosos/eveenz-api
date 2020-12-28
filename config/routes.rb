@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
 
-      resources :accounts, param: :username, only: %i[show], constraints: { username: /[0-z\.]+/ }
-      resources :accounts, param: :uuid, only: [] do
+      resources :accounts, param: :username, only: %i[show], constraints: { username: /[0-z\.]+/ } do
         member do
           get :followers
           get :following
