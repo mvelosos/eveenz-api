@@ -14,16 +14,6 @@ class Api::V1::MeController < Api::V1::ApiController
     end
   end
 
-  # GET /me/following
-  def following
-    render json: @account.following_by_type('Account'), status: :ok
-  end
-
-  # GET /me/followers
-  def followers
-    render json: @account.followers_by_type('Account'), status: :ok
-  end
-
   # GET /me/events/mine
   def mine
     @events = Event.where(account: @account)

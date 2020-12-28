@@ -7,6 +7,13 @@ Rails.application.routes.draw do
     namespace :v1 do
 
       resources :accounts, param: :username, only: %i[show], constraints: { username: /[0-z\.]+/ }
+      resources :accounts, param: :uuid, only: [] do
+        member do
+          get :followers
+          get :following
+        end
+      end
+
       resources :events, only: [:index, :create]
       resources :search, only: [:index]
       resources :users, only: %i[create]
@@ -19,8 +26,6 @@ Rails.application.routes.draw do
       end
 
       resource :me, controller: :me, only: %i[show update] do
-        get :following
-        get :followers
         resource :events, only: [] do
           get :mine
           get :confirmed
