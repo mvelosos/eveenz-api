@@ -53,5 +53,6 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Add default host to development enviroment
+  # routes.default_url_options[:host] = '10.0.2.2:3000' # Use this when running on Android Development
   routes.default_url_options[:host] = '127.0.0.1:3000'
 end
