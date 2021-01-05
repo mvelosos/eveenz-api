@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_one :account, dependent: :destroy
+  has_one :password_recovery, dependent: :destroy
 
   validates :email,     presence: true, uniqueness: true
   validates :email,     format: { with: URI::MailTo::EMAIL_REGEXP }
