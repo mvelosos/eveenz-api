@@ -4,7 +4,7 @@ class Api::V1::PasswordsController < Api::V1::ApiController
 
   def forgot
     UserRecoveryPasswordJob.perform_later(@user.id)
-    render json: "Um email foi enviado para #{@user.email} contendo as instruções", status: :ok
+    render json: { message: "Um email foi enviado para #{@user.email} contendo as instruções" }, status: :ok
   end
 
   def update; end
