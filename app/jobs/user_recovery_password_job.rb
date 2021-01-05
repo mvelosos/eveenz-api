@@ -1,5 +1,5 @@
 class UserRecoveryPasswordJob < ApplicationJob
-  queue_as :default
+  queue_as :mailers
 
   def perform(user_id)
     user = User.find(user_id)
