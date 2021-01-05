@@ -2,6 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/jobs'
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
