@@ -1,5 +1,4 @@
 class JsonWebToken
-
   SECRET_KEY = Rails.application.secrets.secret_key_base.to_s
   EXPIRATION_TIME = Settings.Jwt.JWT_EXPIRATION_TIME
   ENABLE_EXP_TIME = Settings.Jwt.ENABLE_EXP_TIME
@@ -11,7 +10,6 @@ class JsonWebToken
 
   def self.decode(token)
     decoded = JWT.decode(token, SECRET_KEY)[0]
-    HashWithIndifferentAccess.new decoded
+    HashWithIndifferentAccess.new(decoded)
   end
-
 end

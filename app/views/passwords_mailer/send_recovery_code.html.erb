@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Olá <%= @user.email %> </h1>
+    <p>
+      Você solicitou alteração de senha
+    </p>
+    <p>
+      <%= @password_recovery.code %>
+      <p>Use o código acima no aplicativo para validar sua solicitação!</p>
+    </p>
+  </body>
+</html>

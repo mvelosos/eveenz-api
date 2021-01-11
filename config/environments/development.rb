@@ -35,6 +35,10 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.delivery_method = :letter_opener
+
+  config.action_mailer.perform_deliveries = true
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -52,9 +56,7 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # Outputs logs on terminal
-  config.logger = Logger.new(STDOUT)
-
   # Add default host to development enviroment
-  routes.default_url_options[:host] = '192.168.0.14:3000'
+  # routes.default_url_options[:host] = '10.0.2.2:3000' # Use this when running on Android Development
+  routes.default_url_options[:host] = '127.0.0.1:3000'
 end

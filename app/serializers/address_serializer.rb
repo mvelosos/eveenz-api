@@ -15,8 +15,16 @@
 #  country          :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  discarded_at     :datetime
 #
 
 class AddressSerializer < ActiveModel::Serializer
-  attributes :street, :number, :complement, :neighborhood, :zip_code, :city, :state, :country
+  attributes :street,
+             :number,
+             :complement,
+             :neighborhood,
+             :zip_code,
+             :city,
+             :state,
+             :country
 end

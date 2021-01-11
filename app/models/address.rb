@@ -15,9 +15,12 @@
 #  country          :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  discarded_at     :datetime
 #
 
 class Address < ApplicationRecord
+  include Discard::Model
+
   belongs_to :addressable, polymorphic: true
 
   validates :street,       presence: true, if: -> { !belongs_to_account? }
@@ -29,8 +32,8 @@ class Address < ApplicationRecord
   validates :country,      presence: true, if: -> { !belongs_to_account? }
 
   private
-    def belongs_to_account?
-      self.addressable_type == 'Account' ? true : false
-    end
 
+  def belongs_to_account?
+    addressable_type == 'Account'
+  end
 end
