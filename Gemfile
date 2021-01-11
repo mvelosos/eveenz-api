@@ -34,7 +34,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails', '~> 4.0'
   gem 'rubocop', require: false
 end
 
