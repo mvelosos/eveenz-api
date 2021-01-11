@@ -316,7 +316,7 @@ GEM
       activemodel (>= 5)
       elasticsearch (>= 6)
       hashie
-    sentry-raven (2.12.2)
+    sentry-raven (2.13.0)
       faraday (>= 0.7.6, < 1.0)
     sidekiq (6.1.2)
       connection_pool (>= 2.2.2)
