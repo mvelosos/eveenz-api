@@ -2,35 +2,42 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_22_043030) do
+ActiveRecord::Schema.define(version: 2021_01_05_034307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "account_settings", force: :cascade do |t|
     t.bigint "account_id"
     t.float "distance_radius", default: 10.0, null: false
+    t.string "unit", default: "km", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "unit", default: "km", null: false
+    t.datetime "discarded_at"
     t.index ["account_id"], name: "index_account_settings_on_account_id"
+    t.index ["discarded_at"], name: "index_account_settings_on_discarded_at"
   end
 
   create_table "accounts", force: :cascade do |t|
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.bigint "user_id"
+    t.string "username"
     t.string "name"
     t.text "bio"
     t.integer "popularity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_accounts_on_discarded_at"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -68,10 +75,13 @@ ActiveRecord::Schema.define(version: 2019_10_22_043030) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+    t.index ["discarded_at"], name: "index_addresses_on_discarded_at"
   end
 
   create_table "events", force: :cascade do |t|
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.bigint "account_id"
     t.string "name"
     t.text "description"
@@ -82,7 +92,9 @@ ActiveRecord::Schema.define(version: 2019_10_22_043030) do
     t.text "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index ["account_id"], name: "index_events_on_account_id"
+    t.index ["discarded_at"], name: "index_events_on_discarded_at"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -106,22 +118,38 @@ ActiveRecord::Schema.define(version: 2019_10_22_043030) do
     t.decimal "longitude", precision: 11, scale: 8
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_localizations_on_discarded_at"
     t.index ["localizable_type", "localizable_id"], name: "index_localizations_on_localizable_type_and_localizable_id"
   end
 
+  create_table "password_recoveries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_password_recoveries_on_discarded_at"
+    t.index ["user_id"], name: "index_password_recoveries_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string "username"
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.string "email"
     t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "uid"
     t.string "provider", default: "api"
     t.boolean "active", default: true
+    t.boolean "verified", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_users_on_discarded_at"
   end
 
   add_foreign_key "account_settings", "accounts"
   add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "events", "accounts"
+  add_foreign_key "password_recoveries", "users"
 end

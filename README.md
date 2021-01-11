@@ -1,8 +1,10 @@
 # README
 
+- Need to be updated later
+
 Party API
 
-* Rails: 5.2
+* Rails: 6.0.3
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
@@ -12,7 +14,7 @@ Things you may want to cover:
 - Ruby version
 
 ```
-  2.6.3
+  2.7.1
 ```
 
 - System dependencies
@@ -29,8 +31,9 @@ Things you may want to cover:
 
 - Deployment instructions
 
-- ...
+- ....
 
 GitHub Actions
 Add test suits
 ElasticSearch
+...

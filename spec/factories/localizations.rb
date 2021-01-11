@@ -9,12 +9,13 @@
 #  longitude        :decimal(11, 8)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  discarded_at     :datetime
 #
 
 FactoryBot.define do
   factory :localization do
     localizable { nil }
-    latitude { "9.99" }
-    longitude { "9.99" }
+    latitude { '9.99' }
+    longitude { '9.99' }
   end
 end

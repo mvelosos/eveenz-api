@@ -7,5 +7,7 @@ class CreateLocalizations < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    add_column :localizations, :discarded_at, :datetime
+    add_index :localizations, :discarded_at
   end
 end

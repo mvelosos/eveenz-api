@@ -1,48 +1,51 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby '2.7.1'
 
-
-gem 'rails', '~> 5.2.3'
-gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.11'
-# gem 'jbuilder', '~> 2.5'
-# gem 'redis', '~> 4.0'
-gem 'bcrypt', '~> 3.1.7'
-# gem 'mini_magick', '~> 4.8'
-# gem 'capistrano-rails', group: :development
-gem 'bootsnap', '>= 1.1.0', require: false
-gem 'rack-cors'
-gem 'rack-attack'
 gem 'active_model_serializers', '~> 0.10.9'
-gem 'figaro', '~> 1.1', '>= 1.1.1'
-gem 'searchkick'
-gem 'jwt'
-gem 'config'
-gem 'koala'
-gem "aws-sdk-s3"
+gem 'active_storage_base64', '~> 1.1.0'
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
-gem 'mini_magick'
-gem "sentry-raven"
-gem 'newrelic_rpm'
+gem 'awrence'
+gem 'aws-sdk-s3'
+gem 'bcrypt', '~> 3.1.7'
+gem 'bootsnap', '>= 1.1.0', require: false
+gem 'config'
+gem 'discard', '~> 1.2'
+gem 'faraday'
+gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'haversine', '~> 0.3.2'
+gem 'jwt'
+gem 'kaminari'
+gem 'koala'
+gem 'mini_magick'
+gem 'pg', '>= 0.18', '< 2.0'
+gem 'plissken', '~> 1.3', '>= 1.3.1'
+gem 'puma', '~> 3.12'
+gem 'rack-attack'
+gem 'rack-cors'
+gem 'rails', '~> 6.0.3'
+gem 'redis', '~> 4.0'
+gem 'searchkick'
+gem 'sentry-raven'
+gem 'sidekiq'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails', '~> 3.8'
-  gem 'ffaker'
   gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'pry-byebug'
+  gem 'rspec-rails', '~> 4.0'
+  gem 'rubocop', require: false
 end
 
 group :development do
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'annotate'
+  gem 'letter_opener_web', '~> 1.0'
+  gem 'listen', '>= 3.0.5', '< 3.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'annotate'
 end
 
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+group :test do
+  gem 'simplecov', require: false
+end

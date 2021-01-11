@@ -2,23 +2,31 @@
 #
 # Table name: accounts
 #
-#  id         :bigint           not null, primary key
-#  user_id    :bigint
-#  name       :string
-#  bio        :text
-#  popularity :integer          default(0)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :bigint           not null, primary key
+#  uuid         :uuid             not null
+#  user_id      :bigint
+#  username     :string
+#  name         :string
+#  bio          :text
+#  popularity   :integer          default(0)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  discarded_at :datetime
 #
 
 class AccountSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :username, :name, :bio, :popularity, :events, :following, :followers, :avatar_url
-
-  def username
-    object.user.username
-  end
+  attributes :uuid,
+             :username,
+             :name,
+             :bio,
+             :popularity,
+             :events,
+             :following,
+             :followers,
+             :avatar_url,
+             :followed_by_me
 
   def events
     object.events.count
@@ -34,5 +42,9 @@ class AccountSerializer < ActiveModel::Serializer
 
   def avatar_url
     rails_blob_url(object.avatar)
+  end
+
+  def followed_by_me
+    object.followed_by?(current_user.account)
   end
 end

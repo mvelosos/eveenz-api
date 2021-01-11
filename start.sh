@@ -1,2 +1,3 @@
 bundle check || bundle install
-bundle exec puma -C config/puma.rb
+bundle exec sidekiq &
+bundle exec rails s -u=puma
