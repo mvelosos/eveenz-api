@@ -84,5 +84,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Add default host to production enviroment
-  routes.default_url_options[:host] = 'party-api-production.herokuapp.com'
+  routes.default_url_options[:host] = 'eveenz.herokuapp.com'
 end
