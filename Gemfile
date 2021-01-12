@@ -3,17 +3,17 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
-gem 'active_model_serializers', '~> 0.10.9'
+gem 'active_model_serializers', '~> 0.10.12'
 gem 'active_storage_base64', '~> 1.1.0'
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 gem 'awrence'
 gem 'aws-sdk-s3'
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.16'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'config'
 gem 'discard', '~> 1.2'
 gem 'faraday'
-gem 'figaro', '~> 1.1', '>= 1.1.1'
+gem 'figaro', '~> 1.2'
 gem 'haversine', '~> 0.3.2'
 gem 'jwt'
 gem 'kaminari'
