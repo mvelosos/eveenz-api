@@ -7,7 +7,7 @@ class Api::V1::ApiController < ApplicationController
   include ParamSetters
 
   before_action :authenticate_by_token
-  before_action :set_raven_context
+  before_action :sentry_context
 
   attr_accessor :current_user
 

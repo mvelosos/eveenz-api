@@ -1,7 +1,9 @@
 module Miscellaneous
   extend ActiveSupport::Concern
 
-  def set_raven_context
+  def sentry_context
+    return unless Rails.env.production?
+
     if current_user
       Raven.user_context(id: current_user.id, username: current_user.account.username)
     else
