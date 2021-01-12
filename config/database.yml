@@ -14,6 +14,12 @@ test:
   <<: *default
   database: party_api_test
 
+staging:
+  <<: *default
+  database: party_api_staging
+  username: party_api
+  password: <%= ENV['PARTY_API_DATABASE_PASSWORD'] %>
+
 production:
   <<: *default
   database: party_api_production
