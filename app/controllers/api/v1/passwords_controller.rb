@@ -1,11 +1,13 @@
 class Api::V1::PasswordsController < Api::V1::ApiController
-  before_action :authenticate_by_token, except: [:forgot]
+  before_action :authenticate_by_token, except: %i[forgot update]
   before_action :user, only: %i[forgot]
 
   def forgot
     UserRecoveryPasswordJob.perform_later(@user.id)
-    render json: { message: "Um email foi enviado para #{@user.email} contendo as instruções" }, status: :ok
+    render json: { valid: true, email: @user.email }, status: :ok
   end
+
+  def verify_code; end
 
   def update; end
 
@@ -14,7 +16,7 @@ class Api::V1::PasswordsController < Api::V1::ApiController
   def user
     @user = User.find_by_email!(forgot_params[:email])
   rescue ActiveRecord::RecordNotFound
-    render json: { errors: "User #{forgot_params[:email]} not found" }, status: :not_found
+    render json: { error: 'O e-mail informado não é válido!' }, status: :not_found
   end
 
   def forgot_params
