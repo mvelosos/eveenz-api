@@ -38,8 +38,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resource :passwords, only: [:update] do
+      resource :passwords, only: [] do
         post :forgot
+        post :verify_code
+        post :recover_password
       end
 
       get '/*a', to: 'api#not_found'
