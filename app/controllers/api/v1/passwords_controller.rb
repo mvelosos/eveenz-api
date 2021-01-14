@@ -3,6 +3,13 @@ class Api::V1::PasswordsController < Api::V1::ApiController
   before_action :user, only: %i[forgot]
 
   def forgot
+    if @user.provider != 'api'
+      return render json: {
+        message: "Sua conta foi cadastrada através do #{@user.provider.humanize}. "\
+        "Por favor, faça login utlizando o #{@user.provider.humanize}"
+      }
+    end
+
     UserRecoveryPasswordJob.perform_later(@user.id)
     render json: { valid: true, email: @user.email }, status: :ok
   end
