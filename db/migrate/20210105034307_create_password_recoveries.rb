@@ -3,6 +3,7 @@ class CreatePasswordRecoveries < ActiveRecord::Migration[6.0]
     create_table :password_recoveries do |t|
       t.references :user, null: false, foreign_key: true
       t.string :code
+      t.string :token, :unique => true
 
       t.timestamps
       t.datetime :discarded_at

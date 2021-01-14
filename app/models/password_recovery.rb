@@ -8,6 +8,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  discarded_at :datetime
+#  token        :string
 #
 class PasswordRecovery < ApplicationRecord
   include Discard::Model
