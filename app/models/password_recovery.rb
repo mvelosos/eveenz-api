@@ -16,6 +16,7 @@ class PasswordRecovery < ApplicationRecord
   belongs_to :user
 
   validates :code, length: { minimum: 6, maximum: 6 }, allow_nil: false, on: :save
+  validates :token, uniqueness: true, allow_nil: true
 
   before_create :generate_recovery_code
 
