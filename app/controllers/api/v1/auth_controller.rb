@@ -8,7 +8,7 @@ class Api::V1::AuthController < Api::V1::ApiController
       auth_user = Api::V1::Auth::AuthService.call(@user)
       render json: auth_user, status: :ok
     else
-      render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :bad_request
+      render json: { error: 'Ops, login ou senha inválido(s)!' }, status: :bad_request
     end
   end
 
@@ -30,7 +30,7 @@ class Api::V1::AuthController < Api::V1::ApiController
   def find_by_username_or_email
     @user = Account.find_by_username(login_params[:login])&.user || User.find_by_email!(login_params[:login])
   rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Ops, login ou senha inválido(s)!' }, status: :bad_request
+    render json: { error: 'Ops, login ou senha inválido(s)!' }, status: :bad_request
   end
 
   def login_params
