@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_14_192812) do
+ActiveRecord::Schema.define(version: 2021_01_05_034307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,10 +126,10 @@ ActiveRecord::Schema.define(version: 2021_01_14_192812) do
   create_table "password_recoveries", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "code"
+    t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "discarded_at"
-    t.string "token"
     t.index ["discarded_at"], name: "index_password_recoveries_on_discarded_at"
     t.index ["user_id"], name: "index_password_recoveries_on_user_id"
   end
