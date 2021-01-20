@@ -20,14 +20,21 @@
 
 FactoryBot.define do
   factory :address do
-    addressable { nil }
-    street { 'MyString' }
-    number { 'MyString' }
-    complement { 'MyString' }
-    neighborhood { 'MyString' }
-    zip_code { 'MyString' }
-    city { 'MyString' }
-    state { 'MyString' }
-    country { 'MyString' }
+    street { Faker::Address.street_name }
+    number { Faker::Number.number(digits: 4) }
+    complement { "APT #{Faker::Number.number(digits: 3)}" }
+    neighborhood { Faker::Address.community }
+    zip_code { Faker::Address.zip_code }
+    city { Faker::Address.city }
+    state { Faker::Address.state }
+    country { Faker::Address.country }
+
+    factory :account_address do
+      addressable { FactoryBot.create(:account) }
+    end
+
+    factory :event_address do
+      addressable { FactoryBot.create(:event) }
+    end
   end
 end

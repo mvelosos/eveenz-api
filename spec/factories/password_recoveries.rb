@@ -14,6 +14,7 @@ FactoryBot.define do
   factory :password_recovery do
     user { FactoryBot.create(:user) }
     code { 6.times.map { rand(0..9) }.join }
+    token { nil }
     discarded_at { nil }
   end
 end

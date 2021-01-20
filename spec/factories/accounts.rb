@@ -5,7 +5,6 @@
 #  id           :bigint           not null, primary key
 #  uuid         :uuid             not null
 #  user_id      :bigint
-#  username     :string
 #  name         :string
 #  bio          :text
 #  popularity   :integer          default(0)
@@ -17,7 +16,6 @@
 FactoryBot.define do
   factory :account do
     user { FactoryBot.create(:user) }
-    username { Faker::Internet.username(specifier: 5..24) }
     name { Faker::Name.name }
     bio { Faker::Lorem.sentence(word_count: 5) }
     popularity { 1 }

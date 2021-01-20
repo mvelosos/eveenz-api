@@ -12,8 +12,7 @@ class Api::V1::Auth::FacebookLoginService
 
   def find_or_create_fb_user(fb_user)
     @user = User.find_or_initialize_by(email: fb_user['email']) do |user|
-      account = user.build_account
-      account.username = generate_username_from_email(user.email)
+      user.username = generate_username_from_email(user.email)
       user.email = fb_user['email']
       user.password = SecureRandom.hex(16)
       user.uid = fb_user['id']

@@ -15,7 +15,7 @@ class Api::V1::PasswordsController < Api::V1::ApiController
   end
 
   def verify_code
-    @password_recovery = PasswordRecovery.find_by_code!(verify_code_params[:code])
+    @password_recovery = PasswordRecovery.find_by_code!(recover_password_params[:code])
     @password_recovery.update(token: SecureRandom.hex(16)) if @password_recovery.token.nil?
     render json: { valid: true, token: @password_recovery.token }, status: :accepted
   rescue ActiveRecord::RecordNotFound
@@ -51,14 +51,9 @@ class Api::V1::PasswordsController < Api::V1::ApiController
     ).to_unsafe_h.to_snake_keys.symbolize_keys
   end
 
-  def verify_code_params
-    params.require(:passwordRecovery).permit(
-      :code
-    ).to_unsafe_h.to_snake_keys.symbolize_keys
-  end
-
   def recover_password_params
     params.require(:passwordRecovery).permit(
+      :code,
       :token,
       :password,
       :passwordConfirmation

@@ -2,8 +2,8 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
 10.times do |_|
-  account = FactoryBot.create(:account)
-  FactoryBot.create(:event, account: account)
+  user = FactoryBot.create(:user)
+  FactoryBot.create(:event, account: user.account)
 end
 
 Account.reindex

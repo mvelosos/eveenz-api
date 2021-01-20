@@ -31,7 +31,7 @@ class Api::V1::Search::SearchService
       @data << {
         uuid: account.uuid,
         type: 'account',
-        username: account.username,
+        username: account.user.username,
         name: account.name,
         avatar_url: rails_blob_url(account.avatar)
       }

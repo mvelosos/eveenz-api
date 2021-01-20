@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
     create_table :users do |t|
       t.uuid :uuid, null: false, unique: true, default: 'uuid_generate_v4()'
       t.string :email
+      t.string :username
       t.string :password_digest
       t.string :uid
       t.string :provider, default: 'api'

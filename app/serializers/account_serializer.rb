@@ -5,7 +5,6 @@
 #  id           :bigint           not null, primary key
 #  uuid         :uuid             not null
 #  user_id      :bigint
-#  username     :string
 #  name         :string
 #  bio          :text
 #  popularity   :integer          default(0)
@@ -27,6 +26,10 @@ class AccountSerializer < ActiveModel::Serializer
              :followers,
              :avatar_url,
              :followed_by_me
+
+  def username
+    object.user.username
+  end
 
   def events
     object.events.count
