@@ -18,6 +18,8 @@ jobs:
 
       - name: Install Ruby version specified in `.ruby-version`
         uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.7.1'
 
       - name: Install dependent libraries
         run: sudo apt-get install libpq-dev
