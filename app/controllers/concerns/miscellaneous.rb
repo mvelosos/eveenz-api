@@ -5,7 +5,7 @@ module Miscellaneous
     return unless Rails.env.production?
 
     if current_user
-      Raven.user_context(id: current_user.id, username: current_user.account.username)
+      Raven.user_context(id: current_user.id, username: current_user.username)
     else
       Raven.user_context(message: 'user not authenticated')
     end

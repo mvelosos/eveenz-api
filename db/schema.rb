@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2021_01_05_034307) do
   create_table "accounts", force: :cascade do |t|
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.bigint "user_id"
-    t.string "username"
     t.string "name"
     t.text "bio"
     t.integer "popularity", default: 0
@@ -137,6 +136,7 @@ ActiveRecord::Schema.define(version: 2021_01_05_034307) do
   create_table "users", force: :cascade do |t|
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.string "email"
+    t.string "username"
     t.string "password_digest"
     t.string "uid"
     t.string "provider", default: "api"

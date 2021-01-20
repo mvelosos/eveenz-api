@@ -5,7 +5,6 @@
 #  id           :bigint           not null, primary key
 #  uuid         :uuid             not null
 #  user_id      :bigint
-#  username     :string
 #  name         :string
 #  bio          :text
 #  popularity   :integer          default(0)
@@ -17,5 +16,35 @@
 require 'rails_helper'
 
 RSpec.describe Account, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context 'associations and validations' do
+    it { is_expected.to belong_to :user }
+    it { is_expected.to have_one :account_setting }
+    it { is_expected.to have_one :address }
+    it { is_expected.to have_one :localization }
+    it { is_expected.to have_many :events }
+    it { is_expected.to have_one_attached :avatar }
+
+    it { is_expected.to accept_nested_attributes_for(:address).update_only(true) }
+    it { is_expected.to accept_nested_attributes_for(:localization).update_only(true) }
+
+    it { is_expected.to validate_length_of(:name).is_at_least(0).is_at_most(60).allow_blank }
+    it { is_expected.to validate_length_of(:bio).is_at_least(0).is_at_most(500).allow_blank }
+  end
+
+  context 'callbacks' do
+    context '#after_create' do
+      it 'set_default_avatar' do
+        account = FactoryBot.create(:account)
+        expect(account.avatar.attached?).to be(true)
+      end
+    end
+  end
+
+  context 'methods' do
+    it 'search_data' do
+      account = FactoryBot.create(:account)
+      Account.reindex
+      expect(Account.search(account.name)).to be_truthy
+    end
+  end
 end

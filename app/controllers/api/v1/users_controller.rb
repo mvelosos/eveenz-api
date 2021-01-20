@@ -17,8 +17,8 @@ class Api::V1::UsersController < Api::V1::ApiController
   def user_params
     params.require(:user).permit(
       :email,
-      :password,
-      accountAttributes: [:username]
+      :username,
+      :password
     ).to_unsafe_h.to_snake_keys
   end
 end

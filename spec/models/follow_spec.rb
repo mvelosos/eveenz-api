@@ -1,5 +1,4 @@
 # == Schema Information
-
 #
 # Table name: follows
 #
@@ -13,15 +12,19 @@
 #  updated_at      :datetime         not null
 #
 
-class Follow < ActiveRecord::Base
-  extend ActsAsFollower::FollowerLib
-  extend ActsAsFollower::FollowScopes
+require 'rails_helper'
 
-  # NOTE: Follows belong to the "followable" and "follower" interface
-  belongs_to :followable, polymorphic: true
-  belongs_to :follower,   polymorphic: true
+RSpec.describe Follow, type: :model do
+  context 'associations and validations' do
+    it { is_expected.to belong_to :followable }
+    it { is_expected.to belong_to :follower }
+  end
 
-  def block!
-    update_attribute(:blocked, true)
+  context 'methods' do
+    it 'block!' do
+      follow = FactoryBot.create(:follow)
+      follow.block!
+      expect(follow.blocked).to be(true)
+    end
   end
 end

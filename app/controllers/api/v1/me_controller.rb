@@ -7,11 +7,8 @@ class Api::V1::MeController < Api::V1::ApiController
 
   # PUT/PATCH /me
   def update
-    if @account.update(account_params)
-      render json: '', status: :no_content
-    else
-      render json: { error: @account.errors.full_messages }, status: :not_acceptable
-    end
+    @account.update(account_params)
+    respond_with_object_or_message_status(@account, ApiSuccessSerializer, root: 'me')
   end
 
   # GET /me/events/mine
