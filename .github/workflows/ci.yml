@@ -1,5 +1,15 @@
 name: CI
-on: [pull_request]
+on:
+  push:
+    branches:
+      - master
+      - staging
+      - development
+  pull_request:
+    branches:
+      - master
+      - staging
+      - development
 jobs:
   build:
     runs-on: ubuntu-latest
