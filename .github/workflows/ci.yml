@@ -14,10 +14,10 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Checkout code
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Install Ruby version specified in `.ruby-version`
-      - uses: actions/setup-ruby@v1
+        uses: actions/setup-ruby@v1
 
       - name: Install dependent libraries
         run: sudo apt-get install libpq-dev
