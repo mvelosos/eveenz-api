@@ -19,46 +19,33 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it 'is valid with valid attributes' do
-    user = build(:user)
-    expect(user).to be_valid
+  context 'associations and validations' do
+    it { is_expected.to have_one :account }
+    it { is_expected.to have_one :password_recovery }
+
+    it { is_expected.to validate_presence_of(:username) }
+    it { is_expected.to validate_uniqueness_of(:username) }
+    it { is_expected.to allow_value('foo_bar').for(:username) }
+    it { is_expected.to allow_value('foo.bar').for(:username) }
+    it { is_expected.to allow_value('foobar123').for(:username) }
+    it { is_expected.to_not allow_value('foo@bar').for(:username) }
+    it { is_expected.to validate_length_of(:username).is_at_least(3).is_at_most(25) }
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_uniqueness_of(:email) }
+    it { is_expected.to allow_value('foo@bar.com').for(:email) }
+    it { is_expected.to_not allow_value('foobar.com').for(:email) }
+    it { is_expected.to validate_length_of(:password).is_at_least(6) }
   end
 
-  it 'is not valid without username' do
-    user = build(:user, username: nil)
-    expect(user).to_not be_valid
-  end
-
-  it 'is not valid without email' do
-    user = build(:user, email: nil)
-    expect(user).to_not be_valid
-  end
-
-  it 'is not valid without password' do
-    user = build(:user, password: nil)
-    expect(user).to_not be_valid
-  end
-
-  it 'is not valid with invalid username' do
-    user = build(:user, username: "#{Faker::Lorem.word}@-.#{Faker::Lorem.word}")
-    expect(user).to_not be_valid
-  end
-
-  it 'is not valid with invalid email' do
-    user = build(:user, email: Faker::Lorem.word)
-    expect(user).to_not be_valid
-  end
-
-  it 'is not valid with already used email' do
-    email = Faker::Internet.free_email
-    user1 = create(:user, email: email)
-    user2 = build(:user, email: email)
-    expect(user1).to be_valid
-    expect(user2).to_not be_valid
-  end
-
-  it 'is not valid with password less than 6 characters' do
-    user = build(:user, password: Faker::Internet.password[1..5])
-    expect(user).to_not be_valid
+  context 'callbacks' do
+    context '#after_initialize' do
+      it 'build_associations' do
+        user = FactoryBot.build(:user)
+        expect(user.account).to be_truthy
+        expect(user.account.account_setting).to be_truthy
+        expect(user.account.address).to be_truthy
+        expect(user.account.localization).to be_truthy
+      end
+    end
   end
 end
