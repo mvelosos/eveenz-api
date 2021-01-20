@@ -322,6 +322,8 @@ GEM
       hashie
     sentry-raven (3.1.1)
       faraday (>= 1.0)
+    shoulda-matchers (4.5.0)
+      activesupport (>= 4.2.0)
     sidekiq (6.1.2)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -390,6 +392,7 @@ DEPENDENCIES
   rubocop
   searchkick
   sentry-raven
+  shoulda-matchers (~> 4.0)
   sidekiq
   simplecov
   spring
