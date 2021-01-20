@@ -27,6 +27,10 @@ class MeSerializer < ActiveModel::Serializer
              :followers,
              :avatar_url
 
+  def username
+    object.user.username
+  end
+
   def events
     object.events.count
   end

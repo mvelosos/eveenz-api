@@ -5,6 +5,7 @@
 #  id              :bigint           not null, primary key
 #  uuid            :uuid             not null
 #  email           :string
+#  username        :string
 #  password_digest :string
 #  uid             :string
 #  provider        :string           default("api")

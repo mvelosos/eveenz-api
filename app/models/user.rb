@@ -5,6 +5,7 @@
 #  id              :bigint           not null, primary key
 #  uuid            :uuid             not null
 #  email           :string
+#  username        :string
 #  password_digest :string
 #  uid             :string
 #  provider        :string           default("api")
@@ -23,11 +24,21 @@ class User < ApplicationRecord
   has_one :account, dependent: :destroy
   has_one :password_recovery, dependent: :destroy
 
+  validates :username, presence: true, uniqueness: true
+  validates :username, format: { with: /\A[a-zA-Z0-9_.]+\Z/ }
+  validates :username, length: { minimum: 3, maximum: 25 }, allow_blank: false
   validates :email,     presence: true, uniqueness: true
   validates :email,     format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password,  length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
 
   validates_associated :account, on: :create
 
-  accepts_nested_attributes_for :account
+  after_initialize :build_associations, if: -> { new_record? }
+
+  def build_associations
+    build_account
+    account.build_account_setting
+    account.build_address
+    account.build_localization
+  end
 end

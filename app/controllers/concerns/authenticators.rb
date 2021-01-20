@@ -5,7 +5,7 @@ module Authenticators
     token = request.headers['Authorization']
     begin
       @decoded_token = JsonWebToken.decode(token)
-      @current_user = User.find(@decoded_token[:user_id])
+      @current_user = User.find_by_uuid(@decoded_token[:user_uuid])
       render json: { errors: Settings.USER_IS_NOT_ACTIVE }, status: :unauthorized unless @current_user.active
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :unauthorized
