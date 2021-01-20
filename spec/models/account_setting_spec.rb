@@ -14,5 +14,11 @@
 require 'rails_helper'
 
 RSpec.describe AccountSetting, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context 'associations and validations' do
+    it { is_expected.to belong_to :account }
+
+    it { is_expected.to validate_presence_of(:distance_radius) }
+    it { is_expected.to validate_presence_of(:unit) }
+    it { should validate_inclusion_of(:unit).in_array(%w(km mi)) }
+  end
 end

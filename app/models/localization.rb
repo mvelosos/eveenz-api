@@ -17,12 +17,12 @@ class Localization < ApplicationRecord
 
   belongs_to :localizable, polymorphic: true
 
-  validates :latitude,  presence: true, if: -> { !belongs_to_account? }
-  validates :longitude, presence: true, if: -> { !belongs_to_account? }
+  validates :latitude,  presence: true, if: -> { belongs_to_event? }
+  validates :longitude, presence: true, if: -> { belongs_to_event? }
 
   private
 
-  def belongs_to_account?
-    localizable_type == 'Account'
+  def belongs_to_event?
+    localizable_type == 'Event'
   end
 end
