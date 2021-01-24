@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  before_action :authenticate_by_token, except: [:create]
+  before_action :authenticate_by_token, except: %i[create username_available]
 
   # POST /users
   def create
@@ -9,6 +9,17 @@ class Api::V1::UsersController < Api::V1::ApiController
       render json: auth_user, status: :created
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  # GET /users/username_available?username=""
+  def username_available
+    user = User.find_by_username(params[:username])
+
+    if user.present? || params[:username].length > 25
+      render json: { available: false }, status: :ok
+    else
+      render json: { available: true }, status: :ok
     end
   end
 

@@ -16,7 +16,11 @@ Rails.application.routes.draw do
 
       resources :events, only: [:index, :create]
       resources :search, only: [:index]
-      resources :users, only: %i[create]
+      resources :users, only: %i[create] do
+        collection do
+          get :username_available
+        end
+      end
 
       resources :auth, only: [] do
         collection do
