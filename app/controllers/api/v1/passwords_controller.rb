@@ -40,14 +40,14 @@ class Api::V1::PasswordsController < Api::V1::ApiController
   private
 
   def user
-    @user = User.find_by_email!(forgot_params[:email])
+    @user = User.find_by_email(forgot_params[:login]) || User.find_by_username!(forgot_params[:login])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'O e-mail informado não é válido!' }, status: :bad_request
+    render json: { error: 'E-mail ou nome de usuário informado não existe!' }, status: :bad_request
   end
 
   def forgot_params
     params.require(:password).permit(
-      :email
+      :login
     ).to_unsafe_h.to_snake_keys.symbolize_keys
   end
 
