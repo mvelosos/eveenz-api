@@ -16,7 +16,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   def username_available
     user = User.find_by_username(params[:username])
 
-    if user.present? || params[:username].length > 25
+    if user.present? || params[:username].length > 25 || !params[:username].match(/\A[a-zA-Z0-9_.]+\Z/)
       render json: { available: false }, status: :ok
     else
       render json: { available: true }, status: :ok

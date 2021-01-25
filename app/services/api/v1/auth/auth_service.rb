@@ -5,7 +5,7 @@ class Api::V1::Auth::AuthService
   end
 
   def initialize(user)
-    @user = user
+    @user = user.reload
   end
 
   def run
