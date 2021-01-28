@@ -37,6 +37,14 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_length_of(:password).is_at_least(6) }
   end
 
+  context 'custom validations' do
+    it 'expect user to have a uuid' do
+      user = FactoryBot.create(:user).reload
+      expect(user.uuid).to_not be_nil
+      expect(user.uuid).to_not be_blank
+    end
+  end
+
   context 'callbacks' do
     context '#after_initialize' do
       it 'build_associations' do
