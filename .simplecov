@@ -1,4 +1,4 @@
-SimpleCov.minimum_coverage 30
+SimpleCov.minimum_coverage 40
 SimpleCov.start 'rails' do
   add_group 'Serializers', 'app/serializers'
   add_group 'Services', 'app/services'
@@ -14,5 +14,5 @@ SimpleCov.start 'rails' do
   add_filter 'lib/throw_exception.rb'
   add_filter 'lib/facebook.rb'
   add_filter 'lib/json_web_token.rb'
-  add_filter 'lib/my_haversine.rb'
+  add_filter 'lib/my_harversine.rb'
 end
