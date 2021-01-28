@@ -12,12 +12,11 @@ RSpec.describe UserRecoveryPasswordJob, type: :job do
     end
 
     it 'should trigger #send_recovery_code from PasswordsMailer' do
-      UserRecoveryPasswordJob.new.perform(@user.id)
-      expect { PasswordsMailer.send_recovery_code(@user).deliver_later }.to have_enqueued_job.on_queue('mailers')
-                                                                                             .with('PasswordsMailer',
-                                                                                                   'send_recovery_code',
-                                                                                                   'deliver_now',
-                                                                                                   @user)
+      expect { UserRecoveryPasswordJob.new.perform(@user.id) }.to have_enqueued_job.on_queue('mailers')
+                                                                                   .with('PasswordsMailer',
+                                                                                         'send_recovery_code',
+                                                                                         'deliver_now',
+                                                                                         @user)
     end
   end
 end
