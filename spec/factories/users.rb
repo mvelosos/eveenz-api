@@ -20,5 +20,6 @@ FactoryBot.define do
     email { Faker::Internet.free_email }
     username { Faker::Internet.username(specifier: 5..24) }
     password { Faker::Internet.password }
+    provider { 'api' }
   end
 end
