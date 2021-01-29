@@ -44,6 +44,6 @@ class MeSerializer < ActiveModel::Serializer
   end
 
   def avatar_url
-    rails_blob_url(object.avatar)
+    rails_blob_url(object.avatar, only_path: true)
   end
 end

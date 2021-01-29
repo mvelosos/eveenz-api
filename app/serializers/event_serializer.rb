@@ -20,7 +20,7 @@
 class EventSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id,
+  attributes :uuid,
              :name,
              :description,
              :images,
@@ -63,7 +63,7 @@ class EventSerializer < ActiveModel::Serializer
   end
 
   def host_avatar
-    rails_blob_url(object.account.avatar)
+    rails_blob_url(object.account.avatar, only_path: true)
   end
 
   def host_name
