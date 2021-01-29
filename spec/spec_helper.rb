@@ -3,6 +3,7 @@ require 'simplecov'
 SimpleCov.start 'rails'
 
 Dir["#{File.dirname(__FILE__)}/../spec/support/*.rb"].sort.each { |f| require f }
+Dir["#{File.dirname(__FILE__)}/../spec/support/example_groups/*.rb"].sort.each { |f| require f }
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -19,6 +20,11 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.order = :random
+
+  config.after(:each) do
+    ActiveJob::Base.queue_adapter.enqueued_jobs = []
+    ActiveJob::Base.queue_adapter.performed_jobs = []
+  end
 
   Kernel.srand config.seed
 end
