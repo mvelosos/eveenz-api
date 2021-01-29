@@ -2,6 +2,7 @@ require 'simplecov'
 
 SimpleCov.start 'rails'
 
+Dir["#{File.dirname(__FILE__)}/../spec/support/auth/*.rb"].sort.each { |f| require f }
 Dir["#{File.dirname(__FILE__)}/../spec/support/*.rb"].sort.each { |f| require f }
 Dir["#{File.dirname(__FILE__)}/../spec/support/example_groups/*.rb"].sort.each { |f| require f }
 
@@ -13,6 +14,7 @@ RSpec.configure do |config|
 
   config.include Requests::DisableFlashSweeping, type: :controller
   config.include Requests::JsonHelpers, type: :controller
+  config.include Auth::SecurityHelpers, type: :controller
 
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
