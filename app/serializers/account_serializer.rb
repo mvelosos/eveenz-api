@@ -44,10 +44,10 @@ class AccountSerializer < ActiveModel::Serializer
   end
 
   def avatar_url
-    rails_blob_url(object.avatar)
+    rails_blob_url(object.avatar, only_path: true)
   end
 
   def followed_by_me
-    object.followed_by?(current_user.account)
+    object.followed_by?(@instance_options[:current_user].account)
   end
 end

@@ -3,17 +3,17 @@ class Api::V1::AccountsController < Api::V1::ApiController
 
   # GET /accounts/:username
   def show
-    render json: @account, status: :ok
+    render json: @account, current_user: current_user, status: :ok
   end
 
   # GET /accounts/:username/followers
   def followers
-    render json: @account.followers_by_type('Account'), status: :ok
+    render json: @account.followers_by_type('Account'), current_user: current_user, status: :ok
   end
 
   # GET /accounts/:username/following
   def following
-    render json: @account.following_by_type('Account'), status: :ok
+    render json: @account.following_by_type('Account'), current_user: current_user, status: :ok
   end
 
   private
