@@ -10,6 +10,7 @@ SimpleCov.start 'rails' do
   add_filter 'app/controllers/application_controller.rb'
 
   add_filter 'app/channels'
+  add_filter 'app/services/api/v1/auth/facebook_login_service.rb'
   add_filter 'lib/tasks'
   add_filter 'lib/throw_exception.rb'
   add_filter 'lib/facebook.rb'
