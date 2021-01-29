@@ -1,12 +1,12 @@
 class Api::V1::Search::SearchService
   include Rails.application.routes.url_helpers
 
-  def self.call(account, params)
+  def self.call(account, params = {})
     obj = new(account, params)
     obj.run
   end
 
-  def initialize(account, params)
+  def initialize(account, params = {})
     @account = account
     @params = params
     @data = []
@@ -33,7 +33,7 @@ class Api::V1::Search::SearchService
         type: 'account',
         username: account.user.username,
         name: account.name,
-        avatar_url: rails_blob_url(account.avatar)
+        avatar_url: rails_blob_url(account.avatar, only_path: true)
       }
     end
   end
