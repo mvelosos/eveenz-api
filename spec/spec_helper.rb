@@ -29,8 +29,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    Account.reindex
-    Event.reindex
     DatabaseCleaner.strategy = :transaction
   end
 

@@ -2,9 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Search::SearchService, type: :service do
   before do
+    Account.reindex
+    Event.reindex
+
     @user = FactoryBot.create(:user)
     @accounts = FactoryBot.create_list(:user, 10).collect { |user| user&.account }
-    @events = FactoryBot.create_list(:event, 10, name: SecureRandom.hex(10))
+    @events = FactoryBot.create_list(:event, 10, name: 'foobar event')
   end
 
   context 'call search service' do
