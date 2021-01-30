@@ -27,7 +27,7 @@ RSpec.describe Api::V1::MeController, type: :controller do
     context 'when user updates his own account with valid params' do
       it 'should return his own data' do
         get :update, params: { account: { name: 'foobar' } }
-        expect(json['me']['id']).to eq(@current_user.id)
+        expect(json['me']['id']).to eq(@current_user.account.id)
         expect(@current_user.account.name).to eq('foobar')
         expect(response).to have_http_status(:ok)
       end
