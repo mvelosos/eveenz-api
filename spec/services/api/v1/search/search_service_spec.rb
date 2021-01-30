@@ -3,9 +3,8 @@ require 'rails_helper'
 RSpec.describe Api::V1::Search::SearchService, type: :service do
   before do
     @user = FactoryBot.create(:user)
-    @accounts = FactoryBot.create_list(:account, 10,
-                                       user: FactoryBot.create(:user, username: Faker::Alphanumeric.alphanumeric(number: 10)))
-    @events = FactoryBot.create_list(:event, 10)
+    @accounts = FactoryBot.create_list(:user, 10).collect { |user| user&.account }
+    @events = FactoryBot.create_list(:event, 10, name: SecureRandom.hex(10))
   end
 
   context 'call search service' do
