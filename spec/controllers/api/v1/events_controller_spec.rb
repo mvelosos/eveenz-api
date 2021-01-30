@@ -14,8 +14,8 @@ RSpec.describe Api::V1::EventsController, type: :controller do
         @events.each do |event|
           event.localization = FactoryBot.create(:localization,
                                                  localizable: event,
-                                                 latitude: @localization.latitude,
-                                                 longitude: @localization.longitude)
+                                                 latitude: @localization.latitude + 0.001,
+                                                 longitude: @localization.longitude + 0.001)
         end
       end
 
