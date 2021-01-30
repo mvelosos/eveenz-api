@@ -16,7 +16,7 @@ require 'rails_helper'
 
 describe LocalizationSerializer, type: :serializer do
   before do
-    @localization = FactoryBot.create(:account_localization)
+    @localization = FactoryBot.create(:localization, localizable: FactoryBot.create(:user).account)
   end
 
   let(:resource_key) { :localization }

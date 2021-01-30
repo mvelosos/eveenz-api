@@ -19,7 +19,7 @@
 
 FactoryBot.define do
   factory :event do
-    account { FactoryBot.create(:account) }
+    account { FactoryBot.create(:user).account }
     name { Faker::Company.bs }
     description { Faker::Lorem.sentence(word_count: 6) }
     kind { 'public' }

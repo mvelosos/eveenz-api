@@ -16,7 +16,7 @@ require 'rails_helper'
 
 describe AddressSerializer, type: :serializer do
   before do
-    @address = FactoryBot.create(:account_address)
+    @address = FactoryBot.create(:address, addressable: FactoryBot.create(:user).account)
   end
 
   let(:resource_key) { :address }

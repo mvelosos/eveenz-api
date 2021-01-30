@@ -21,6 +21,7 @@ class Event < ApplicationRecord
   include Discard::Model
 
   searchkick
+  acts_as_followable
 
   belongs_to :account
 
@@ -35,8 +36,6 @@ class Event < ApplicationRecord
   validates :name, presence: true
   validates :date, presence: true
   validates :time, presence: true
-
-  acts_as_followable
 
   def search_data
     { name: name }

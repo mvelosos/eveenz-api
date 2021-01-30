@@ -28,13 +28,6 @@ FactoryBot.define do
     city { Faker::Address.city }
     state { Faker::Address.state }
     country { Faker::Address.country }
-
-    factory :account_address do
-      addressable { FactoryBot.create(:account) }
-    end
-
-    factory :event_address do
-      addressable { FactoryBot.create(:event) }
-    end
+    addressable { nil }
   end
 end

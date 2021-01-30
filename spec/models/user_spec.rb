@@ -44,16 +44,4 @@ RSpec.describe User, type: :model do
       expect(user.uuid).to_not be_blank
     end
   end
-
-  context 'callbacks' do
-    context '#after_initialize' do
-      it 'build_associations' do
-        user = FactoryBot.build(:user)
-        expect(user.account).to be_truthy
-        expect(user.account.account_setting).to be_truthy
-        expect(user.account.address).to be_truthy
-        expect(user.account.localization).to be_truthy
-      end
-    end
-  end
 end

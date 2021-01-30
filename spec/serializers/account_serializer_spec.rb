@@ -16,7 +16,7 @@ require 'rails_helper'
 
 describe AccountSerializer, type: :serializer do
   before do
-    @account = FactoryBot.create(:account)
+    @account = FactoryBot.create(:user).account
   end
 
   let(:resource_key) { :account }

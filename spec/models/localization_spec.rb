@@ -21,7 +21,7 @@ RSpec.describe Localization, type: :model do
 
   context 'custom validations' do
     context 'when localizable is an event' do
-      subject { FactoryBot.build(:event_localization) }
+      subject { FactoryBot.build(:localization, localizable: FactoryBot.create(:event)) }
       it { is_expected.to validate_presence_of(:latitude) }
       it { is_expected.to validate_presence_of(:longitude) }
     end

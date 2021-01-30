@@ -32,13 +32,4 @@ class User < ApplicationRecord
   validates :password,  length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
 
   validates_associated :account, on: :create
-
-  after_initialize :build_associations, if: -> { new_record? }
-
-  def build_associations
-    build_account
-    account.build_account_setting
-    account.build_address
-    account.build_localization
-  end
 end

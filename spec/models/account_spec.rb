@@ -34,7 +34,7 @@ RSpec.describe Account, type: :model do
   context 'callbacks' do
     context '#after_create' do
       it 'set_default_avatar' do
-        account = FactoryBot.create(:account)
+        account = FactoryBot.create(:user).account
         expect(account.avatar.attached?).to be(true)
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe Account, type: :model do
 
   context 'methods' do
     it 'search_data' do
-      account = FactoryBot.create(:account)
+      account = FactoryBot.create(:user).account
       Account.reindex
       expect(Account.search(account.name)).to be_truthy
     end

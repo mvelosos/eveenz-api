@@ -18,6 +18,15 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(response).to have_http_status(:created)
       end
 
+      it 'should create a user and user should have associations created' do
+        post :create, params: { user: { email: 'foo@bar.com', username: 'foo', password: 'foo123' } }
+        expect(response).to have_http_status(:created)
+        expect(User.find_by_username('foo').account).to_not be_nil
+        expect(User.find_by_username('foo').account.account_setting).to_not be_nil
+        expect(User.find_by_username('foo').account.address).to_not be_nil
+        expect(User.find_by_username('foo').account.localization).to_not be_nil
+      end
+
       it 'should return auth user' do
         post :create, params: @user_params
         expect(json['username']).to_not be_nil

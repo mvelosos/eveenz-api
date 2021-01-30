@@ -26,8 +26,8 @@ RSpec.describe Address, type: :model do
   end
 
   context 'custom addressable' do
-    context 'when localizable is an event' do
-      subject { FactoryBot.build(:event_address) }
+    context 'when addressable is an event' do
+      subject { FactoryBot.build(:address, addressable: FactoryBot.create(:event)) }
       it { is_expected.to validate_presence_of(:street) }
       it { is_expected.to validate_presence_of(:number) }
       it { is_expected.to validate_presence_of(:neighborhood) }

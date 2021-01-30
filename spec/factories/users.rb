@@ -18,8 +18,15 @@
 FactoryBot.define do
   factory :user do
     email { Faker::Internet.free_email }
-    username { Faker::Internet.username(specifier: 5..24) }
+    username { Faker::Alphanumeric.alphanumeric(number: 16) }
     password { Faker::Internet.password }
     provider { 'api' }
+
+    after(:create) do |user|
+      user.account = FactoryBot.create(:account, user: user)
+      user.account.account_setting = FactoryBot.create(:account_setting, account: user.account)
+      user.account.address = FactoryBot.create(:address, addressable: user.account)
+      user.account.localization = FactoryBot.create(:localization, localizable: user.account)
+    end
   end
 end

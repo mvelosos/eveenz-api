@@ -29,7 +29,7 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
   context 'GET #followers' do
     before do
-      followers_accounts = FactoryBot.create_list(:account, 8)
+      followers_accounts = FactoryBot.create_list(:user, 8).collect { |user| user&.account }
       followers_accounts.each do |account|
         account.follow(@account)
       end
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
   context 'GET #following' do
     before do
-      following_accounts = FactoryBot.create_list(:account, 4)
+      following_accounts = FactoryBot.create_list(:user, 4).collect { |user| user&.account }
       following_accounts.each do |account|
         @account.follow(account)
       end

@@ -1,3 +1,4 @@
+require 'database_cleaner'
 require 'simplecov'
 
 SimpleCov.start 'rails'
@@ -22,6 +23,22 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.order = :random
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 
   config.after(:each) do
     ActiveJob::Base.queue_adapter.enqueued_jobs = []

@@ -13,7 +13,7 @@ class Api::V1::Events::NearEventsService
   end
 
   def run
-    haversine = MyHaversine.call(@latitude, @longitude, @unit)
+    haversine = MyHarversine.call(@latitude, @longitude, @unit)
     Event.joins(:localization).select("events.*, #{haversine} as distance").where("#{haversine} <= ?", @distance_radius)
   end
 end
