@@ -1,4 +1,4 @@
-class MyHarversine
+class MyHaversine
   def self.call(latitude, longitude, unit)
     obj = new(latitude, longitude, unit)
     obj.run
