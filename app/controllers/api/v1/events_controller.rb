@@ -11,7 +11,7 @@ class Api::V1::EventsController < Api::V1::ApiController
   def create
     @event = current_user.account.events.build(event_params)
     if @event.save
-      render json: @event, serializer: EventSerializer, account: current_user.account, status: :created
+      render json: @event.reload, serializer: EventSerializer, account: current_user.account, status: :created
     else
       render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity
     end
@@ -25,7 +25,7 @@ class Api::V1::EventsController < Api::V1::ApiController
       :description,
       :date,
       :time,
-      address_attributes: %i[number street neighborhood city state country zip_code],
+      address_attributes: %i[street number neighborhood city state country zip_code],
       localization_attributes: %i[latitude longitude],
       images: %i[data filename]
     ).to_unsafe_h.to_snake_keys
