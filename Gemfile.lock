@@ -108,6 +108,10 @@ GEM
       dry-validation (~> 1.0, >= 1.0.0)
     connection_pool (2.2.3)
     crass (1.0.6)
+    database_cleaner (1.8.5)
+    database_cleaner-active_record (1.8.0)
+      activerecord
+      database_cleaner (~> 1.8.0)
     deep_merge (1.2.1)
     diff-lcs (1.4.4)
     discard (1.2.0)
@@ -366,6 +370,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.16)
   bootsnap (>= 1.1.0)
   config
+  database_cleaner-active_record
   discard (~> 1.2)
   factory_bot_rails
   faker
