@@ -4,38 +4,26 @@ class Api::V1::FollowsController < Api::V1::ApiController
 
   # POST /me/follows/accounts/:uuid
   def follow_account
-    if current_user.account.follow(@follow_account)
-      render json: { result: 'following' }, status: :created
-    else
-      render json: { errors: current_user.account.errors.full_messages }, status: :unprocessable_entity
-    end
+    current_user.account.follow(@follow_account)
+    render json: { result: 'following' }, status: :created
   end
 
   # DELETE /me/follows/accounts/:uuid
   def unfollow_account
-    if current_user.account.stop_following(@follow_account)
-      render json: { result: 'unfollowing' }
-    else
-      render json: { errors: current_user.account.errors.full_messages }, status: :unprocessable_entity
-    end
+    current_user.account.stop_following(@follow_account)
+    render json: { result: 'unfollowing' }, status: :ok
   end
 
   # POST /me/follows/events/:uuid
   def follow_event
-    if current_user.account.follow(@follow_event)
-      render json: { result: 'following' }, status: :created
-    else
-      render json: { errors: current_user.account.errors.full_messages }, status: :unprocessable_entity
-    end
+    current_user.account.follow(@follow_event)
+    render json: { result: 'following' }, status: :created
   end
 
   # DELETE /me/follows/events/:uuid
   def unfollow_event
-    if current_user.account.stop_following(@follow_event)
-      render json: { result: 'unfollowing' }
-    else
-      render json: { errors: current_user.account.errors.full_messages }, status: :unprocessable_entity
-    end
+    current_user.account.stop_following(@follow_event)
+    render json: { result: 'unfollowing' }, status: :ok
   end
 
   private
