@@ -52,9 +52,8 @@ class Api::V1::Search::SearchService
   end
 
   def current_distance(event)
-    return nil # TODO: Refactor this later
     return nil if @account.localization.latitude.nil?
-    return nil if event.localization&.latitude
+    return nil if event.localization&.latitude.nil?
 
     unit = @account.account_setting.unit
 

@@ -8,6 +8,9 @@ RSpec.describe Api::V1::Search::SearchService, type: :service do
     @user = FactoryBot.create(:user)
     @accounts = FactoryBot.create_list(:user, 10).collect { |user| user&.account }
     @events = FactoryBot.create_list(:event, 10, name: 'foobar event')
+    @events.each do |event|
+      event.localization = FactoryBot.create(:localization, localizable: event)
+    end
   end
 
   context 'call search service' do
