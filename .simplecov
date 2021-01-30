@@ -15,5 +15,5 @@ SimpleCov.start 'rails' do
   add_filter 'lib/throw_exception.rb'
   add_filter 'lib/facebook.rb'
   add_filter 'lib/json_web_token.rb'
-  add_filter 'lib/my_harversine.rb'
+  add_filter 'lib/my_haversine.rb'
 end
