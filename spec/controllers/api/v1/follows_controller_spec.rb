@@ -27,6 +27,14 @@ RSpec.describe Api::V1::FollowsController, type: :controller do
         expect(response).to have_http_status(:created)
       end
     end
+
+    context 'when account to follow do not exists' do
+      it 'should return not found' do
+        post :follow_account, params: { uuid: '123' }
+        expect(json['errors']).to be_truthy
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 
   describe 'POST #unfollow_account' do
@@ -67,6 +75,14 @@ RSpec.describe Api::V1::FollowsController, type: :controller do
         expect(json['result']).to eq('following')
         expect(@current_user.account.following?(@event)).to be(true)
         expect(response).to have_http_status(:created)
+      end
+    end
+
+    context 'when event to follow do not exists' do
+      it 'should return not found' do
+        post :follow_event, params: { uuid: '123' }
+        expect(json['errors']).to be_truthy
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

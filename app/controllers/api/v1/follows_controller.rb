@@ -29,13 +29,13 @@ class Api::V1::FollowsController < Api::V1::ApiController
   private
 
   def set_follow_account
-    @follow_account = Account.find_by_uuid(params[:uuid])
+    @follow_account = Account.find_by_uuid!(params[:uuid])
   rescue ActiveRecord::RecordNotFound => e
     render json: { errors: e.message }, status: :not_found
   end
 
   def set_follow_event
-    @follow_event = Event.find_by_uuid(params[:uuid])
+    @follow_event = Event.find_by_uuid!(params[:uuid])
   rescue ActiveRecord::RecordNotFound => e
     render json: { errors: e.message }, status: :not_found
   end
