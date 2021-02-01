@@ -30,7 +30,7 @@ RSpec.describe Api::V1::SearchController, type: :controller do
 
       it 'should return data with accounts' do
         query = @accounts.first.user.username
-        get :index, params: @params.merge(query: query)
+        get :index, params: @params.merge(query: query[0..-2])
         expect(json['data']).to_not be_empty
         expect(json['data'].first['type']).to eq('account')
         expect(json['data'].first['username']).to eq(query)
@@ -40,12 +40,12 @@ RSpec.describe Api::V1::SearchController, type: :controller do
 
     context 'when events exists' do
       before do
-        @events = FactoryBot.create_list(:event, 10)
+        @events = FactoryBot.create_list(:event, 10, name: 'foobar event')
       end
 
       it 'should return data with events' do
         query = @events.first.name
-        get :index, params: @params.merge(query: query)
+        get :index, params: @params.merge(query: query[0..-2])
         expect(json['data']).to_not be_empty
         expect(json['data'].first['type']).to eq('event')
         expect(json['data'].first['name']).to eq(query)

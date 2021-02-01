@@ -18,7 +18,7 @@
 FactoryBot.define do
   factory :user do
     email { Faker::Internet.free_email }
-    username { Faker::Alphanumeric.alphanumeric(number: 16) }
+    username { Faker::Alphanumeric.alphanumeric(number: 10) }
     password { Faker::Internet.password }
     provider { 'api' }
 
