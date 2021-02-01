@@ -26,7 +26,7 @@ class Api::V1::Search::SearchService
   end
 
   def search_accounts
-    accounts = Account.search(@params[:query], misspellings: { edit_distance: 3 }, page: 1, per_page: 50)
+    accounts = Account.search(@params[:query], misspellings: { edit_distance: 5 }, page: 1, per_page: 50)
     accounts.each do |account|
       @data << {
         uuid: account.uuid,
@@ -39,7 +39,7 @@ class Api::V1::Search::SearchService
   end
 
   def search_events
-    events = Event.search(@params[:query], misspellings: { edit_distance: 3 }, page: 1, per_page: 50)
+    events = Event.search(@params[:query], misspellings: { edit_distance: 5 }, page: 1, per_page: 50)
     events.each do |event|
       @data << {
         uuid: event.uuid,

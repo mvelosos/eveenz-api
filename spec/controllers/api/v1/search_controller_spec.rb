@@ -28,7 +28,7 @@ RSpec.describe Api::V1::SearchController, type: :controller do
         @accounts = FactoryBot.create_list(:user, 10).collect { |user| user&.account }
       end
 
-      it 'should return array with accounts' do
+      it 'should return data with accounts' do
         query = @accounts.first.user.username
         get :index, params: @params.merge(query: query)
         expect(json['data']).to_not be_empty
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::SearchController, type: :controller do
         @events = FactoryBot.create_list(:event, 10)
       end
 
-      it 'should return array with accounts' do
+      it 'should return data with events' do
         query = @events.first.name
         get :index, params: @params.merge(query: query)
         expect(json['data']).to_not be_empty
