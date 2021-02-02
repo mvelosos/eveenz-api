@@ -42,7 +42,7 @@ RSpec.describe Api::V1::Search::SearchService, type: :service do
     it 'should return event by name' do
       event = @events.first
       params = {
-        query: event.name
+        query: 'foobar'
       }
       search_result = Api::V1::Search::SearchService.call(@user.account, params)
       expect(search_result['data'].first['name']).to eq(event.name)

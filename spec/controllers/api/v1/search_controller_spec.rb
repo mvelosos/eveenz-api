@@ -34,11 +34,11 @@ RSpec.describe Api::V1::SearchController, type: :controller do
 
     context 'when events exists' do
       it 'should return data with events' do
-        query = @events.first.name
+        query = 'foobar'
         get :index, params: { query: query[0..-2] }
         expect(json['data']).to_not be_empty
         expect(json['data'].first['type']).to eq('event')
-        expect(json['data'].first['name']).to eq(query)
+        expect(json['data'].first['name']).to eq('foobar event')
         expect(response).to have_http_status(:ok)
       end
     end
