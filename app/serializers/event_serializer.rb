@@ -63,7 +63,7 @@ class EventSerializer < ActiveModel::Serializer
   end
 
   def host_avatar
-    rails_blob_url(object.account.avatar, only_path: true)
+    rails_blob_url(object.account.avatar)
   end
 
   def host_name

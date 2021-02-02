@@ -33,7 +33,7 @@ class Api::V1::Search::SearchService
         type: 'account',
         username: account.user.username,
         name: account.name,
-        avatar_url: rails_blob_url(account.avatar, only_path: true)
+        avatar_url: rails_blob_url(account.avatar)
       }
     end
   end
