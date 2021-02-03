@@ -16,6 +16,7 @@ RSpec.configure do |config|
   config.include Requests::DisableFlashSweeping, type: :controller
   config.include Requests::JsonHelpers, type: :controller
   config.include Auth::SecurityHelpers, type: :controller
+  config.include Auth::FacebookTestToken
 
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true

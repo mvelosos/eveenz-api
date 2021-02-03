@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::AuthController, type: :controller do
   before do
     @user = FactoryBot.create(:user, username: 'foobar', email: 'foobar@eveenz.com', password: 'foo123')
+    @fb_access_token = retrieve_facebook_test_token
   end
 
   describe 'POST #login' do
@@ -49,8 +50,11 @@ RSpec.describe Api::V1::AuthController, type: :controller do
   describe 'POST #facebook' do
     context 'with valid token' do
       it 'should return auth user' do
-        skip 'PENDING'
-        post :facebook, params: { facebook: { fbAccessToken: 'foo@eveenz.com' } }
+        post :facebook, params: { facebook: { fbAccessToken: @fb_access_token } }
+        expect(json['token']).to_not be_nil
+        expect(json['username']).to_not be_nil
+        expect(json['provider']).to eq('facebook')
+        expect(response).to have_http_status(:ok)
       end
     end
 
@@ -58,6 +62,17 @@ RSpec.describe Api::V1::AuthController, type: :controller do
       it 'should return error' do
         post :facebook, params: { facebook: { fbAccessToken: '123456' } }
         expect(json['errors']).to_not be_nil
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+
+    context 'when user is not active' do
+      it 'should return error' do
+        user = Api::V1::Auth::FacebookLoginService.call(@fb_access_token)
+        user.update(active: false)
+        post :facebook, params: { facebook: { fbAccessToken: @fb_access_token } }
+        expect(json['error']).to_not be_nil
+        expect(response).to have_http_status(:bad_request)
       end
     end
   end

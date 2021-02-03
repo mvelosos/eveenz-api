@@ -3,7 +3,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   # POST /users
   def create
-    @user = Api::V1::Users::CreateUserService.call(user_params)
+    @user = Api::V1::Users::NewUserService.call(user_params)
     if @user.save
       auth_user = Api::V1::Auth::AuthService.call(@user)
       render json: auth_user, status: :created

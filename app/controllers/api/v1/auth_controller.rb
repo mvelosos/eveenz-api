@@ -14,7 +14,7 @@ class Api::V1::AuthController < Api::V1::ApiController
 
   # POST /auth/facebook
   def facebook
-    user = Api::V1::Auth::FacebookLoginService.new(facebook_params[:fb_access_token]).login
+    user = Api::V1::Auth::FacebookLoginService.call(facebook_params[:fb_access_token])
     if user&.active
       auth_user = Api::V1::Auth::AuthService.call(user)
       render json: auth_user, status: :ok

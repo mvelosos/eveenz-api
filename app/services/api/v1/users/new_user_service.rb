@@ -1,4 +1,4 @@
-class Api::V1::Users::CreateUserService
+class Api::V1::Users::NewUserService
   def self.call(user_params)
     obj = new(user_params)
     obj.run

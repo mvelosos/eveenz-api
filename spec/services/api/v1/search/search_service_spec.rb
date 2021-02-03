@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Search::SearchService, type: :service do
   before do
+    # We need to reindex and refresh index to make search works with Elasticsearch
     Account.reindex
     Event.reindex
 
@@ -11,6 +12,9 @@ RSpec.describe Api::V1::Search::SearchService, type: :service do
     @events.each do |event|
       event.localization = FactoryBot.create(:localization, localizable: event)
     end
+
+    Account.search_index.refresh
+    Event.search_index.refresh
   end
 
   context 'call search service' do
@@ -42,7 +46,7 @@ RSpec.describe Api::V1::Search::SearchService, type: :service do
     it 'should return event by name' do
       event = @events.first
       params = {
-        query: 'foobar'
+        query: 'foobar event'
       }
       search_result = Api::V1::Search::SearchService.call(@user.account, params)
       expect(search_result['data'].first['name']).to eq(event.name)

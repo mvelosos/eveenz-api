@@ -1,4 +1,4 @@
-SimpleCov.minimum_coverage 70
+SimpleCov.minimum_coverage 80
 SimpleCov.start 'rails' do
   add_group 'Serializers', 'app/serializers'
   add_group 'Services', 'app/services'
@@ -10,8 +10,8 @@ SimpleCov.start 'rails' do
   add_filter 'app/controllers/application_controller.rb'
 
   add_filter 'app/channels'
-  add_filter 'app/services/api/v1/auth/facebook_login_service.rb'
   add_filter 'lib/tasks'
+  add_filter 'lib/utils'
   add_filter 'lib/throw_exception.rb'
   add_filter 'lib/facebook.rb'
   add_filter 'lib/json_web_token.rb'
