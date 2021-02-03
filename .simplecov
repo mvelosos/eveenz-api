@@ -1,4 +1,4 @@
-SimpleCov.minimum_coverage 80
+SimpleCov.minimum_coverage 90
 SimpleCov.start 'rails' do
   add_group 'Serializers', 'app/serializers'
   add_group 'Services', 'app/services'
@@ -10,6 +10,7 @@ SimpleCov.start 'rails' do
   add_filter 'app/controllers/application_controller.rb'
 
   add_filter 'app/channels'
+  add_filter 'app/controllers/concerns'
   add_filter 'lib/tasks'
   add_filter 'lib/utils'
   add_filter 'lib/throw_exception.rb'
