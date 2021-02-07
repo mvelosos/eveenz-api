@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         collection do
           post :login
           post :facebook
+          post :google
         end
       end
 
