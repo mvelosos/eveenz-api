@@ -25,7 +25,7 @@ class Api::V1::Auth::FacebookLoginService
         password: SecureRandom.hex(16)
       }
       @user = Api::V1::Users::NewUserService.call(user_params)
-      @user.provider = Settings.Providers.FACEBOOK
+      @user.provider = User::FACEBOOK_PROVIDER
     end
 
     if @user.new_record?

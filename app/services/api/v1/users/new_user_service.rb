@@ -10,6 +10,7 @@ class Api::V1::Users::NewUserService
 
   def run
     user = User.new(@user_params)
+    user.provider = User::API_PROVIDER
     user.build_account
     user.account.build_account_setting
     user.account.build_address

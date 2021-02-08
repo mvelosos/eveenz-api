@@ -30,6 +30,6 @@ class Api::V1::Auth::AuthService
   end
 
   def jwt_expiration_time
-    (Time.now + Settings.Jwt.JWT_EXPIRATION_TIME.hours.to_i).strftime('%Y-%m-%d %H:%M')
+    (Time.now + JsonWebToken::EXPIRATION_TIME.hours.to_i).strftime('%Y-%m-%d %H:%M')
   end
 end
