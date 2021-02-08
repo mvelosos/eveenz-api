@@ -26,6 +26,7 @@ class Api::V1::AuthController < Api::V1::ApiController
   end
 
   # POST /auth/google
+  # :nocov:
   def google
     user = Api::V1::Auth::GoogleLoginService.call(google_params[:gl_access_token])
     if user&.active && user.provider == User::GOOGLE_PROVIDER
@@ -35,6 +36,8 @@ class Api::V1::AuthController < Api::V1::ApiController
       render json: { error: 'Ops, não foi possível fazer o login!' }, status: :bad_request
     end
   end
+  # :nocov:
+
 
   private
 
@@ -57,9 +60,11 @@ class Api::V1::AuthController < Api::V1::ApiController
     ).to_unsafe_h.to_snake_keys.symbolize_keys
   end
 
+  # :nocov:
   def google_params
     params.require(:google).permit(
       :glAccessToken
     ).to_unsafe_h.to_snake_keys.symbolize_keys
   end
+  # :nocov:
 end

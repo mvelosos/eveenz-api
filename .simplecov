@@ -11,10 +11,12 @@ SimpleCov.start 'rails' do
 
   add_filter 'app/channels'
   add_filter 'app/controllers/concerns'
+  add_filter 'app/services/api/v1/auth/google_login_service.rb'
   add_filter 'lib/tasks'
   add_filter 'lib/utils'
   add_filter 'lib/throw_exception.rb'
   add_filter 'lib/facebook.rb'
+  add_filter 'lib/google.rb'
   add_filter 'lib/json_web_token.rb'
   add_filter 'lib/my_haversine.rb'
 end
