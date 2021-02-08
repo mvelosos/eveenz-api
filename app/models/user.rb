@@ -21,15 +21,26 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  API_PROVIDER = 'api'.freeze
+  FACEBOOK_PROVIDER = 'facebook'.freeze
+  GOOGLE_PROVIDER = 'google'.freeze
+
+  PROVIDERS = [
+    API_PROVIDER,
+    FACEBOOK_PROVIDER,
+    GOOGLE_PROVIDER
+  ].freeze
+
   has_one :account, dependent: :destroy
   has_one :password_recovery, dependent: :destroy
 
   validates :username, presence: true, uniqueness: true
   validates :username, format: { with: /\A[a-zA-Z0-9_.]+\Z/ }
   validates :username, length: { minimum: 3, maximum: 25 }, allow_blank: false
-  validates :email,     presence: true, uniqueness: true
-  validates :email,     format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password,  length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
+  validates :email,    presence: true, uniqueness: true
+  validates :email,    format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
+  validates :provider, inclusion: { in: PROVIDERS }
 
   validates_associated :account, on: :create
 end

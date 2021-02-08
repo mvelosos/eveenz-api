@@ -35,6 +35,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to allow_value('foo@bar.com').for(:email) }
     it { is_expected.to_not allow_value('foobar.com').for(:email) }
     it { is_expected.to validate_length_of(:password).is_at_least(6) }
+    it { is_expected.to validate_inclusion_of(:provider).in_array(User::PROVIDERS) }
   end
 
   context 'custom validations' do
