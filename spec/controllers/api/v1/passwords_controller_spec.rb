@@ -22,16 +22,16 @@ RSpec.describe Api::V1::PasswordsController, type: :controller do
 
   describe 'POST #forgot' do
     context 'when user provider is not equal to api' do
-      it 'returns message' do
+      it 'returns error' do
         @user.update(provider: 'facebook')
         post :forgot, params: @forgot_params
-        expect(json['message']).to_not be_nil
-        expect(response).to have_http_status(:ok)
+        expect(json['error']).to_not be_nil
+        expect(response).to have_http_status(:bad_request)
       end
     end
 
     context 'when user requests recover with valid params' do
-      it 'returns message' do
+      it 'returns success' do
         post :forgot, params: @forgot_params
         expect(json['valid']).to be(true)
         expect(json['email']).to eq(@user.email)

@@ -61,7 +61,7 @@ RSpec.describe Api::V1::AuthController, type: :controller do
     context 'with invalid token' do
       it 'should return error' do
         post :facebook, params: { facebook: { fbAccessToken: '123456' } }
-        expect(json['errors']).to_not be_nil
+        expect(json['error']).to_not be_nil
         expect(response).to have_http_status(:bad_request)
       end
     end
@@ -70,6 +70,16 @@ RSpec.describe Api::V1::AuthController, type: :controller do
       it 'should return error' do
         user = Api::V1::Auth::FacebookLoginService.call(@fb_access_token)
         user.update(active: false)
+        post :facebook, params: { facebook: { fbAccessToken: @fb_access_token } }
+        expect(json['error']).to_not be_nil
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+
+    context 'when user has not provider as facebook' do
+      it 'should return error' do
+        user = Api::V1::Auth::FacebookLoginService.call(@fb_access_token)
+        user.update(provider: 'api')
         post :facebook, params: { facebook: { fbAccessToken: @fb_access_token } }
         expect(json['error']).to_not be_nil
         expect(response).to have_http_status(:bad_request)
