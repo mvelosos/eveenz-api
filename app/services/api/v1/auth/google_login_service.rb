@@ -9,28 +9,28 @@ class Api::V1::Auth::GoogleLoginService
   end
 
   def login
-    fb_user = Facebook.info(@access_token)
-    find_or_create_fb_user(fb_user)
+    gl_user = Google.info(@access_token)
+    find_or_create_gl_user(gl_user)
   end
 
   private
 
-  def find_or_create_fb_user(fb_user)
-    @user = User.find_by_email(fb_user['email'])
+  def find_or_create_gl_user(gl_user)
+    @user = User.find_by_email(gl_user['email'])
 
     unless @user.present?
       user_params = {
-        username: generate_username_from_email(fb_user['email']),
-        email: fb_user['email'],
+        username: generate_username_from_email(gl_user['email']),
+        email: gl_user['email'],
         password: SecureRandom.hex(16)
       }
       @user = Api::V1::Users::NewUserService.call(user_params)
-      @user.provider = Settings.Providers.FACEBOOK
+      @user.provider = User::GOOGLE_PROVIDER
     end
 
     if @user.new_record?
-      @user.account.update(name: fb_user['name'])
-      @user.account.avatar.attach(io: fb_avatar(fb_user), filename: 'avatar')
+      @user.account.update(name: gl_user['name'])
+      @user.account.avatar.attach(io: gl_avatar(gl_user), filename: 'avatar')
     end
 
     @user.save!
@@ -42,7 +42,7 @@ class Api::V1::Auth::GoogleLoginService
     "#{email.split('@')[0]}#{rand(9999)}"
   end
 
-  def fb_avatar(fb_user)
-    URI.open("https://graph.facebook.com/#{fb_user['id']}/picture?height=500&width=500")
+  def gl_avatar(gl_user)
+    URI.open(gl_user['picture'])
   end
 end
