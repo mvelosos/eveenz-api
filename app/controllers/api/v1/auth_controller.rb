@@ -22,7 +22,7 @@ class Api::V1::AuthController < Api::V1::ApiController
       render json: { error: 'Ops, não foi possível fazer o login!' }, status: :bad_request
     end
   rescue Koala::Facebook::APIError => e
-    render json: { errors: e.message }, status: :bad_request
+    render json: { error: e.message }, status: :bad_request
   end
 
   # POST /auth/google

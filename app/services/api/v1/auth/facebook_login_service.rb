@@ -18,6 +18,8 @@ class Api::V1::Auth::FacebookLoginService
   def find_or_create_fb_user(fb_user)
     @user = User.find_by_email(fb_user['email'])
 
+    return nil if @user.present? && @user.provider != User::FACEBOOK_PROVIDER
+
     unless @user.present?
       user_params = {
         username: generate_username_from_email(fb_user['email']),
@@ -25,6 +27,7 @@ class Api::V1::Auth::FacebookLoginService
         password: SecureRandom.hex(16)
       }
       @user = Api::V1::Users::NewUserService.call(user_params)
+      @user.uid = fb_user['id']
       @user.provider = User::FACEBOOK_PROVIDER
     end
 

@@ -18,6 +18,8 @@ class Api::V1::Auth::GoogleLoginService
   def find_or_create_gl_user(gl_user)
     @user = User.find_by_email(gl_user['email'])
 
+    return nil if @user.present? && @user.provider != User::GOOGLE_PROVIDER
+
     unless @user.present?
       user_params = {
         username: generate_username_from_email(gl_user['email']),
@@ -25,6 +27,7 @@ class Api::V1::Auth::GoogleLoginService
         password: SecureRandom.hex(16)
       }
       @user = Api::V1::Users::NewUserService.call(user_params)
+      @user.uid = gl_user['id']
       @user.provider = User::GOOGLE_PROVIDER
     end
 
