@@ -4,7 +4,7 @@ class Api::V1::AuthController < Api::V1::ApiController
 
   # POST /auth/login
   def login
-    if @user&.authenticate(login_params[:password]) && @user&.active
+    if @user&.authenticate(login_params[:password]) && @user&.active && @user.provider == User::API_PROVIDER
       auth_user = Api::V1::Auth::AuthService.call(@user)
       render json: auth_user, status: :ok
     else
@@ -15,11 +15,11 @@ class Api::V1::AuthController < Api::V1::ApiController
   # POST /auth/facebook
   def facebook
     user = Api::V1::Auth::FacebookLoginService.call(facebook_params[:fb_access_token])
-    if user&.active
+    if user&.active && user.provider == User::FACEBOOK_PROVIDER
       auth_user = Api::V1::Auth::AuthService.call(user)
       render json: auth_user, status: :ok
     else
-      render json: { error: Settings.Exceptions.UNAUTHORIZED }, status: :bad_request
+      render json: { error: 'Ops, não foi possível fazer o login!' }, status: :bad_request
     end
   rescue Koala::Facebook::APIError => e
     render json: { errors: e.message }, status: :bad_request
@@ -27,10 +27,13 @@ class Api::V1::AuthController < Api::V1::ApiController
 
   # POST /auth/google
   def google
-    user = Api::V1::Auth::GoogleLoginService.call(google_params[:glAccessToken])
-    binding.pry
-
-    render json: 'workinggg', status: :ok
+    user = Api::V1::Auth::GoogleLoginService.call(google_params[:gl_access_token])
+    if user&.active && user.provider == User::GOOGLE_PROVIDER
+      auth_user = Api::V1::Auth::AuthService.call(user)
+      render json: auth_user, status: :ok
+    else
+      render json: { error: 'Ops, não foi possível fazer o login!' }, status: :bad_request
+    end
   end
 
   private
