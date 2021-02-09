@@ -43,18 +43,18 @@ RSpec.describe Api::V1::EventsController, type: :controller do
         event: {
           name: Faker::Company.bs,
           description: Faker::Lorem.sentence(word_count: 6),
-          date: Date.today,
-          time: Time.current,
-          address_attributes: {
+          startDate: Date.today,
+          startTime: Time.current,
+          addressAttributes: {
             street: Faker::Address.street_name,
             number: Faker::Number.number(digits: 4),
             neighborhood: Faker::Address.community,
             city: Faker::Address.city,
             state: Faker::Address.state,
             country: Faker::Address.country,
-            zip_code: Faker::Address.zip_code
+            zipCode: Faker::Address.zip_code
           },
-          localization_attributes: {
+          localizationAttributes: {
             latitude: Faker::Address.latitude,
             longitude: Faker::Address.longitude
           }
@@ -79,15 +79,15 @@ RSpec.describe Api::V1::EventsController, type: :controller do
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
-      it 'with invalid date' do
-        post :create, params: @event_params.deep_merge(event: { date: nil })
+      it 'with invalid start date' do
+        post :create, params: @event_params.deep_merge(event: { startDate: nil })
         expect(json).to have_key('errors')
         expect(json['errors']).to_not be_nil
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
-      it 'with invalid time' do
-        post :create, params: @event_params.deep_merge(event: { time: nil })
+      it 'with invalid start time' do
+        post :create, params: @event_params.deep_merge(event: { startTime: nil })
         expect(json).to have_key('errors')
         expect(json['errors']).to_not be_nil
         expect(response).to have_http_status(:unprocessable_entity)

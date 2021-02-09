@@ -35,8 +35,10 @@ describe EventSerializer, type: :serializer do
       description
       images
       kind
-      date
-      time
+      startDate
+      endDate
+      startTime
+      endTime
       hostAvatar
       hostName
       address

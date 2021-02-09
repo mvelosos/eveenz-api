@@ -28,8 +28,10 @@ class EventSerializer < ActiveModel::Serializer
              :images,
             #  :distance,
              :kind,
-             :date,
-             :time,
+             :start_date,
+             :end_date,
+             :start_time,
+             :end_time,
              :host_avatar,
              :host_name
 
@@ -56,12 +58,20 @@ class EventSerializer < ActiveModel::Serializer
     unit == 'km' ? "#{distance.to_km.ceil(2)}km" : "#{distance.to_mi.ceil(2)}mi"
   end
 
-  def date
-    object.date.strftime('%d/%m/%Y')
+  def start_date
+    object.start_date.strftime('%d/%m/%Y')
   end
 
-  def time
-    object.time.strftime('%H:%M')
+  def end_date
+    object.end_date&.strftime('%d/%m/%Y')
+  end
+
+  def start_time
+    object.start_time.strftime('%H:%M')
+  end
+
+  def end_time
+    object.end_time&.strftime('%H:%M')
   end
 
   def host_avatar

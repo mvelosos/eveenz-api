@@ -30,14 +30,14 @@ class Event < ApplicationRecord
   has_one    :address,      as: :addressable, dependent: :destroy
   has_one    :localization, as: :localizable, dependent: :destroy
 
-  accepts_nested_attributes_for :address,      allow_destroy: true
-  accepts_nested_attributes_for :localization, allow_destroy: true
+  accepts_nested_attributes_for :address,      update_only: true
+  accepts_nested_attributes_for :localization, update_only: true
 
   has_many_base64_attached :images
 
-  validates :name, presence: true
-  validates :date, presence: true
-  validates :time, presence: true
+  validates :name,       presence: true
+  validates :start_date, presence: true
+  validates :start_time, presence: true
 
   def search_data
     { name: name }

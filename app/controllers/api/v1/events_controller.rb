@@ -23,10 +23,12 @@ class Api::V1::EventsController < Api::V1::ApiController
     params.require(:event).permit(
       :name,
       :description,
-      :date,
-      :time,
-      address_attributes: %i[street number neighborhood city state country zip_code],
-      localization_attributes: %i[latitude longitude],
+      :startDate,
+      :endDate,
+      :startTime,
+      :endTime,
+      addressAttributes: %i[street number neighborhood city state country zipCode],
+      localizationAttributes: %i[latitude longitude],
       images: %i[data filename]
     ).to_unsafe_h.to_snake_keys
   end

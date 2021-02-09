@@ -28,12 +28,12 @@ RSpec.describe Event, type: :model do
     it { is_expected.to have_one :localization }
     it { is_expected.to have_many_attached :images }
 
-    it { is_expected.to accept_nested_attributes_for(:address).allow_destroy(true) }
-    it { is_expected.to accept_nested_attributes_for(:localization).allow_destroy(true) }
+    it { is_expected.to accept_nested_attributes_for(:address).update_only(true) }
+    it { is_expected.to accept_nested_attributes_for(:localization).update_only(true) }
 
     it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_presence_of(:date) }
-    it { is_expected.to validate_presence_of(:time) }
+    it { is_expected.to validate_presence_of(:start_date) }
+    it { is_expected.to validate_presence_of(:start_time) }
   end
 
   context 'methods' do
