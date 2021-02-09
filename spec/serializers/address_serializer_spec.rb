@@ -1,16 +1,21 @@
 # == Schema Information
 #
-# Table name: accounts
+# Table name: addresses
 #
-#  id           :bigint           not null, primary key
-#  uuid         :uuid             not null
-#  user_id      :bigint
-#  name         :string
-#  bio          :text
-#  popularity   :integer          default(0)
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  discarded_at :datetime
+#  id               :bigint           not null, primary key
+#  addressable_type :string
+#  addressable_id   :bigint
+#  street           :string
+#  number           :string
+#  complement       :string
+#  neighborhood     :string
+#  zip_code         :string
+#  city             :string
+#  state            :string
+#  country          :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  discarded_at     :datetime
 #
 require 'rails_helper'
 

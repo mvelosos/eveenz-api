@@ -9,8 +9,10 @@
 #  description  :text
 #  active       :boolean          default(TRUE)
 #  kind         :string
-#  date         :date
-#  time         :time
+#  start_date   :date
+#  end_date     :date
+#  start_time   :time
+#  end_time     :time
 #  tags         :text             default([]), is an Array
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null

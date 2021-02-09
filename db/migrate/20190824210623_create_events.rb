@@ -7,8 +7,10 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.text :description
       t.boolean :active, default: true
       t.string :kind
-      t.date :date
-      t.time :time
+      t.date :start_date
+      t.date :end_date
+      t.time :start_time
+      t.time :end_time
       t.text :tags, array: true, :default => []
 
       t.timestamps

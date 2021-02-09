@@ -1,13 +1,19 @@
 # == Schema Information
 #
-# Table name: accounts
+# Table name: events
 #
 #  id           :bigint           not null, primary key
 #  uuid         :uuid             not null
-#  user_id      :bigint
+#  account_id   :bigint
 #  name         :string
-#  bio          :text
-#  popularity   :integer          default(0)
+#  description  :text
+#  active       :boolean          default(TRUE)
+#  kind         :string
+#  start_date   :date
+#  end_date     :date
+#  start_time   :time
+#  end_time     :time
+#  tags         :text             default([]), is an Array
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  discarded_at :datetime

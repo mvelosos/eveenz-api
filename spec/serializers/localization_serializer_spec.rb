@@ -1,16 +1,15 @@
 # == Schema Information
 #
-# Table name: accounts
+# Table name: localizations
 #
-#  id           :bigint           not null, primary key
-#  uuid         :uuid             not null
-#  user_id      :bigint
-#  name         :string
-#  bio          :text
-#  popularity   :integer          default(0)
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  discarded_at :datetime
+#  id               :bigint           not null, primary key
+#  localizable_type :string
+#  localizable_id   :bigint
+#  latitude         :decimal(11, 8)
+#  longitude        :decimal(11, 8)
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  discarded_at     :datetime
 #
 require 'rails_helper'
 
