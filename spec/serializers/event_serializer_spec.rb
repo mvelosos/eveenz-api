@@ -8,7 +8,7 @@
 #  name         :string
 #  description  :text
 #  active       :boolean          default(TRUE)
-#  kind         :string
+#  privateness  :string
 #  start_date   :date
 #  end_date     :date
 #  start_time   :time

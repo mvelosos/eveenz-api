@@ -6,7 +6,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.string :name
       t.text :description
       t.boolean :active, default: true
-      t.string :kind
+      t.string :privateness
       t.date :start_date
       t.date :end_date
       t.time :start_time
