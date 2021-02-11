@@ -8,7 +8,7 @@
 #  name         :string
 #  description  :text
 #  active       :boolean          default(TRUE)
-#  privateness  :string
+#  privacy      :string
 #  start_date   :date
 #  end_date     :date
 #  start_time   :time
@@ -25,6 +25,16 @@ class Event < ApplicationRecord
   searchkick
   acts_as_followable
 
+  PUBLIC_PRIVACY = 'public'.freeze
+  PRIVATE_PRIVACY = 'private'.freeze
+  SECRET_PRIVACY = 'secret'.freeze
+
+  PRIVACIES = [
+    PUBLIC_PRIVACY,
+    PRIVATE_PRIVACY,
+    SECRET_PRIVACY
+  ].freeze
+
   belongs_to :account
 
   has_one    :address,      as: :addressable, dependent: :destroy
@@ -38,6 +48,7 @@ class Event < ApplicationRecord
   validates :name,       presence: true
   validates :start_date, presence: true
   validates :start_time, presence: true
+  validates :privacy,    presence: true, inclusion: { in: PRIVACIES }
 
   def search_data
     { name: name }

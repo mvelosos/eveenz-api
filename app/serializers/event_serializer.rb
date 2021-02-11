@@ -8,7 +8,7 @@
 #  name         :string
 #  description  :text
 #  active       :boolean          default(TRUE)
-#  privateness  :string
+#  privacy      :string
 #  start_date   :date
 #  end_date     :date
 #  start_time   :time
@@ -27,7 +27,7 @@ class EventSerializer < ActiveModel::Serializer
              :description,
              :images,
             #  :distance,
-             :kind,
+             :privacy,
              :start_date,
              :end_date,
              :start_time,

@@ -45,6 +45,7 @@ RSpec.describe Api::V1::EventsController, type: :controller do
           description: Faker::Lorem.sentence(word_count: 6),
           startDate: Date.today,
           startTime: Time.current,
+          privacy: 'public',
           addressAttributes: {
             street: Faker::Address.street_name,
             number: Faker::Number.number(digits: 4),

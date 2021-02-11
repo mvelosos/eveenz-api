@@ -27,6 +27,7 @@ class Api::V1::EventsController < Api::V1::ApiController
       :endDate,
       :startTime,
       :endTime,
+      :privacy,
       addressAttributes: %i[street number neighborhood city state country zipCode],
       localizationAttributes: %i[latitude longitude],
       images: %i[data filename]

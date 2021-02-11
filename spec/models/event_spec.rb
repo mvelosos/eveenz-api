@@ -8,7 +8,7 @@
 #  name         :string
 #  description  :text
 #  active       :boolean          default(TRUE)
-#  privateness  :string
+#  privacy      :string
 #  start_date   :date
 #  end_date     :date
 #  start_time   :time
@@ -34,6 +34,8 @@ RSpec.describe Event, type: :model do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:start_date) }
     it { is_expected.to validate_presence_of(:start_time) }
+    it { is_expected.to validate_presence_of(:privacy) }
+    it { is_expected.to validate_inclusion_of(:privacy).in_array(Event::PRIVACIES) }
   end
 
   context 'methods' do

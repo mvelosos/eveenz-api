@@ -8,7 +8,7 @@
 #  name         :string
 #  description  :text
 #  active       :boolean          default(TRUE)
-#  privateness  :string
+#  privacy      :string
 #  start_date   :date
 #  end_date     :date
 #  start_time   :time
@@ -34,7 +34,7 @@ describe EventSerializer, type: :serializer do
       name
       description
       images
-      kind
+      privacy
       startDate
       endDate
       startTime

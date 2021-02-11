@@ -8,7 +8,7 @@
 #  name         :string
 #  description  :text
 #  active       :boolean          default(TRUE)
-#  privateness  :string
+#  privacy      :string
 #  start_date   :date
 #  end_date     :date
 #  start_time   :time
@@ -24,7 +24,7 @@ FactoryBot.define do
     account { FactoryBot.create(:user).account }
     name { Faker::Company.bs }
     description { Faker::Lorem.sentence(word_count: 6) }
-    privateness { 'public' }
+    privacy { 'public' }
     start_date { Date.today }
     end_date { Date.today }
     start_time { Time.current }

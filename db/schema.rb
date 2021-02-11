@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2021_01_05_034307) do
     t.string "name"
     t.text "description"
     t.boolean "active", default: true
-    t.string "privateness"
+    t.string "privacy"
     t.date "start_date"
     t.date "end_date"
     t.time "start_time"
