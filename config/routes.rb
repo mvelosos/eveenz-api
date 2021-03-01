@@ -27,6 +27,7 @@ Rails.application.routes.draw do
           post :login
           post :facebook
           post :google
+          post :apple
         end
       end
 
@@ -47,6 +48,10 @@ Rails.application.routes.draw do
         post :forgot
         post :verify_code
         post :recover_password
+      end
+
+      resource :webhooks, only: [] do
+        post :sign_in_with_apple
       end
 
       get '/*a', to: 'api#not_found'
