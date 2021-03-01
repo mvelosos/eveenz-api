@@ -1,4 +1,4 @@
-SimpleCov.minimum_coverage 90
+SimpleCov.minimum_coverage 80
 SimpleCov.start 'rails' do
   add_group 'Serializers', 'app/serializers'
   add_group 'Services', 'app/services'
