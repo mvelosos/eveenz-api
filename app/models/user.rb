@@ -21,9 +21,10 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  API_PROVIDER = 'api'.freeze
+  API_PROVIDER      = 'api'.freeze
   FACEBOOK_PROVIDER = 'facebook'.freeze
-  GOOGLE_PROVIDER = 'google'.freeze
+  GOOGLE_PROVIDER   = 'google'.freeze
+  APPLE_PROVIDER    = 'apple'.freeze
 
   PROVIDERS = [
     API_PROVIDER,
