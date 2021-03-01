@@ -29,7 +29,8 @@ class User < ApplicationRecord
   PROVIDERS = [
     API_PROVIDER,
     FACEBOOK_PROVIDER,
-    GOOGLE_PROVIDER
+    GOOGLE_PROVIDER,
+    APPLE_PROVIDER
   ].freeze
 
   has_one :account, dependent: :destroy
