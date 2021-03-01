@@ -13,7 +13,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'config'
 gem 'discard', '~> 1.2'
 gem 'faraday'
-gem 'figaro', '~> 1.2'
 gem 'haversine', '~> 0.3.2'
 gem 'jwt'
 gem 'kaminari'
@@ -31,6 +30,7 @@ gem 'sentry-raven'
 gem 'sidekiq'
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-byebug'
