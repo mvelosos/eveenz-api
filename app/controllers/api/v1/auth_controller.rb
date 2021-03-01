@@ -1,5 +1,5 @@
 class Api::V1::AuthController < Api::V1::ApiController
-  before_action :authenticate_by_token, except: %i[login facebook google]
+  before_action :authenticate_by_token, except: %i[login facebook google apple]
   before_action :find_by_username_or_email, only: %i[login]
 
   # POST /auth/login
@@ -38,6 +38,17 @@ class Api::V1::AuthController < Api::V1::ApiController
   end
   # :nocov:
 
+  # POST /auth/apple
+  def apple
+    user = Api::V1::Auth::AppleLoginService.call(apple_params)
+    if user&.active && user.provider == User::APPLE_PROVIDER
+      auth_user = Api::V1::Auth::AuthService.call(user)
+      render json: auth_user, status: :ok
+    else
+      render json: { error: 'Ops, não foi possível fazer o login!' }, status: :bad_request
+    end
+  end
+
 
   private
 
@@ -67,4 +78,11 @@ class Api::V1::AuthController < Api::V1::ApiController
     ).to_unsafe_h.to_snake_keys.symbolize_keys
   end
   # :nocov:
+
+  def apple_params
+    params.require(:apple).permit(
+      :userId,
+      :jwt
+    ).to_unsafe_h.to_snake_keys.symbolize_keys
+  end
 end
