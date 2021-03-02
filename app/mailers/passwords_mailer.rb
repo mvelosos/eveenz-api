@@ -1,5 +1,5 @@
 class PasswordsMailer < ApplicationMailer
-  default from: 'from@example.com'
+  default from: 'eveenz@noreply.com'
 
   def send_recovery_code(user)
     @user = user
