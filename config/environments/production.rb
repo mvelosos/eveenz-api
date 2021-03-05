@@ -95,5 +95,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Add default host to production enviroment
-  routes.default_url_options[:host] = 'eveenz-production.herokuapp.com'
+  routes.default_url_options[:host]   = 'eveenz-production.herokuapp.com'
+  config.action_controller.asset_host = 'eveenz-production.herokuapp.com'
+  config.action_mailer.asset_host     = 'eveenz-production.herokuapp.com'
 end
