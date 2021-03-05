@@ -2,21 +2,22 @@
 #
 # Table name: events
 #
-#  id           :bigint           not null, primary key
-#  uuid         :uuid             not null
-#  account_id   :bigint
-#  name         :string
-#  description  :text
-#  active       :boolean          default(TRUE)
-#  privacy      :string
-#  start_date   :date
-#  end_date     :date
-#  start_time   :time
-#  end_time     :time
-#  tags         :text             default([]), is an Array
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  discarded_at :datetime
+#  id            :bigint           not null, primary key
+#  uuid          :uuid             not null
+#  account_id    :bigint
+#  name          :string
+#  description   :text
+#  active        :boolean          default(TRUE)
+#  privacy       :string
+#  start_date    :date
+#  end_date      :date
+#  start_time    :time
+#  end_time      :time
+#  undefined_end :boolean          default(FALSE)
+#  tags          :text             default([]), is an Array
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  discarded_at  :datetime
 #
 
 require 'rails_helper'
@@ -43,6 +44,14 @@ RSpec.describe Event, type: :model do
       event = FactoryBot.create(:event)
       Event.reindex
       expect(Event.search(event.name)).to be_truthy
+    end
+  end
+
+  context 'callbacks' do
+    it 'before_create #check_undefined_end' do
+      event = FactoryBot.create(:event, undefined_end: true)
+      expect(event.end_date).to be_nil
+      expect(event.end_time).to be_nil
     end
   end
 end
