@@ -10,7 +10,7 @@ RSpec.describe PasswordsMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      expect(mail.subject).to eq('Instruções para atualização de senha!')
+      expect(mail.subject).to eq('Instruções para recuperação de senha!')
     end
 
     it 'renders the receiver email' do
