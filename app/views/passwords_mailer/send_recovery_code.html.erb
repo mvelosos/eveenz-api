@@ -94,7 +94,6 @@ u + .em_body .em_full_wrap { width:100% !important; width:100vw !important;}
 </head>
 <body class="em_body" style="margin:0px auto; padding:0px;" bgcolor="#efefef">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="em_full_wrap" align="center"  bgcolor="#efefef">
-  <%= "#{image_tag("/assets/images/horizontal_logo.png")}" %>
     <tr>
       <td align="center" valign="top"><table align="center" width="650" border="0" cellspacing="0" cellpadding="0" class="em_main_table" style="width:650px; table-layout:fixed;">
           <tr>
@@ -217,16 +216,20 @@ u + .em_body .em_full_wrap { width:100% !important; width:100vw !important;}
               <tr>
                 <td align="center" valign="top" style="font-size:0px; line-height:0px;"><table border="0" cellspacing="0" cellpadding="0" align="center">
                   <tr>
-                    <td width="15" align="left" valign="middle" style="font-size:0px; line-height:0px; width:15px;"><a href="mailto:meow@meowgun.com" style="text-decoration:none;"><img src="/assets/pilot/images/templates/email_img.png" width="15" height="12" alt="" border="0" style="display:block; max-width:15px;" /></a></td>
+                    <td width="15" align="left" valign="middle" style="font-size:0px; line-height:0px; width:15px;">
+                      <%# <a href="mailto:meow@meowgun.com" style="text-decoration:none;"> %>
+                        <%= image_tag("/assets/images/email_img.png", width: '15', height: '12', alt: '', border: '0', style: 'display:block; max-width:15px;') %>
+                      <%# </a> %>
+                    </td>
                     <td width="9" style="width:9px; font-size:0px; line-height:0px;" class="em_w5"><img src="/assets/pilot/images/templates/spacer.gif" width="1" height="1" alt="" border="0" style="display:block;" /></td>
                     <td class="em_grey em_font_11" align="left" valign="middle" style="font-family: Arial, sans-serif; font-size: 13px; line-height: 15px; color:#434343;"><a href="mailto:meow@meowgun.com" style="text-decoration:none; color:#434343;">support@eveenz.com</a> <a href="mailto:marketing@mailgun.com" style="text-decoration:none; color:#434343;">[mailto:support@eveenz.com]</a></td>
                   </tr>
                 </table>
                 </td>
               </tr>
-               <tr>
+               <%# <tr>
                 <td height="9" style="font-size:0px; line-height:0px; height:9px;" class="em_h10"><img src="/assets/pilot/images/templates/spacer.gif" width="1" height="1" alt="" border="0" style="display:block;" /></td>
-              </tr>
+              </tr> %>
                <tr>
                 <td align="center" valign="top"><table border="0" cellspacing="0" cellpadding="0" align="center">
                   <tr>
