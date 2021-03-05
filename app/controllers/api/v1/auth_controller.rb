@@ -36,7 +36,6 @@ class Api::V1::AuthController < Api::V1::ApiController
       render json: { error: 'Ops, não foi possível fazer o login!' }, status: :bad_request
     end
   end
-  # :nocov:
 
   # POST /auth/apple
   def apple
@@ -48,7 +47,7 @@ class Api::V1::AuthController < Api::V1::ApiController
       render json: { error: 'Ops, não foi possível fazer o login!' }, status: :bad_request
     end
   end
-
+  # :nocov:
 
   private
 
@@ -77,7 +76,6 @@ class Api::V1::AuthController < Api::V1::ApiController
       :glAccessToken
     ).to_unsafe_h.to_snake_keys.symbolize_keys
   end
-  # :nocov:
 
   def apple_params
     params.require(:apple).permit(
@@ -85,4 +83,5 @@ class Api::V1::AuthController < Api::V1::ApiController
       :jwt
     ).to_unsafe_h.to_snake_keys.symbolize_keys
   end
+  # :nocov:
 end
