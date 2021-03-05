@@ -24,9 +24,9 @@ class Follow < ActiveRecord::Base
   after_create :account_follow_notification, if: -> { followable_type == 'Account' }
 
   def account_follow_notification
-    # return unless Rails.env.production?
+    return unless Rails.env.production?
 
-    FollowNotificationJob.perform_now(self)
+    FollowNotificationJob.perform_later(self)
   end
 
   def block!
