@@ -45,6 +45,9 @@ RSpec.describe Api::V1::EventsController, type: :controller do
           description: Faker::Lorem.sentence(word_count: 6),
           startDate: Date.today,
           startTime: Time.current,
+          endDate: Date.today + 1.day,
+          endTime: Time.current + 24.hours,
+          undefinedEnd: false,
           privacy: 'public',
           addressAttributes: {
             street: Faker::Address.street_name,
@@ -92,6 +95,35 @@ RSpec.describe Api::V1::EventsController, type: :controller do
         expect(json).to have_key('errors')
         expect(json['errors']).to_not be_nil
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'with undefinedEnd = false' do
+      it 'should successfuly create an event when end_date and end_time is valid' do
+        post :create, params: @event_params
+        expect(json).to have_key('event')
+        expect(json['event']['uuid']).to_not be_nil
+        expect(response).to have_http_status(:created)
+        expect(Event.find_by_uuid(json['event']['uuid']).end_date).to_not be_nil
+        expect(Event.find_by_uuid(json['event']['uuid']).end_time).to_not be_nil
+      end
+
+      it 'should not create an event when end_date and end_time is nil' do
+        post :create, params: @event_params.deep_merge(event: { endDate: nil, endTime: nil })
+        expect(json).to have_key('errors')
+        expect(json['errors']).to_not be_nil
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'with undefinedEnd = true' do
+      it 'should successfuly create an event when end_date and end_time is nil' do
+        post :create, params: @event_params.deep_merge(event: { endDate: nil, endTime: nil, undefinedEnd: true })
+        expect(json).to have_key('event')
+        expect(json['event']['uuid']).to_not be_nil
+        expect(response).to have_http_status(:created)
+        expect(Event.find_by_uuid(json['event']['uuid']).end_date).to be_nil
+        expect(Event.find_by_uuid(json['event']['uuid']).end_time).to be_nil
       end
     end
   end
