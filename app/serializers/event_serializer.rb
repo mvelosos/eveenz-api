@@ -2,21 +2,22 @@
 #
 # Table name: events
 #
-#  id           :bigint           not null, primary key
-#  uuid         :uuid             not null
-#  account_id   :bigint
-#  name         :string
-#  description  :text
-#  active       :boolean          default(TRUE)
-#  privacy      :string
-#  start_date   :date
-#  end_date     :date
-#  start_time   :time
-#  end_time     :time
-#  tags         :text             default([]), is an Array
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  discarded_at :datetime
+#  id            :bigint           not null, primary key
+#  uuid          :uuid             not null
+#  account_id    :bigint
+#  name          :string
+#  description   :text
+#  active        :boolean          default(TRUE)
+#  privacy       :string
+#  start_date    :date
+#  end_date      :date
+#  start_time    :time
+#  end_time      :time
+#  undefined_end :boolean          default(FALSE)
+#  tags          :text             default([]), is an Array
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  discarded_at  :datetime
 #
 
 class EventSerializer < ActiveModel::Serializer
@@ -32,6 +33,7 @@ class EventSerializer < ActiveModel::Serializer
              :end_date,
              :start_time,
              :end_time,
+             :undefined_end,
              :host_avatar,
              :host_name
 

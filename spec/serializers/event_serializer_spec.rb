@@ -2,21 +2,22 @@
 #
 # Table name: events
 #
-#  id           :bigint           not null, primary key
-#  uuid         :uuid             not null
-#  account_id   :bigint
-#  name         :string
-#  description  :text
-#  active       :boolean          default(TRUE)
-#  privacy      :string
-#  start_date   :date
-#  end_date     :date
-#  start_time   :time
-#  end_time     :time
-#  tags         :text             default([]), is an Array
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  discarded_at :datetime
+#  id            :bigint           not null, primary key
+#  uuid          :uuid             not null
+#  account_id    :bigint
+#  name          :string
+#  description   :text
+#  active        :boolean          default(TRUE)
+#  privacy       :string
+#  start_date    :date
+#  end_date      :date
+#  start_time    :time
+#  end_time      :time
+#  undefined_end :boolean          default(FALSE)
+#  tags          :text             default([]), is an Array
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  discarded_at  :datetime
 #
 require 'rails_helper'
 
@@ -43,6 +44,7 @@ describe EventSerializer, type: :serializer do
       hostName
       address
       localization
+      undefinedEnd
     ].sort
   end
 end
