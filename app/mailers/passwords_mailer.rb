@@ -4,6 +4,6 @@ class PasswordsMailer < ApplicationMailer
   def send_recovery_code(user)
     @user = user
     @password_recovery = user.password_recovery
-    mail(to: @user.email, subject: 'Instruções para atualização de senha!')
+    mail(to: @user.email, subject: 'Instruções para recuperação de senha!')
   end
 end
