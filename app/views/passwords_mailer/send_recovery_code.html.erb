@@ -104,7 +104,7 @@ u + .em_body .em_full_wrap { width:100% !important; width:100vw !important;}
               <tr>
                 <td align="center" valign="top">
                   <a href="#" target="_blank" style="text-decoration:none;">
-                    <img src="<%=Rails.root%>/app/assets/images/horizontal_logo.png" alt="Eveenz" border="0" style="display:block; font-family:Arial, sans-serif; font-size:18px; line-height:25px; text-align:center; color:#1d4685; font-weight:bold; max-width:208px;" class="em_w150" />
+                    <%= image_tag("/assets/images/horizontal_logo.png", alt: 'Eveenz', border: '0', style: 'display:block; font-family:Arial, sans-serif; font-size:18px; line-height:25px; text-align:center; color:#1d4685; font-weight:bold; max-width:208px;', class: 'em_w150') %>
                   </a>
                 </td>
               </tr>
@@ -183,11 +183,23 @@ u + .em_body .em_full_wrap { width:100% !important; width:100vw !important;}
               <tr>
                 <td align="center" valign="top"><table border="0" cellspacing="0" cellpadding="0" align="center">
                     <tr>
-                      <td width="30" style="width:30px;" align="center" valign="middle"><a href="#" target="_blank" style="text-decoration:none;"><img src="<%=Rails.root%>/app/assets/images/fb_img.png" width="30" height="30" alt="Facebook" border="0" style="display:block; font-family:Arial, sans-serif; font-size:18px; line-height:25px; text-align:center; color:#000000; font-weight:bold; max-width:30px;" /></a></td>
+                      <td width="30" style="width:30px;" align="center" valign="middle">
+                        <a href="#" target="_blank" style="text-decoration:none;">
+                          <%= image_tag("/assets/images/fb_img.png", width: '30', height: '30', alt: 'Facebook', border: '0', style: 'display:block; font-family:Arial, sans-serif; font-size:18px; line-height:25px; text-align:center; color:#000000; font-weight:bold; max-width:30px;', class: 'em_w150') %>
+                        </a>
+                      </td>
                       <td width="12" style="width:12px;">&nbsp;</td>
-                      <td width="30" style="width:30px;" align="center" valign="middle"><a href="#" target="_blank" style="text-decoration:none;"><img src="<%=Rails.root%>/app/assets/images/tw_img.png" width="30" height="30" alt="Twitter" border="0" style="display:block; font-family:Arial, sans-serif; font-size:14px; line-height:25px; text-align:center; color:#000000; font-weight:bold; max-width:30px;" /></a></td>
+                      <td width="30" style="width:30px;" align="center" valign="middle">
+                        <a href="#" target="_blank" style="text-decoration:none;">
+                          <%= image_tag("/assets/images/tw_img.png", width: '30', height: '30', alt: 'Twitter', border: '0', style: 'display:block; font-family:Arial, sans-serif; font-size:18px; line-height:25px; text-align:center; color:#000000; font-weight:bold; max-width:30px;', class: 'em_w150') %>
+                        </a>
+                      </td>
                       <td width="12" style="width:12px;">&nbsp;</td>
-                      <td width="30" style="width:30px;" align="center" valign="middle"><a href="#" target="_blank" style="text-decoration:none;"><img src="<%=Rails.root%>/app/assets/images/insta_img.png" width="30" height="30" alt="Instagram" border="0" style="display:block; font-family:Arial, sans-serif; font-size:14px; line-height:25px; text-align:center; color:#000000; font-weight:bold; max-width:30px;" /></a></td>
+                      <td width="30" style="width:30px;" align="center" valign="middle">
+                        <a href="#" target="_blank" style="text-decoration:none;">
+                          <%= image_tag("/assets/images/insta_img.png", width: '30', height: '30', alt: 'Instagram', border: '0', style: 'display:block; font-family:Arial, sans-serif; font-size:18px; line-height:25px; text-align:center; color:#000000; font-weight:bold; max-width:30px;', class: 'em_w150') %>
+                        </a>
+                      </td>
                     </tr>
                   </table>
                  </td>
