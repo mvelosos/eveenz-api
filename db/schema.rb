@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 2021_01_05_034307) do
     t.date "end_date"
     t.time "start_time"
     t.time "end_time"
+    t.boolean "undefined_end", default: false
     t.text "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
