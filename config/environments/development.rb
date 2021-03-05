@@ -63,6 +63,6 @@ Rails.application.configure do
   config.action_controller.asset_host = "http://localhost:3000"
   config.action_mailer.asset_host     = "http://localhost:3000"
 
-  # Ngrok config
+  # Ngrok development config
   config.hosts << /[a-z0-9]+\.ngrok\.io/
 end
