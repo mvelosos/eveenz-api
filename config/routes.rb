@@ -51,7 +51,6 @@ Rails.application.routes.draw do
       end
 
       resource :webhooks, only: [] do
-        post :sign_in_with_apple
       end
 
       get '/*a', to: 'api#not_found'
