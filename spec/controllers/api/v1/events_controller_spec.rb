@@ -49,6 +49,8 @@ RSpec.describe Api::V1::EventsController, type: :controller do
           endTime: Time.current + 24.hours,
           undefinedEnd: false,
           privacy: 'public',
+          externalUrl: nil,
+          minimumAge: nil,
           addressAttributes: {
             street: Faker::Address.street_name,
             number: Faker::Number.number(digits: 4),

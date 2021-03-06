@@ -36,6 +36,8 @@ class EventSerializer < ActiveModel::Serializer
              :start_time,
              :end_time,
              :undefined_end,
+             :external_url,
+             :minimum_age,
              :host_avatar,
              :host_name
 

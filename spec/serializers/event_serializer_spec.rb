@@ -47,6 +47,8 @@ describe EventSerializer, type: :serializer do
       address
       localization
       undefinedEnd
+      externalUrl
+      minimumAge
     ].sort
   end
 end

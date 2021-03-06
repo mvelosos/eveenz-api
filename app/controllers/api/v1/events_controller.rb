@@ -28,6 +28,8 @@ class Api::V1::EventsController < Api::V1::ApiController
       :startTime,
       :endTime,
       :undefinedEnd,
+      :externalUrl,
+      :minimumAge,
       :privacy,
       addressAttributes: %i[street number neighborhood city state country zipCode],
       localizationAttributes: %i[latitude longitude],

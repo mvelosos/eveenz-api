@@ -33,6 +33,8 @@ FactoryBot.define do
     start_time { Time.current }
     end_time { Time.current + 6.hours }
     undefined_end { false }
+    external_url { nil }
+    minimum_age { nil }
     tags { {} }
   end
 end
