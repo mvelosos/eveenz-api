@@ -46,4 +46,17 @@ class User < ApplicationRecord
   validates :provider, inclusion: { in: PROVIDERS }
 
   validates_associated :account, on: :create
+
+  before_save :downcase_username
+  after_update :password_successfully_updated_mailer, if: :saved_change_to_password_digest?
+
+  private
+
+  def downcase_username
+    self.username = username.downcase
+  end
+
+  def password_successfully_updated_mailer
+    PasswordsMailer.password_successfully_updated(self).deliver_later
+  end
 end
