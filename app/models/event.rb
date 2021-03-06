@@ -61,6 +61,8 @@ class Event < ApplicationRecord
     { name: name }
   end
 
+  private
+
   def check_undefined_end
     return unless undefined_end
 
