@@ -19,7 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  context 'associations and validations' do
+  describe 'associations and validations' do
     it { is_expected.to have_one :account }
     it { is_expected.to have_one :password_recovery }
 
@@ -39,11 +39,39 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_inclusion_of(:provider).in_array(User::PROVIDERS) }
   end
 
-  context 'custom validations' do
-    it 'expect user to have a uuid' do
-      user = FactoryBot.create(:user).reload
-      expect(user.uuid).to_not be_nil
-      expect(user.uuid).to_not be_blank
+  describe 'custom validations' do
+    context 'when user is created' do
+      it 'expect user to have a uuid' do
+        user = FactoryBot.create(:user).reload
+        expect(user.uuid).to_not be_nil
+        expect(user.uuid).to_not be_blank
+      end
+    end
+  end
+
+  describe 'callbacks' do
+    context '#downcase_username' do
+      it 'expect to downcase the username when user is created' do
+        user = FactoryBot.create(:user, username: 'FOOBAR123')
+        expect(user.username).to eq(user.username.downcase)
+      end
+
+      it 'expect to downcase the username when user is updated' do
+        user = FactoryBot.create(:user)
+        user.update(username: 'FOOBAR123')
+        expect(user.username).to eq(user.username.downcase)
+      end
+    end
+
+    context '#password_successfully_updated_mailer' do
+      it 'expect to send password_successfully_updated mailer when user update his password' do
+        user = FactoryBot.create(:user)
+        expect { user.update(password: 'foobarzinho123') }.to have_enqueued_job.on_queue('mailers')
+                                                                               .with('PasswordsMailer',
+                                                                                     'password_successfully_updated',
+                                                                                     'deliver_now',
+                                                                                     user)
+      end
     end
   end
 end
