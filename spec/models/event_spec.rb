@@ -14,6 +14,8 @@
 #  start_time    :time
 #  end_time      :time
 #  undefined_end :boolean          default(FALSE)
+#  external_url  :string
+#  minimum_age   :integer
 #  tags          :text             default([]), is an Array
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
