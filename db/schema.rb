@@ -91,6 +91,8 @@ ActiveRecord::Schema.define(version: 2021_01_05_034307) do
     t.time "start_time"
     t.time "end_time"
     t.boolean "undefined_end", default: false
+    t.string "external_url"
+    t.integer "minimum_age"
     t.text "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
