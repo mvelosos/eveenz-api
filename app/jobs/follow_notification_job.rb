@@ -3,7 +3,7 @@ class FollowNotificationJob < ApplicationJob
 
   def perform(follow)
     title   = ''
-    content = "#{follow.follower.name} (@#{follow.follower.user.username}) está seguindo você!"
+    content = "#{follow.follower.name} (@#{follow.follower.user.username}) começou a seguir você!"
     users   = [follow.followable.uuid]
 
     notification = Api::V1::Notifications::PushNotificationsService.new
