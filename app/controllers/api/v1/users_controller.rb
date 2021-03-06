@@ -14,7 +14,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   # GET /users/username_available?username=""
   def username_available
-    user = User.find_by_username(params[:username])
+    user = User.find_by_username(params[:username].downcase)
 
     if user.present? || params[:username].length > 25 || !params[:username].match(/\A[a-zA-Z0-9_.]+\Z/)
       render json: { available: false }, status: :ok
