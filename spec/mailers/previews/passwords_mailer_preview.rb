@@ -3,4 +3,8 @@ class PasswordsMailerPreview < ActionMailer::Preview
   def send_recovery_code
     PasswordsMailer.send_recovery_code(User.first)
   end
+
+  def password_successfully_updated
+    PasswordsMailer.password_successfully_updated(User.first)
+  end
 end
