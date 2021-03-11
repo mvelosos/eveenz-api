@@ -5,5 +5,8 @@ class CreateCategories < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
+    add_column :categories, :discarded_at, :datetime
+    add_index :categories, :discarded_at
   end
 end

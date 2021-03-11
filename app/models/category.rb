@@ -8,4 +8,5 @@
 #  updated_at :datetime         not null
 #
 class Category < ApplicationRecord
+  include Discard::Model
 end
