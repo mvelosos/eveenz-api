@@ -23,7 +23,7 @@ class Api::V1::EventsController < Api::V1::ApiController
   def update
     return render json: { error: 'unauthorized' }, status: :unauthorized if @event.account_id != current_user.account.id
 
-    @event.update_attributes(event_params)
+    @event.update(event_params)
     render json: @event, serializer: EventSerializer, account: current_user.account, status: :ok
   end
 
