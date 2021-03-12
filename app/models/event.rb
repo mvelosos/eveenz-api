@@ -28,9 +28,9 @@ class Event < ApplicationRecord
   searchkick
   acts_as_followable
 
-  PUBLIC_PRIVACY = 'public'.freeze
+  PUBLIC_PRIVACY  = 'public'.freeze
   PRIVATE_PRIVACY = 'private'.freeze
-  SECRET_PRIVACY = 'secret'.freeze
+  SECRET_PRIVACY  = 'secret'.freeze
 
   PRIVACIES = [
     PUBLIC_PRIVACY,
@@ -42,11 +42,14 @@ class Event < ApplicationRecord
 
   has_one    :address,      as: :addressable, dependent: :destroy
   has_one    :localization, as: :localizable, dependent: :destroy
+  has_many   :event_categories, dependent: :destroy
+  has_many   :categories, through: :event_categories
+
+  has_many_base64_attached :images
 
   accepts_nested_attributes_for :address,      update_only: true
   accepts_nested_attributes_for :localization, update_only: true
-
-  has_many_base64_attached :images
+  accepts_nested_attributes_for :event_categories, allow_destroy: true
 
   validates :name,          presence: true
   validates :start_date,    presence: true
