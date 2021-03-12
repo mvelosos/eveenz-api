@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_11_225133) do
+ActiveRecord::Schema.define(version: 2021_03_12_141346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -428,6 +428,15 @@ ActiveRecord::Schema.define(version: 2021_03_11_225133) do
     t.index ["user_id"], name: "index_engagements_on_user_id"
   end
 
+  create_table "event_categories", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_event_categories_on_category_id"
+    t.index ["event_id"], name: "index_event_categories_on_event_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.bigint "account_id"
@@ -837,6 +846,8 @@ ActiveRecord::Schema.define(version: 2021_03_11_225133) do
   add_foreign_key "endorsements", "users", column: "endorsed_by_id"
   add_foreign_key "engagement_contracts", "engagements"
   add_foreign_key "engagements", "course_sessions"
+  add_foreign_key "event_categories", "categories"
+  add_foreign_key "event_categories", "events"
   add_foreign_key "events", "accounts"
   add_foreign_key "facilitator_applications", "course_sessions"
   add_foreign_key "facilitator_qualifications", "institutions"
