@@ -10,9 +10,19 @@
 #
 require 'rails_helper'
 
-RSpec.describe Category, type: :model do
-  describe 'associations and validations' do
-    it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_uniqueness_of(:name) }
+describe CategorySerializer, type: :serializer do
+  before do
+    @category = FactoryBot.create(:category)
+  end
+
+  let(:resource_key) { :category }
+  let(:resource) { @category }
+
+  let(:expected_fields) do
+    %i[
+      id
+      name
+      titleizedName
+    ].sort
   end
 end

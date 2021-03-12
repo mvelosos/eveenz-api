@@ -8,8 +8,12 @@
 #  updated_at   :datetime         not null
 #  discarded_at :datetime
 #
-FactoryBot.define do
-  factory :category do
-    name { SecureRandom.hex(16) }
+class CategorySerializer < ActiveModel::Serializer
+  attributes :id,
+             :name,
+             :titleized_name
+
+  def titleized_name
+    object.name.titleize
   end
 end
