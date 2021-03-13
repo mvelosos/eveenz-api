@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_12_141346) do
+ActiveRecord::Schema.define(version: 2021_03_13_195331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -706,6 +706,18 @@ ActiveRecord::Schema.define(version: 2021_03_12_141346) do
     t.string "slug"
     t.index ["slug"], name: "index_referrals_on_slug", unique: true
     t.index ["user_id"], name: "index_referrals_on_user_id"
+  end
+
+  create_table "request_categories", force: :cascade do |t|
+    t.bigint "requested_by_id"
+    t.string "name"
+    t.boolean "approved"
+    t.bigint "approved_by_id"
+    t.datetime "approved_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_request_categories_on_discarded_at"
   end
 
   create_table "sessions", force: :cascade do |t|
