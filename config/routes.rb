@@ -51,6 +51,8 @@ Rails.application.routes.draw do
         post :recover_password
       end
 
+      resources :request_categories, only: %i[create]
+
       resource :webhooks, only: [] do
       end
 
