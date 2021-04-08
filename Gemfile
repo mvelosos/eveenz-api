@@ -20,8 +20,8 @@ gem 'kaminari'
 gem 'koala'
 gem 'mini_magick'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'plissken', '~> 1.3', '>= 1.3.1'
-gem 'puma', '~> 5.1'
+gem 'plissken', '~> 1.4'
+gem 'puma', '~> 5.2'
 gem 'rack-attack'
 gem 'rack-cors'
 gem 'rails', '~> 6.0.3'
@@ -35,7 +35,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 4.0'
+  gem 'rspec-rails', '~> 5.0'
   gem 'rubocop', require: false
 end
 
