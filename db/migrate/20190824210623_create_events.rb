@@ -6,9 +6,14 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.string :name
       t.text :description
       t.boolean :active, default: true
-      t.string :kind
-      t.date :date
-      t.time :time
+      t.string :privacy
+      t.date :start_date
+      t.date :end_date
+      t.time :start_time
+      t.time :end_time
+      t.boolean :undefined_end, default: false
+      t.string :external_url
+      t.integer :minimum_age
       t.text :tags, array: true, :default => []
 
       t.timestamps

@@ -3,23 +3,23 @@ class Api::V1::AccountsController < Api::V1::ApiController
 
   # GET /accounts/:username
   def show
-    render json: @account, status: :ok
+    render json: @account, current_user: current_user, status: :ok
   end
 
-  # GET /accounts/:uuid/followers
+  # GET /accounts/:username/followers
   def followers
-    render json: @account.followers_by_type('Account'), status: :ok
+    render json: @account.followers_by_type('Account'), current_user: current_user, status: :ok
   end
 
-  # GET /accounts/:uuid/following
+  # GET /accounts/:username/following
   def following
-    render json: @account.following_by_type('Account'), status: :ok
+    render json: @account.following_by_type('Account'), current_user: current_user, status: :ok
   end
 
   private
 
   def account
-    @account = Account.find_by_username!(params[:username])
+    @account = User.find_by_username!(params[:username]).account
   rescue ActiveRecord::RecordNotFound
     render json: { errors: "User #{params[:username]} not found" }, status: :not_found
   end

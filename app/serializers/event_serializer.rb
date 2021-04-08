@@ -2,32 +2,42 @@
 #
 # Table name: events
 #
-#  id           :bigint           not null, primary key
-#  uuid         :uuid             not null
-#  account_id   :bigint
-#  name         :string
-#  description  :text
-#  active       :boolean          default(TRUE)
-#  kind         :string
-#  date         :date
-#  time         :time
-#  tags         :text             default([]), is an Array
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  discarded_at :datetime
+#  id            :bigint           not null, primary key
+#  uuid          :uuid             not null
+#  account_id    :bigint
+#  name          :string
+#  description   :text
+#  active        :boolean          default(TRUE)
+#  privacy       :string
+#  start_date    :date
+#  end_date      :date
+#  start_time    :time
+#  end_time      :time
+#  undefined_end :boolean          default(FALSE)
+#  external_url  :string
+#  minimum_age   :integer
+#  tags          :text             default([]), is an Array
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  discarded_at  :datetime
 #
 
 class EventSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id,
+  attributes :uuid,
              :name,
              :description,
              :images,
             #  :distance,
-             :kind,
-             :date,
-             :time,
+             :privacy,
+             :start_date,
+             :end_date,
+             :start_time,
+             :end_time,
+             :undefined_end,
+             :external_url,
+             :minimum_age,
              :host_avatar,
              :host_name
 
@@ -54,12 +64,20 @@ class EventSerializer < ActiveModel::Serializer
     unit == 'km' ? "#{distance.to_km.ceil(2)}km" : "#{distance.to_mi.ceil(2)}mi"
   end
 
-  def date
-    object.date.strftime('%d/%m/%Y')
+  def start_date
+    object.start_date.strftime('%d/%m/%Y')
   end
 
-  def time
-    object.time.strftime('%H:%M')
+  def end_date
+    object.end_date&.strftime('%d/%m/%Y')
+  end
+
+  def start_time
+    object.start_time.strftime('%H:%M')
+  end
+
+  def end_time
+    object.end_time&.strftime('%H:%M')
   end
 
   def host_avatar

@@ -1,12 +1,12 @@
 class Api::V1::Search::SearchService
   include Rails.application.routes.url_helpers
 
-  def self.call(account, params)
+  def self.call(account, params = {})
     obj = new(account, params)
     obj.run
   end
 
-  def initialize(account, params)
+  def initialize(account, params = {})
     @account = account
     @params = params
     @data = []
@@ -53,7 +53,7 @@ class Api::V1::Search::SearchService
 
   def current_distance(event)
     return nil if @account.localization.latitude.nil?
-    return nil if event.localization&.latitude
+    return nil if event.localization&.latitude.nil?
 
     unit = @account.account_setting.unit
 

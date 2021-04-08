@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_034307) do
+ActiveRecord::Schema.define(version: 2021_03_13_195331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,15 +79,37 @@ ActiveRecord::Schema.define(version: 2021_01_05_034307) do
     t.index ["discarded_at"], name: "index_addresses_on_discarded_at"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_categories_on_discarded_at"
+  end
+
+  create_table "event_categories", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_event_categories_on_category_id"
+    t.index ["event_id"], name: "index_event_categories_on_event_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.bigint "account_id"
     t.string "name"
     t.text "description"
     t.boolean "active", default: true
-    t.string "kind"
-    t.date "date"
-    t.time "time"
+    t.string "privacy"
+    t.date "start_date"
+    t.date "end_date"
+    t.time "start_time"
+    t.time "end_time"
+    t.boolean "undefined_end", default: false
+    t.string "external_url"
+    t.integer "minimum_age"
     t.text "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -133,6 +155,18 @@ ActiveRecord::Schema.define(version: 2021_01_05_034307) do
     t.index ["user_id"], name: "index_password_recoveries_on_user_id"
   end
 
+  create_table "request_categories", force: :cascade do |t|
+    t.bigint "requested_by_id"
+    t.string "name"
+    t.boolean "approved"
+    t.bigint "approved_by_id"
+    t.datetime "approved_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_request_categories_on_discarded_at"
+  end
+
   create_table "users", force: :cascade do |t|
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.string "email"
@@ -151,6 +185,8 @@ ActiveRecord::Schema.define(version: 2021_01_05_034307) do
   add_foreign_key "account_settings", "accounts"
   add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "event_categories", "categories"
+  add_foreign_key "event_categories", "events"
   add_foreign_key "events", "accounts"
   add_foreign_key "password_recoveries", "users"
 end

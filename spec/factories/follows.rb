@@ -14,8 +14,8 @@
 
 FactoryBot.define do
   factory :follow do
-    followable { FactoryBot.create(:account) }
-    follower { FactoryBot.create(:account) }
+    followable { FactoryBot.create(:user).account }
+    follower { FactoryBot.create(:user).account }
     blocked { false }
   end
 end

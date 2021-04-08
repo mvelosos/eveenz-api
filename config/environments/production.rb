@@ -56,6 +56,17 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Mailer service settings
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :authentication => :plain,
+    :address => ENV['MAILGUN_SMTP_SERVER'],
+    :port => ENV['MAILGUN_SMTP_PORT'],
+    :domain => ENV['MAILGUN_DOMAIN'],
+    :user_name => ENV['MAILGUN_SMTP_LOGIN'],
+    :password => ENV['MAILGUN_SMTP_PASSWORD']
+  }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
@@ -84,5 +95,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Add default host to production enviroment
-  routes.default_url_options[:host] = 'eveenz.herokuapp.com'
+  routes.default_url_options[:host]   = 'eveenz-production.herokuapp.com'
+  config.action_controller.asset_host = 'https://eveenz-production.herokuapp.com'
+  config.action_mailer.asset_host     = 'https://eveenz-production.herokuapp.com'
 end

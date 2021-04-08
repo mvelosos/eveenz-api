@@ -5,7 +5,8 @@ ruby '2.7.2'
 
 gem 'active_model_serializers', '~> 0.10.12'
 gem 'active_storage_base64', '~> 1.1.0'
-gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
+gem 'acts_as_follower', github: 'mvelosos/acts_as_follower', branch: 'master'
+gem 'apple_auth', '~> 1.0'
 gem 'awrence'
 gem 'aws-sdk-s3'
 gem 'bcrypt', '~> 3.1.16'
@@ -13,7 +14,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'config'
 gem 'discard', '~> 1.2'
 gem 'faraday'
-gem 'figaro', '~> 1.2'
 gem 'haversine', '~> 0.3.2'
 gem 'jwt'
 gem 'kaminari'
@@ -31,6 +31,7 @@ gem 'sentry-raven'
 gem 'sidekiq'
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-byebug'
@@ -47,6 +48,7 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner-active_record'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'simplecov', require: false
 end

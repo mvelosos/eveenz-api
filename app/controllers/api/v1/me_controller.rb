@@ -1,6 +1,7 @@
 class Api::V1::MeController < Api::V1::ApiController
   before_action :me
 
+  # GET /me
   def show
     render json: @account, serializer: MeSerializer, status: :ok
   end
@@ -37,6 +38,7 @@ class Api::V1::MeController < Api::V1::ApiController
       :name,
       :bio,
       :popularity,
+      userAttributes: %i[email username],
       localizationAttributes: %i[latitude longitude],
       addressAttributes: %i[street number complement neighborhood zipCode city state country]
     ).to_unsafe_h.to_snake_keys

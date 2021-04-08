@@ -13,6 +13,7 @@
 :queues:
   - default
   - mailers
+  - push_notifications
 
 # you can override concurrency based on environment
 production:

@@ -16,13 +16,6 @@ FactoryBot.define do
   factory :localization do
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
-
-    factory :account_localization do
-      localizable { FactoryBot.create(:account) }
-    end
-
-    factory :event_localization do
-      localizable { FactoryBot.create(:event) }
-    end
+    localizable { nil }
   end
 end

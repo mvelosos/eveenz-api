@@ -14,21 +14,28 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :events, only: [:index, :create]
+      resources :categories, only: [:index]
+      resources :events, param: :uuid, only: [:index, :create, :update]
       resources :search, only: [:index]
-      resources :users, only: %i[create]
+      resources :users, only: %i[create] do
+        collection do
+          get :username_available
+        end
+      end
 
       resources :auth, only: [] do
         collection do
           post :login
           post :facebook
+          post :google
+          post :apple
         end
       end
 
       resource :me, controller: :me, only: %i[show update] do
-        resource :events, only: [] do
-          get :mine
-          get :confirmed
+        collection do
+          get '/events/mine', to: 'me#mine'
+          get '/events/confirmed', to: 'me#confirmed'
         end
         resource :follows, only: [] do
           post   '/accounts/:uuid', to: 'follows#follow_account'
@@ -42,6 +49,11 @@ Rails.application.routes.draw do
         post :forgot
         post :verify_code
         post :recover_password
+      end
+
+      resources :request_categories, only: %i[create]
+
+      resource :webhooks, only: [] do
       end
 
       get '/*a', to: 'api#not_found'

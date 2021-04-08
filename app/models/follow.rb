@@ -21,6 +21,14 @@ class Follow < ActiveRecord::Base
   belongs_to :followable, polymorphic: true
   belongs_to :follower,   polymorphic: true
 
+  after_create :account_follow_notification, if: -> { followable_type == 'Account' }
+
+  def account_follow_notification
+    return unless Rails.env.production?
+
+    FollowNotificationJob.perform_later(self)
+  end
+
   def block!
     update_attribute(:blocked, true)
   end

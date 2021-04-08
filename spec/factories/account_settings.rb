@@ -13,7 +13,6 @@
 
 FactoryBot.define do
   factory :account_setting do
-    account { FactoryBot.create(:account) }
     distance_radius { 1.5 }
     unit { 'km' }
   end

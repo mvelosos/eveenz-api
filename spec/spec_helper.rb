@@ -1,6 +1,11 @@
+require 'database_cleaner/active_record'
 require 'simplecov'
 
 SimpleCov.start 'rails'
+
+Dir["#{File.dirname(__FILE__)}/../spec/support/auth/*.rb"].sort.each { |f| require f }
+Dir["#{File.dirname(__FILE__)}/../spec/support/*.rb"].sort.each { |f| require f }
+Dir["#{File.dirname(__FILE__)}/../spec/support/example_groups/*.rb"].sort.each { |f| require f }
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -8,12 +13,38 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
+  config.include Requests::DisableFlashSweeping, type: :controller
+  config.include Requests::JsonHelpers, type: :controller
+  config.include Auth::SecurityHelpers, type: :controller
+  config.include Auth::FacebookTestToken
+
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.order = :random
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  config.after(:each) do
+    ActiveJob::Base.queue_adapter.enqueued_jobs = []
+    ActiveJob::Base.queue_adapter.performed_jobs = []
+  end
 
   Kernel.srand config.seed
 end
