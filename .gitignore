@@ -33,3 +33,4 @@ config/environments/*.local.yml
 .env
 
 coverage
+/.env
