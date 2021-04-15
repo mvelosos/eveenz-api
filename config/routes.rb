@@ -53,9 +53,6 @@ Rails.application.routes.draw do
 
       resources :request_categories, only: %i[create]
 
-      resource :webhooks, only: [] do
-      end
-
       get '/*a', to: 'api#not_found'
     end
   end
