@@ -170,5 +170,12 @@ RSpec.describe Api::V1::EventsController, type: :controller do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    context 'when the uuid is invalid' do
+      it 'should return not found' do
+        put :update, params: { uuid: 'foobar', event: @event_params[:event].deep_merge(name: 'foobar123') }
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 end
