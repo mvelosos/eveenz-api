@@ -20,6 +20,15 @@ RSpec.describe Follow, type: :model do
     it { is_expected.to belong_to :follower }
   end
 
+  context 'callbacks' do
+    it '#account_follow_notification' do
+      @user1 = FactoryBot.create(:user)
+      @user2 = FactoryBot.create(:user)
+      @follow = FactoryBot.create(:follow, followable: @user1, follower: @user2)
+      expect { FollowNotificationJob.perform_later(@follow) }.to have_enqueued_job.with(@follow).on_queue('push_notifications')
+    end
+  end
+
   context 'methods' do
     it 'block!' do
       follow = FactoryBot.create(:follow)
