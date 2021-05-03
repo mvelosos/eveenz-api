@@ -29,7 +29,7 @@ class EventSerializer < ActiveModel::Serializer
              :name,
              :description,
              :images,
-            #  :distance,
+             :distance,
              :privacy,
              :start_date,
              :end_date,
@@ -53,7 +53,7 @@ class EventSerializer < ActiveModel::Serializer
   end
 
   def distance
-    account = instance_options[:account]
+    account = current_user.account
     unit    = account.account_setting.unit
 
     distance = Haversine.distance(account.localization.latitude,
@@ -62,22 +62,6 @@ class EventSerializer < ActiveModel::Serializer
                                   object.localization.longitude)
 
     unit == 'km' ? "#{distance.to_km.ceil(2)}km" : "#{distance.to_mi.ceil(2)}mi"
-  end
-
-  def start_date
-    object.start_date.strftime('%d/%m/%Y')
-  end
-
-  def end_date
-    object.end_date&.strftime('%d/%m/%Y')
-  end
-
-  def start_time
-    object.start_time.strftime('%H:%M')
-  end
-
-  def end_time
-    object.end_time&.strftime('%H:%M')
   end
 
   def host_avatar

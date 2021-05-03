@@ -15,7 +15,7 @@ class Api::V1::MeController < Api::V1::ApiController
   # GET /me/events/mine
   def mine
     @events = Event.where(account: @account)
-    render json: @events, each_serializer: EventSerializer, account: @account, status: :ok
+    api_list_render(@events, each_serializer: EventSerializer)
   end
 
   # GET /me/events/confirmed
@@ -24,7 +24,7 @@ class Api::V1::MeController < Api::V1::ApiController
                    .where('follows.followable_type = ?', Event)
                    .where('follows.follower_type = ?', Account)
                    .where('follows.follower_id = ?', @account)
-    render json: @events, each_serializer: EventSerializer, account: @account, status: :ok
+    api_list_render(@events, each_serializer: EventSerializer)
   end
 
   private
