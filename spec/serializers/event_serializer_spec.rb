@@ -25,11 +25,15 @@ require 'rails_helper'
 
 describe EventSerializer, type: :serializer do
   before do
-    @event = FactoryBot.create(:event)
+    @current_user = FactoryBot.create(:user)
+    @current_user.account.localization.update(latitude: Faker::Address.latitude, longitude: Faker::Address.longitude)
+    @event = FactoryBot.create(:event, account: @current_user.account)
+    FactoryBot.create(:localization, localizable: @event)
   end
 
   let(:resource_key) { :event }
   let(:resource) { @event }
+  let(:serializer_options) { { scope: @current_user } }
 
   let(:expected_fields) do
     %i[
@@ -49,6 +53,7 @@ describe EventSerializer, type: :serializer do
       undefinedEnd
       externalUrl
       minimumAge
+      distance
     ].sort
   end
 end

@@ -53,7 +53,7 @@ class EventSerializer < ActiveModel::Serializer
   end
 
   def distance
-    account = current_user.account
+    account = scope.account
     unit    = account.account_setting.unit
 
     distance = Haversine.distance(account.localization.latitude,
