@@ -9,6 +9,8 @@ class Api::V1::ApiController < ApplicationController
   before_action :authenticate_by_token
   before_action :sentry_context
 
+  serialization_scope :current_user
+
   attr_accessor :current_user
 
   def not_found
