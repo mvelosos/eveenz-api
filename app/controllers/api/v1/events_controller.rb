@@ -47,7 +47,7 @@ class Api::V1::EventsController < Api::V1::ApiController
       :externalUrl,
       :minimumAge,
       :privacy,
-      addressAttributes: %i[street number neighborhood city state country zipCode],
+      addressAttributes: %i[street number complement neighborhood city state country zipCode],
       localizationAttributes: %i[latitude longitude],
       eventCategoriesAttributes: %i[id categoryId _destroy],
       images: %i[data filename]
