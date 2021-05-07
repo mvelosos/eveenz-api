@@ -58,8 +58,14 @@ RSpec.describe Api::V1::MeController, type: :controller do
     end
 
     context 'when user has created events' do
-      it 'should return an array of events' do
+      before do
         @events = FactoryBot.create_list(:event, 5, account: @current_user.account)
+        @events.each do |event|
+          FactoryBot.create(:localization, localizable: event)
+        end
+      end
+
+      it 'should return an array of events' do
         get :mine
         expect(json['events'].count).to eq(5)
         expect(response).to have_http_status(:ok)
@@ -80,11 +86,12 @@ RSpec.describe Api::V1::MeController, type: :controller do
       before do
         @events = FactoryBot.create_list(:event, 12, account: @current_user.account)
         @events.each do |event|
+          FactoryBot.create(:localization, localizable: event)
           @current_user.account.follow(event)
         end
       end
 
-      it 'should return an empty array' do
+      it 'should return an array of events' do
         get :confirmed
         expect(json['events'].count).to eq(12)
         expect(response).to have_http_status(:ok)
