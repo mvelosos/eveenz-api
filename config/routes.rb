@@ -32,10 +32,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resource :me, controller: :me, only: %i[show update] do
+      resource :profile, controller: :profile, only: %i[show update] do
         collection do
-          get '/events/mine', to: 'me#mine'
-          get '/events/confirmed', to: 'me#confirmed'
+          get '/events/mine', to: 'profile#mine'
+          get '/events/confirmed', to: 'profile#confirmed'
         end
         resource :follows, only: [] do
           post   '/accounts/:uuid', to: 'follows#follow_account'

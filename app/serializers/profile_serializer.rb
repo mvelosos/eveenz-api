@@ -14,7 +14,7 @@
 #  discarded_at :datetime
 #
 
-class MeSerializer < ActiveModel::Serializer
+class ProfileSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
   attributes :uuid,

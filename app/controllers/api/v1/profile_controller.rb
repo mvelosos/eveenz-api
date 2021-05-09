@@ -1,15 +1,15 @@
-class Api::V1::MeController < Api::V1::ApiController
-  before_action :me
+class Api::V1::ProfileController < Api::V1::ApiController
+  before_action :profile
 
   # GET /me
   def show
-    render json: @account, serializer: MeSerializer, status: :ok
+    render json: @account, serializer: ProfileSerializer, status: :ok
   end
 
   # PUT/PATCH /me
   def update
     @account.update(account_params)
-    respond_with_object_or_message_status(@account, ApiSuccessSerializer, root: 'me')
+    respond_with_object_or_message_status(@account, ApiSuccessSerializer, root: 'profile')
   end
 
   # GET /me/events/mine
@@ -29,7 +29,7 @@ class Api::V1::MeController < Api::V1::ApiController
 
   private
 
-  def me
+  def profile
     @account = current_user.account
   end
 

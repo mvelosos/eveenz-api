@@ -14,14 +14,14 @@
 #
 require 'rails_helper'
 
-describe MeSerializer, type: :serializer do
+describe ProfileSerializer, type: :serializer do
   before do
     @account = FactoryBot.create(:user).account
   end
 
   let(:resource_key) { :account }
   let(:resource) { @account }
-  let(:serializer_name) { 'Me' }
+  let(:serializer_name) { 'Profile' }
 
   let(:expected_fields) do
     %i[
