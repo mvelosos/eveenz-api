@@ -1,24 +1,24 @@
 class Api::V1::ProfileController < Api::V1::ApiController
   before_action :profile
 
-  # GET /me
+  # GET /profile
   def show
     render json: @account, serializer: ProfileSerializer, status: :ok
   end
 
-  # PUT/PATCH /me
+  # PUT/PATCH /profile
   def update
     @account.update(account_params)
     respond_with_object_or_message_status(@account, ApiSuccessSerializer, root: 'profile')
   end
 
-  # GET /me/events/mine
+  # GET /profile/events/mine
   def mine
     @events = Event.where(account: @account)
     api_list_render(@events, each_serializer: EventSerializer)
   end
 
-  # GET /me/events/confirmed
+  # GET /profile/events/confirmed
   def confirmed
     @events = Event.joins('INNER JOIN follows ON events.id = follows.followable_id')
                    .where('follows.followable_type = ?', Event)
