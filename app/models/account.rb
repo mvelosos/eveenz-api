@@ -32,8 +32,8 @@ class Account < ApplicationRecord
   accepts_nested_attributes_for :address,      update_only: true
   accepts_nested_attributes_for :localization, update_only: true
 
-  validates :name, length: { minimum: 0, maximum: 60 }, allow_blank: true
-  validates :bio,  length: { minimum: 0, maximum: 500 }, allow_blank: true
+  validates :name, length: { minimum: 0, maximum: 30 }
+  validates :bio,  length: { minimum: 0, maximum: 150 }, allow_blank: true
 
   validates_associated :address,         on: :create
   validates_associated :localization,    on: :create

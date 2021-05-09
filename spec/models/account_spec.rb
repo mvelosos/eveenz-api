@@ -27,8 +27,8 @@ RSpec.describe Account, type: :model do
     it { is_expected.to accept_nested_attributes_for(:address).update_only(true) }
     it { is_expected.to accept_nested_attributes_for(:localization).update_only(true) }
 
-    it { is_expected.to validate_length_of(:name).is_at_least(0).is_at_most(60).allow_blank }
-    it { is_expected.to validate_length_of(:bio).is_at_least(0).is_at_most(500).allow_blank }
+    it { is_expected.to validate_length_of(:name).is_at_least(0).is_at_most(30).allow_blank }
+    it { is_expected.to validate_length_of(:bio).is_at_least(0).is_at_most(150).allow_blank }
   end
 
   context 'callbacks' do

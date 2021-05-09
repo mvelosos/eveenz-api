@@ -18,6 +18,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(response).to have_http_status(:created)
       end
 
+      it 'should create a user and user should have name equals username' do
+        post :create, params: @user_params
+        created_user = User.find_by_username(@user_params[:user][:username])
+        expect(response).to have_http_status(:created)
+        expect(created_user.account.name).to eq(@user_params[:user][:username])
+      end
+
       it 'should create a user and user should have associations created' do
         post :create, params: { user: { email: 'foo@bar.com', username: 'foo', password: 'foo123' } }
         expect(response).to have_http_status(:created)

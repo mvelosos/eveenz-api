@@ -15,7 +15,15 @@ class Api::V1::Users::NewUserService
     user.account.build_account_setting
     user.account.build_address
     user.account.build_localization
+    user.account.name = @user_params['username']
 
+    user
+  end
+
+  private
+
+  def define_name(user)
+    user.account.name = @user_params[:username]
     user
   end
 end
