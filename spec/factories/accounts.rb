@@ -15,7 +15,7 @@
 
 FactoryBot.define do
   factory :account do
-    name { Faker::Name.name }
+    name { "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
     bio { Faker::Lorem.sentence(word_count: 5) }
     popularity { 1 }
   end
