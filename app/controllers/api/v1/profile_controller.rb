@@ -38,6 +38,7 @@ class Api::V1::ProfileController < Api::V1::ApiController
       :name,
       :bio,
       :popularity,
+      avatar: %i[data filename],
       userAttributes: %i[email username],
       localizationAttributes: %i[latitude longitude],
       addressAttributes: %i[street number complement neighborhood zipCode city state country]
