@@ -15,7 +15,7 @@ class Api::V1::ProfileController < Api::V1::ApiController
   # GET /profile/events/mine
   def mine
     @events = Event.where(account: @account)
-    api_list_render(@events, each_serializer: EventSerializer)
+    api_list_render(@events.with_attached_images, each_serializer: EventSerializer)
   end
 
   # GET /profile/events/confirmed

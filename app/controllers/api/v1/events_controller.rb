@@ -47,10 +47,10 @@ class Api::V1::EventsController < Api::V1::ApiController
       :externalUrl,
       :minimumAge,
       :privacy,
+      images: %i[data filename],
       addressAttributes: %i[street number complement neighborhood city state country zipCode],
       localizationAttributes: %i[latitude longitude],
-      eventCategoriesAttributes: %i[id categoryId _destroy],
-      images: %i[data filename]
+      eventCategoriesAttributes: %i[id categoryId _destroy]
     ).to_unsafe_h.to_snake_keys
   end
 end
