@@ -31,6 +31,7 @@ class Api::V1::Auth::AppleLoginService
       @user = Api::V1::Users::NewUserService.call(user_params)
       @user.uid = @user_id
       @user.provider = User::APPLE_PROVIDER
+      @user.account.name = @user.username
     end
 
     if @user.new_record?

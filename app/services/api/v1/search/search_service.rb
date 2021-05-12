@@ -45,7 +45,7 @@ class Api::V1::Search::SearchService
         uuid: event.uuid,
         type: 'event',
         name: event.name,
-        image_url: event.images&.first ? rails_blob_url(event.image.first) : nil,
+        image_url: event.images&.first ? rails_blob_url(event.images.first) : nil,
         distance: current_distance(event)
       }
     end
