@@ -158,12 +158,12 @@ GEM
       dry-equalizer (~> 0.2)
       dry-initializer (~> 3.0)
       dry-schema (~> 1.5, >= 1.5.2)
-    elasticsearch (7.10.1)
-      elasticsearch-api (= 7.10.1)
-      elasticsearch-transport (= 7.10.1)
-    elasticsearch-api (7.10.1)
+    elasticsearch (7.12.0)
+      elasticsearch-api (= 7.12.0)
+      elasticsearch-transport (= 7.12.0)
+    elasticsearch-api (7.12.0)
       multi_json
-    elasticsearch-transport (7.10.1)
+    elasticsearch-transport (7.12.0)
       faraday (~> 1)
       multi_json
     erubi (1.10.0)
@@ -332,7 +332,7 @@ GEM
       parser (>= 2.7.1.5)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.4)
-    searchkick (4.4.2)
+    searchkick (4.4.4)
       activemodel (>= 5)
       elasticsearch (>= 6)
       hashie
