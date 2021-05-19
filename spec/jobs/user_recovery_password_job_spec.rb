@@ -16,7 +16,7 @@ RSpec.describe UserRecoveryPasswordJob, type: :job do
                                                                                    .with('PasswordsMailer',
                                                                                          'send_recovery_code',
                                                                                          'deliver_now',
-                                                                                         @user)
+                                                                                         args: [@user])
     end
   end
 end

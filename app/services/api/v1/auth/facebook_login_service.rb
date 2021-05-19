@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class Api::V1::Auth::FacebookLoginService
   def self.call(access_token)
     obj = new(access_token)

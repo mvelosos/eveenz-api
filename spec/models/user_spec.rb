@@ -70,7 +70,7 @@ RSpec.describe User, type: :model do
                                                                                .with('PasswordsMailer',
                                                                                      'password_successfully_updated',
                                                                                      'deliver_now',
-                                                                                     user)
+                                                                                     args: [user])
       end
     end
   end
