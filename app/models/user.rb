@@ -36,7 +36,7 @@ class User < ApplicationRecord
   has_one :account, dependent: :destroy
   has_one :password_recovery, dependent: :destroy
 
-  validates :username, presence: true, uniqueness: true, case_sensitive: false
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :username, format: { with: /\A[a-zA-Z0-9_.]+\Z/ }
   validates :username, length: { minimum: 3, maximum: 25 }, allow_blank: false
   validates :email,    presence: true, uniqueness: true

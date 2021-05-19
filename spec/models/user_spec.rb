@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_one :password_recovery }
 
     it { is_expected.to validate_presence_of(:username) }
-    it { is_expected.to validate_uniqueness_of(:username) }
+    it { is_expected.to validate_uniqueness_of(:username).case_insensitive }
     it { is_expected.to allow_value('foo_bar').for(:username) }
     it { is_expected.to allow_value('foo.bar').for(:username) }
     it { is_expected.to allow_value('foobar123').for(:username) }
