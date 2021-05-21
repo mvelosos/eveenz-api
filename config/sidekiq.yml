@@ -14,6 +14,7 @@
   - default
   - mailers
   - push_notifications
+  - active_storage_analysis
 
 # you can override concurrency based on environment
 production:
