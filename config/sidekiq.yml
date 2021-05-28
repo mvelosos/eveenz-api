@@ -15,6 +15,7 @@
   - mailers
   - push_notifications
   - active_storage_analysis
+  - active_storage_purge
 
 # you can override concurrency based on environment
 production:
