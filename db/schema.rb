@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_004229) do
+ActiveRecord::Schema.define(version: 2021_06_23_024351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +159,8 @@ ActiveRecord::Schema.define(version: 2021_06_23_004229) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "discarded_at"
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_notifications_on_account_id"
     t.index ["discarded_at"], name: "index_notifications_on_discarded_at"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
   end
@@ -208,5 +210,6 @@ ActiveRecord::Schema.define(version: 2021_06_23_004229) do
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
   add_foreign_key "events", "accounts"
+  add_foreign_key "notifications", "accounts"
   add_foreign_key "password_recoveries", "users"
 end
