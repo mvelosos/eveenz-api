@@ -79,4 +79,10 @@ Rails.application.configure do
 
   # Ngrok development config
   config.hosts << /[a-z0-9]+\.ngrok\.io/
+
+  # Action Cable allowed origins
+  # config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
+
+  # Allow all origins for Action Cable
+  config.action_cable.disable_request_forgery_protection = true
 end
