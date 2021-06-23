@@ -24,6 +24,11 @@ class Follow < ActiveRecord::Base
   after_create :account_follow_notification, if: -> { followable_type == 'Account' }
 
   def account_follow_notification
+    Notification.create(account_id: follower.id,
+                        notifiable_type: 'Account',
+                        notifiable_id: followable.id,
+                        notification_type: Notification::FOLLOW_TYPE)
+
     return unless Rails.env.production?
 
     FollowPushNotificationJob.perform_later(self)
