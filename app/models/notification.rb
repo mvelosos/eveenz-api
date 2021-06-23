@@ -10,6 +10,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  discarded_at      :datetime
+#  account_id        :bigint           not null
 #
 class Notification < ApplicationRecord
   include Discard::Model
@@ -19,6 +20,7 @@ class Notification < ApplicationRecord
     FOLLOW_TYPE
   ].freeze
 
+  belongs_to :account
   belongs_to :notifiable, polymorphic: true
 
   validates :notification_type, presence: true, inclusion: { in: NOTIFICATION_TYPES }
