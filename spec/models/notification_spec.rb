@@ -9,6 +9,7 @@
 #  viewed            :boolean          default(FALSE)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  discarded_at      :datetime
 #
 require 'rails_helper'
 

@@ -9,6 +9,7 @@
 #  viewed            :boolean          default(FALSE)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  discarded_at      :datetime
 #
 FactoryBot.define do
   factory :notification do

@@ -7,5 +7,8 @@ class CreateNotifications < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    add_column :notifications, :discarded_at, :datetime
+    add_index :notifications, :discarded_at
   end
 end

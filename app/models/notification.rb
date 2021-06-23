@@ -9,8 +9,11 @@
 #  viewed            :boolean          default(FALSE)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  discarded_at      :datetime
 #
 class Notification < ApplicationRecord
+  include Discard::Model
+
   FOLLOW_TYPE = 'follow'.freeze
   NOTIFICATION_TYPES = [
     FOLLOW_TYPE
