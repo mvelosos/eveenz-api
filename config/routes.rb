@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
       resources :categories, only: [:index]
       resources :events, param: :uuid, only: [:index, :create, :update]
+      resources :notifications, only: [:index]
       resources :search, only: [:index]
+
       resources :users, only: %i[create] do
         collection do
           get :username_available
