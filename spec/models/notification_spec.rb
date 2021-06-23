@@ -10,6 +10,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  discarded_at      :datetime
+#  account_id        :bigint           not null
 #
 require 'rails_helper'
 
