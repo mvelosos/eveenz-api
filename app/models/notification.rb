@@ -22,4 +22,6 @@ class Notification < ApplicationRecord
   belongs_to :notifiable, polymorphic: true
 
   validates :notification_type, presence: true, inclusion: { in: NOTIFICATION_TYPES }
+
+  after_create { NotificationBroadcastJob.perform_later(self) }
 end
