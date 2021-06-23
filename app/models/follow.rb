@@ -26,7 +26,7 @@ class Follow < ActiveRecord::Base
   def account_follow_notification
     return unless Rails.env.production?
 
-    FollowNotificationJob.perform_later(self)
+    FollowPushNotificationJob.perform_later(self)
   end
 
   def block!

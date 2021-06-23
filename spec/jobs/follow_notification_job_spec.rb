@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FollowNotificationJob, type: :job do
+RSpec.describe FollowPushNotificationJob, type: :job do
   describe '#perform_later' do
     before do
       @user1 = FactoryBot.create(:user)
@@ -9,7 +9,7 @@ RSpec.describe FollowNotificationJob, type: :job do
     end
 
     it 'send follow push notification' do
-      expect { FollowNotificationJob.perform_later(@follow) }.to have_enqueued_job.with(@follow).on_queue('push_notifications')
+      expect { FollowPushNotificationJob.perform_later(@follow) }.to have_enqueued_job.with(@follow).on_queue('push_notifications')
     end
   end
 end
