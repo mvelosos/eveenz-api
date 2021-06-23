@@ -22,6 +22,7 @@ RSpec.describe Account, type: :model do
     it { is_expected.to have_one :address }
     it { is_expected.to have_one :localization }
     it { is_expected.to have_many :events }
+    it { is_expected.to have_many :notifications }
     it { is_expected.to have_one_attached :avatar }
 
     it { is_expected.to accept_nested_attributes_for(:address).update_only(true) }

@@ -27,6 +27,7 @@ class Account < ApplicationRecord
   has_one  :localization,         as:  :localizable, dependent: :destroy
   has_many :events,               dependent: :destroy
   has_many :requested_categories, class_name: 'RequestCategory', foreign_key: 'requested_by_id'
+  has_many :notifications, as: :notifiable
 
   accepts_nested_attributes_for :user,         update_only: true
   accepts_nested_attributes_for :address,      update_only: true
