@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_19_021754) do
+ActiveRecord::Schema.define(version: 2021_06_23_002835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,16 @@ ActiveRecord::Schema.define(version: 2021_05_19_021754) do
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_localizations_on_discarded_at"
     t.index ["localizable_type", "localizable_id"], name: "index_localizations_on_localizable_type_and_localizable_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "notifiable_type", null: false
+    t.bigint "notifiable_id", null: false
+    t.string "notification_type"
+    t.boolean "viewed", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
   end
 
   create_table "password_recoveries", force: :cascade do |t|
