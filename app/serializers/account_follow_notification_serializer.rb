@@ -13,10 +13,17 @@
 #  discarded_at :datetime
 #
 class AccountFollowNotificationSerializer < ActiveModel::Serializer
+  include Rails.application.routes.url_helpers
+
   attributes :name,
-             :username
+             :username,
+             :avatar_url
 
   def username
     object.user.username
+  end
+
+  def avatar_url
+    rails_blob_url(object.avatar)
   end
 end

@@ -15,13 +15,22 @@
 class NotificationSerializer < ActiveModel::Serializer
   attributes :notification_type,
              :follower,
-             :created_at
+             :created_at,
+             :followed_by_me
 
   def follower
     return nil unless object.notification_type == Notification::FOLLOW_TYPE
-    return nil unless object.notifiable_type == 'Account'
 
     account = Account.find(object.notifiable_id)
-    ActiveModelSerializers::SerializableResource.new(account, serializer: AccountFollowNotificationSerializer)
+    ActiveModelSerializers::SerializableResource.new(account,
+                                                     serializer: AccountFollowNotificationSerializer,
+                                                     adapter: :attributes)
+  end
+
+  def followed_by_me
+    return nil unless object.notification_type == Notification::FOLLOW_TYPE
+
+    account = Account.find(object.notifiable_id)
+    account.followed_by?(scope.account)
   end
 end
