@@ -22,6 +22,7 @@ class Follow < ActiveRecord::Base
   belongs_to :follower,   polymorphic: true
 
   after_create :account_follow_notification, if: -> { followable_type == 'Account' }
+  after_destroy :destroy_account_follow_notification
 
   def account_follow_notification
     Notification.create(account_id: followable.id,
@@ -32,6 +33,14 @@ class Follow < ActiveRecord::Base
     return unless Rails.env.production?
 
     FollowPushNotificationJob.perform_later(self)
+  end
+
+  def destroy_account_follow_notification
+    notifications = Notification.where(account_id: followable_id,
+                                       notifiable_id: follower_id,
+                                       notifiable_type: 'Account',
+                                       notification_type: Notification::FOLLOW_TYPE)
+    notifications.destroy_all if notifications.exists?
   end
 
   def block!

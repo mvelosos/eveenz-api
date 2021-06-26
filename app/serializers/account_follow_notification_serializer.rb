@@ -15,7 +15,8 @@
 class AccountFollowNotificationSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :name,
+  attributes :uuid,
+             :name,
              :username,
              :avatar_url
 
