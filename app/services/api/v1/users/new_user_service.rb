@@ -19,11 +19,4 @@ class Api::V1::Users::NewUserService
 
     user
   end
-
-  private
-
-  def define_name(user)
-    user.account.name = @user_params[:username]
-    user
-  end
 end
