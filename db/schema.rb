@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_024351) do
+ActiveRecord::Schema.define(version: 2021_06_23_002835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2021_06_23_024351) do
     t.bigint "account_id"
     t.float "distance_radius", default: 10.0, null: false
     t.string "unit", default: "km", null: false
+    t.boolean "private", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
@@ -82,7 +83,7 @@ ActiveRecord::Schema.define(version: 2021_06_23_024351) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
-    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
     t.index ["discarded_at"], name: "index_addresses_on_discarded_at"
   end
 
@@ -134,9 +135,9 @@ ActiveRecord::Schema.define(version: 2021_06_23_024351) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["followable_id", "followable_type"], name: "fk_followables"
-    t.index ["followable_type", "followable_id"], name: "index_follows_on_followable_type_and_followable_id"
+    t.index ["followable_type", "followable_id"], name: "index_follows_on_followable"
     t.index ["follower_id", "follower_type"], name: "fk_follows"
-    t.index ["follower_type", "follower_id"], name: "index_follows_on_follower_type_and_follower_id"
+    t.index ["follower_type", "follower_id"], name: "index_follows_on_follower"
   end
 
   create_table "localizations", force: :cascade do |t|
@@ -148,10 +149,11 @@ ActiveRecord::Schema.define(version: 2021_06_23_024351) do
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_localizations_on_discarded_at"
-    t.index ["localizable_type", "localizable_id"], name: "index_localizations_on_localizable_type_and_localizable_id"
+    t.index ["localizable_type", "localizable_id"], name: "index_localizations_on_localizable"
   end
 
   create_table "notifications", force: :cascade do |t|
+    t.bigint "account_id"
     t.string "notifiable_type", null: false
     t.bigint "notifiable_id", null: false
     t.string "notification_type"
@@ -159,7 +161,6 @@ ActiveRecord::Schema.define(version: 2021_06_23_024351) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "discarded_at"
-    t.bigint "account_id", null: false
     t.index ["account_id"], name: "index_notifications_on_account_id"
     t.index ["discarded_at"], name: "index_notifications_on_discarded_at"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
@@ -196,7 +197,7 @@ ActiveRecord::Schema.define(version: 2021_06_23_024351) do
     t.string "uid"
     t.string "provider", default: "api"
     t.boolean "active", default: true
-    t.boolean "verified", default: true
+    t.boolean "verified", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"

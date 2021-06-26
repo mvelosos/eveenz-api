@@ -10,7 +10,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :uid
       t.string :provider, default: 'api'
       t.boolean :active, default: true
-      t.boolean :verified, default: true
+      t.boolean :verified, default: false
 
       t.timestamps
     end

@@ -47,13 +47,18 @@ class User < ApplicationRecord
 
   validates_associated :account, on: :create
 
-  before_save  :downcase_username
+  before_save :downcase_username
+  before_create :set_verified
   after_update :password_successfully_updated_mailer, if: :saved_change_to_password_digest?
 
   private
 
   def downcase_username
     self.username = username.downcase if username.present?
+  end
+
+  def set_verified
+    self.verified = true
   end
 
   def password_successfully_updated_mailer
