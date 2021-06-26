@@ -28,6 +28,7 @@ class Account < ApplicationRecord
 
   has_one_base64_attached :avatar
 
+  # accepts_nested_attributes_for :account_setting, update_only: true
   accepts_nested_attributes_for :user,            update_only: true
   accepts_nested_attributes_for :address,         update_only: true
   accepts_nested_attributes_for :localization,    update_only: true
