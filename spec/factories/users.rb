@@ -10,7 +10,7 @@
 #  uid             :string
 #  provider        :string           default("api")
 #  active          :boolean          default(TRUE)
-#  verified        :boolean          default(TRUE)
+#  verified        :boolean          default(FALSE)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  discarded_at    :datetime

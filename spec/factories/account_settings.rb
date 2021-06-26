@@ -6,6 +6,7 @@
 #  account_id      :bigint
 #  distance_radius :float            default(10.0), not null
 #  unit            :string           default("km"), not null
+#  private         :boolean          default(FALSE)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  discarded_at    :datetime

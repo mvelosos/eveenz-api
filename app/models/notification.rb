@@ -3,6 +3,7 @@
 # Table name: notifications
 #
 #  id                :bigint           not null, primary key
+#  account_id        :bigint
 #  notifiable_type   :string           not null
 #  notifiable_id     :bigint           not null
 #  notification_type :string
@@ -10,7 +11,6 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  discarded_at      :datetime
-#  account_id        :bigint           not null
 #
 class Notification < ApplicationRecord
   include Discard::Model
