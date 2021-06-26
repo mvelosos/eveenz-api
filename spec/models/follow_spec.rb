@@ -18,14 +18,31 @@ RSpec.describe Follow, type: :model do
   context 'associations and validations' do
     it { is_expected.to belong_to :followable }
     it { is_expected.to belong_to :follower }
+
+    it { is_expected.to validate_presence_of(:followable_type) }
+    it { is_expected.to validate_inclusion_of(:followable_type).in_array(Follow::ALLOWED_TYPES) }
+    it { is_expected.to validate_presence_of(:follower_type) }
+    it { is_expected.to validate_inclusion_of(:follower_type).in_array(Follow::ALLOWED_TYPES) }
   end
 
   context 'callbacks' do
     it '#account_follow_notification' do
       @user1 = FactoryBot.create(:user)
       @user2 = FactoryBot.create(:user)
-      @follow = FactoryBot.create(:follow, followable: @user1, follower: @user2)
-      expect { FollowPushNotificationJob.perform_later(@follow) }.to have_enqueued_job.with(@follow).on_queue('push_notifications')
+      @follow = FactoryBot.create(:follow, followable: @user1.account, follower: @user2.account)
+      expect(Notification.where(account: @user1.account, notifiable: @user2.account)).to exist
+      expect { FollowPushNotificationJob.perform_later(@follow) }.to have_enqueued_job
+        .with(@follow).on_queue('push_notifications')
+    end
+
+    it '#destroy_account_follow_notification' do
+      @user1 = FactoryBot.create(:user)
+      @user2 = FactoryBot.create(:user)
+      @notification = FactoryBot.create(:notification, account: @user1.account, notifiable: @user2.account)
+      expect(@notification.persisted?).to eq(true)
+
+      @notification.destroy!
+      expect(Notification.where(account: @user1.account, notifiable: @user2.account)).to be_empty
     end
   end
 

@@ -17,12 +17,22 @@ class Follow < ActiveRecord::Base
   extend ActsAsFollower::FollowerLib
   extend ActsAsFollower::FollowScopes
 
+  ACCOUNT_TYPE = 'Account'.freeze
+  EVENT_TYPE = 'Event'.freeze
+  ALLOWED_TYPES = [
+    ACCOUNT_TYPE,
+    EVENT_TYPE
+  ].freeze
+
   # NOTE: Follows belong to the "followable" and "follower" interface
   belongs_to :followable, polymorphic: true
   belongs_to :follower,   polymorphic: true
 
   after_create :account_follow_notification, if: -> { followable_type == 'Account' }
   after_destroy :destroy_account_follow_notification
+
+  validates :followable_type, presence: true, inclusion: { in: ALLOWED_TYPES }
+  validates :follower_type, presence: true, inclusion: { in: ALLOWED_TYPES }
 
   def account_follow_notification
     Notification.create(account_id: followable.id,
