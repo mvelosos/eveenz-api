@@ -15,8 +15,8 @@
 class NotificationSerializer < ActiveModel::Serializer
   attributes :notification_type,
              :follower,
-             :created_at,
-             :followed_by_me
+             :followed_by_me,
+             :created_at
 
   def follower
     return nil unless object.notification_type == Notification::FOLLOW_TYPE

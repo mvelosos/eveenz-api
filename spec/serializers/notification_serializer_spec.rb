@@ -12,11 +12,24 @@
 #  discarded_at      :datetime
 #  account_id        :bigint           not null
 #
-FactoryBot.define do
-  factory :notification do
-    account { FactoryBot.create(:user).account }
-    notifiable { FactoryBot.create(:user).account }
-    notification_type { Notification::FOLLOW_TYPE }
-    viewed { false }
+require 'rails_helper'
+
+describe NotificationSerializer, type: :serializer do
+  before do
+    @notification = FactoryBot.create(:notification)
+    @account = FactoryBot.create(:user).account
+  end
+
+  let(:resource_key) { :notification }
+  let(:resource) { @notification }
+  let(:serializer_options) { { scope: @account.user } }
+
+  let(:expected_fields) do
+    %i[
+      notificationType
+      follower
+      followedByMe
+      createdAt
+    ].sort
   end
 end
