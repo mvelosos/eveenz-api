@@ -19,9 +19,6 @@ class Account < ApplicationRecord
   searchkick
 
   belongs_to :user
-
-  has_one_base64_attached :avatar
-
   has_one  :account_setting,      dependent: :destroy
   has_one  :address,              as:  :addressable, dependent: :destroy
   has_one  :localization,         as:  :localizable, dependent: :destroy
@@ -29,9 +26,12 @@ class Account < ApplicationRecord
   has_many :requested_categories, class_name: 'RequestCategory', foreign_key: 'requested_by_id'
   has_many :notifications
 
-  accepts_nested_attributes_for :user,         update_only: true
-  accepts_nested_attributes_for :address,      update_only: true
-  accepts_nested_attributes_for :localization, update_only: true
+  has_one_base64_attached :avatar
+
+  accepts_nested_attributes_for :account_setting, update_only: true
+  accepts_nested_attributes_for :user,            update_only: true
+  accepts_nested_attributes_for :address,         update_only: true
+  accepts_nested_attributes_for :localization,    update_only: true
 
   validates :name, length: { minimum: 0, maximum: 30 }
   validates :bio,  length: { minimum: 0, maximum: 150 }, allow_blank: true
