@@ -1,5 +1,5 @@
 class Api::V1::EventsController < Api::V1::ApiController
-  before_action :event, only: %i[update]
+  before_action :event, only: %i[show update]
 
   # GET /events
   def index
@@ -7,6 +7,11 @@ class Api::V1::EventsController < Api::V1::ApiController
     @events = Api::V1::Events::NearEventsService.call(account)
 
     render json: @events, each_serializer: EventSerializer, account: current_user.account, status: :ok
+  end
+
+  # GET /events/:uuid
+  def show
+    render json: @event, serializer: EventSerializer, account: current_user.account, status: :ok
   end
 
   # POST /events

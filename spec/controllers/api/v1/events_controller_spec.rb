@@ -5,6 +5,7 @@ RSpec.describe Api::V1::EventsController, type: :controller do
     @current_user = FactoryBot.create(:user)
     @localization = @current_user.account.localization
     @events = FactoryBot.create_list(:event, 10)
+    @event = @events.first.reload
     @category = FactoryBot.create(:category)
 
     @event_params = {
@@ -68,6 +69,34 @@ RSpec.describe Api::V1::EventsController, type: :controller do
         expect(json).to have_key('events')
         expect(json['events']).to be_empty
         expect(response).to have_http_status(:ok)
+      end
+    end
+  end
+
+  describe 'GET #show' do
+    context 'when events exists' do
+      before do
+        @event.localization = FactoryBot.create(:localization,
+                                                localizable: @event,
+                                                latitude: @localization.latitude + 0.001,
+                                                longitude: @localization.longitude + 0.001)
+      end
+
+      it 'should return the requested event with status ok' do
+        get :show, params: { uuid: @events.first.reload.uuid }
+        expect(json).to have_key('event')
+        expect(json['event']['uuid']).to eq(@event.uuid)
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when events does not exists' do
+      it 'should return not found' do
+        invalid_uuid = 'foobar'
+        get :show, params: { uuid: invalid_uuid }
+        expect(json).to have_key('error')
+        expect(json['error']).to eq("Event #{invalid_uuid} not found")
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
