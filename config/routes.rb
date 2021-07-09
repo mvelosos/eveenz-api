@@ -15,10 +15,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :categories, only: [:index]
-      resources :events, param: :uuid, only: [:index, :create, :update]
-      resources :notifications, only: [:index]
-      resources :search, only: [:index]
+      resources :categories, only: %i[index]
+      resources :events, param: :uuid, only: %i[index show create update]
+      resources :notifications, only: %i[index]
+      resources :search, only: %i[index]
 
       resources :users, only: %i[create] do
         collection do
