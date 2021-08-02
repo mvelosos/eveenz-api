@@ -197,7 +197,7 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
-    ffi (1.15.0)
+    ffi (1.15.3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (4.1.0)
@@ -235,7 +235,7 @@ GEM
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
-    listen (3.5.1)
+    listen (3.6.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.10.0)
@@ -415,7 +415,7 @@ DEPENDENCIES
   kaminari
   koala
   letter_opener_web (~> 1.0)
-  listen (>= 3.0.5, < 3.6)
+  listen (>= 3.0.5, < 3.7)
   pg (>= 0.18, < 2.0)
   plissken (~> 1.4)
   pry-byebug
