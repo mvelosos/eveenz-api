@@ -27,6 +27,8 @@ class ProfileSerializer < ActiveModel::Serializer
              :followers,
              :avatar_url
 
+  has_one :account_setting, serializer: AccountSettingSerializer
+
   def username
     object.user.username
   end
