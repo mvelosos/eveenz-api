@@ -426,7 +426,7 @@ DEPENDENCIES
   redis (~> 4.4)
   rspec-rails (~> 5.0)
   rubocop
-  searchkick
+  searchkick (~> 4.5.0)
   sentry-raven
   shoulda-matchers (~> 5.0)
   sidekiq
