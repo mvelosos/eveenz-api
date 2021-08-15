@@ -25,7 +25,8 @@ class AccountSerializer < ActiveModel::Serializer
              :following,
              :followers,
              :avatar_url,
-             :followed_by_me
+             :followed_by_me,
+             :private_account
 
   def username
     object.user.username
@@ -49,5 +50,9 @@ class AccountSerializer < ActiveModel::Serializer
 
   def followed_by_me
     object.followed_by?(@instance_options[:current_user].account)
+  end
+
+  def private_account
+    object.account_setting.private?
   end
 end
