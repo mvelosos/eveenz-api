@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_002835) do
+ActiveRecord::Schema.define(version: 2021_08_15_032213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +189,16 @@ ActiveRecord::Schema.define(version: 2021_06_23_002835) do
     t.index ["discarded_at"], name: "index_request_categories_on_discarded_at"
   end
 
+  create_table "request_follows", force: :cascade do |t|
+    t.bigint "requested_by_id", null: false
+    t.bigint "account_id", null: false
+    t.boolean "accepted"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_request_follows_on_account_id"
+    t.index ["requested_by_id"], name: "index_request_follows_on_requested_by_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.string "email"
@@ -213,4 +223,6 @@ ActiveRecord::Schema.define(version: 2021_06_23_002835) do
   add_foreign_key "events", "accounts"
   add_foreign_key "notifications", "accounts"
   add_foreign_key "password_recoveries", "users"
+  add_foreign_key "request_follows", "accounts"
+  add_foreign_key "request_follows", "accounts", column: "requested_by_id"
 end
