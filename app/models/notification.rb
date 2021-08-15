@@ -16,8 +16,10 @@ class Notification < ApplicationRecord
   include Discard::Model
 
   FOLLOW_TYPE = 'follow'.freeze
+  REQUEST_FOLLOW_TYPE = 'request_follow'.freeze
   NOTIFICATION_TYPES = [
-    FOLLOW_TYPE
+    FOLLOW_TYPE,
+    REQUEST_FOLLOW_TYPE
   ].freeze
 
   belongs_to :account
