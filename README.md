@@ -68,6 +68,12 @@ Lastly, using [Bundler](https://github.com/bundler/bundler), run the following c
 ```shell
 bundle
 ```
+
+### database.yml setttings
+By default we do not keep the default database.yml configurations due to non convergence between PostgreSQL settings. Run the following command to recreate the correct database.yml file
+```shell
+cp config/database_copy.yml config/database.yml
+```
 ### Initialize the database
 
 ```shell
