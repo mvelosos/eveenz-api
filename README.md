@@ -4,7 +4,7 @@
 
 [eveenz.com](https://eveenz.com)
 
-The Eveenz API provides all business rules and communication with the Eveenz Mobile APP. Follow the instructions to up the server
+The Eveenz API provides all business rules and communication with the Eveenz Mobile APP. Follow the instructions to run the server
 
 ## Install
 
