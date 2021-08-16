@@ -17,21 +17,23 @@ class NotificationSerializer < ActiveModel::Serializer
              :followed_by_me,
              :created_at
 
-  attribute :follower,     if: :follow_type?
-  attribute :requested_by, if: :request_follow_type?
+  attribute :follower,          if: :follow_type?
+  attribute :request_follow_uuid, if: :request_follow_type?
+  attribute :requested_by,      if: :request_follow_type?
 
   def follower
-    return nil unless object.notification_type == Notification::FOLLOW_TYPE
-
     account = Account.find(object.notifiable_id)
     ActiveModelSerializers::SerializableResource.new(account,
                                                      serializer: AccountFollowNotificationSerializer,
                                                      adapter: :attributes)
   end
 
-  def requested_by
-    return nil unless object.notification_type == Notification::REQUEST_FOLLOW_TYPE
+  def request_follow_uuid
+    request_follow = RequestFollow.find(object.notifiable_id)
+    request_follow.uuid
+  end
 
+  def requested_by
     request_follow = RequestFollow.find(object.notifiable_id)
     account = request_follow.requested_by
     ActiveModelSerializers::SerializableResource.new(account,
