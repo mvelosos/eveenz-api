@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 2021_08_15_032213) do
   end
 
   create_table "request_follows", force: :cascade do |t|
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.bigint "requested_by_id", null: false
     t.bigint "account_id", null: false
     t.boolean "accepted"
