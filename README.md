@@ -74,6 +74,12 @@ bundle
 rails db:create db:migrate
 ```
 
+### Populate Database
+Some needed records should be created to follow the project business rules, run the following tasks to populate the database:
+```shell
+rails populate_database:populate_categories
+```
+
 ## Serve
 There is a shortcut command to execute all you need to run the server. In the project root run the following:
 ```shell
