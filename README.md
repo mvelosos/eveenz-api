@@ -81,7 +81,7 @@ bash start.sh
 ```
 
 ## Test Suite
-This project uses RSPec as main suite test framework. To run all the tests suites, go in the root folder and type:
+This project uses RSpec as main suite test framework. To run all the tests suites, go in the root folder and type:
 ```shell
 rspec
 ```
