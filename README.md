@@ -4,13 +4,15 @@
 
 [eveenz.com](https://eveenz.com)
 
+The Eveenz API provides all business rules and communication with the Eveenz Mobile APP. Follow the instructions to up the server
+
 ## Install
 
 ### Clone the repository
 
 ```shell
-git clone git@github.com:juliendargelos/project.git
-cd project
+git clone https://github.com/mvelosos/eveenz-api.git
+cd eveenz-api
 ```
 
 ### Check your Ruby version
@@ -19,69 +21,69 @@ cd project
 ruby -v
 ```
 
-The ouput should start with something like `ruby 2.5.1`
+The current ruby version used in this project is `ruby 2.7.2`
 
-If not, install the right ruby version using [rbenv](https://github.com/rbenv/rbenv) (it could take a while):
-
-```shell
-rbenv install 2.5.1
-```
-
-### Install dependencies
-
-Using [Bundler](https://github.com/bundler/bundler) and [Yarn](https://github.com/yarnpkg/yarn):
+If do not have this version, install the right ruby version using [rvm](https://rvm.io/) (it could take a while):
 
 ```shell
-bundle && yarn
+rvm install 2.7.2
 ```
 
-### Set environment variables
+## Dependencies
 
-Using [Figaro](https://github.com/laserlemon/figaro):
+### PostgreSQL
+On MacOS, install (if you don't have it installed):
+```shell
+brew install postgresql
+```
+And start PostgreSQL service:
+```shell
+brew services start postgresql
+```
+### Redis
+On MacOS, install (if you don't have it installed):
+```shell
+brew install redis
+```
+And start Redis service:
+```shell
+brew services start redis
+```
+### ElasticSearch
+On MacOS, install (if you don't have it installed):
+```shell
+brew tap elastic/tap
+brew install elastic/tap/elasticsearch-full
+```
 
-See [config/application.yml.sample](https://github.com/juliendargelos/project/blob/master/config/application.yml.sample) and contact the developer: [contact@juliendargelos.com](mailto:contact@juliendargelos.com) (sensitive data).
+### ImageMagick
+On MacOS, install(if you don't have it installed):
+```shell
+brew install imagemagick
+```
 
+### Gems
+Lastly, using [Bundler](https://github.com/bundler/bundler), run the following command to install all gems used in this project
+
+```shell
+bundle
+```
 ### Initialize the database
 
 ```shell
-rails db:create db:migrate db:seed
-```
-
-### Add heroku remotes
-
-Using [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli):
-
-```shell
-heroku git:remote -a project
-heroku git:remote --remote heroku-staging -a project-staging
+rails db:create db:migrate
 ```
 
 ## Serve
-
+There is a shortcut command to execute all you need to run the server. In the project root run the following:
 ```shell
-rails s
+bash start.sh
 ```
 
-## Deploy
-
-### With Heroku pipeline (recommended)
-
-Push to Heroku staging remote:
-
+## Test Suite
+This project uses RSPec as main suite test framework. To run all the tests suites, go in the root folder and type:
 ```shell
-git push heroku-staging
+rspec
 ```
 
-Go to the Heroku Dashboard and [promote the app to production](https://devcenter.heroku.com/articles/pipelines) or use Heroku CLI:
-
-```shell
-heroku pipelines:promote -a project-staging
-```
-
-### Directly to production (not recommended)
-
-Push to Heroku production remote:
-
-```shell
-git push heroku
-```
+glhf :)
