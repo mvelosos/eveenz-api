@@ -21,9 +21,14 @@ class RequestFollow < ApplicationRecord
   private
 
   def on_update_accepted
-    # if accepted?
-    # else
-    # end
+    if accepted?
+      Notification.create(account_id: followable.id,
+                          notifiable_type: 'Account',
+                          notifiable_id: follower.id,
+                          notification_type: Notification::FOLLOW_TYPE)
+    end
+
+    destroy!
   end
 
   def request_follow_notification
