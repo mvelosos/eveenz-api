@@ -28,6 +28,8 @@ class AccountSerializer < ActiveModel::Serializer
              :followed_by_me,
              :private_account
 
+  attribute :requested_by_me, if: :private_account?
+
   def username
     object.user.username
   end
@@ -52,7 +54,20 @@ class AccountSerializer < ActiveModel::Serializer
     object.followed_by?(@instance_options[:current_user].account)
   end
 
+  def requested_by_me
+    request_follow = RequestFollow.where(requested_by: @instance_options[:current_user].account, account: object).first
+
+    {
+      is_requested_by_me: request_follow.present?,
+      request_follow_uuid: request_follow.present? ? request_follow.uuid : nil
+    }
+  end
+
   def private_account
+    object.account_setting.private?
+  end
+
+  def private_account?
     object.account_setting.private?
   end
 end

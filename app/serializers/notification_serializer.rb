@@ -17,9 +17,9 @@ class NotificationSerializer < ActiveModel::Serializer
              :followed_by_me,
              :created_at
 
-  attribute :follower,          if: :follow_type?
+  attribute :follower,            if: :follow_type?
   attribute :request_follow_uuid, if: :request_follow_type?
-  attribute :requested_by,      if: :request_follow_type?
+  attribute :requested_by,        if: :request_follow_type?
 
   def follower
     account = Account.find(object.notifiable_id)

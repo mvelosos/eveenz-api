@@ -17,19 +17,9 @@ class RequestFollow < ApplicationRecord
 
   after_create :request_follow_notification
   after_save :on_update_accepted, if: :saved_change_to_accepted?
+  after_destroy :destroy_related_notification
 
   private
-
-  def on_update_accepted
-    if accepted?
-      Notification.create(account_id: followable.id,
-                          notifiable_type: 'Account',
-                          notifiable_id: follower.id,
-                          notification_type: Notification::FOLLOW_TYPE)
-    end
-
-    destroy!
-  end
 
   def request_follow_notification
     Notification.create(account_id: account_id,
@@ -40,5 +30,15 @@ class RequestFollow < ApplicationRecord
     return unless Rails.env.production?
 
     RequestFollowPushNotificationJob.perform_later(self)
+  end
+
+  def on_update_accepted
+    Follow.create(followable: account, follower: requested_by) if accepted?
+
+    destroy!
+  end
+
+  def destroy_related_notification
+    Notification.find_by_notifiable_id(id).destroy!
   end
 end

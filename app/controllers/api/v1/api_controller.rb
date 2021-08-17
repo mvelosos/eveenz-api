@@ -14,6 +14,6 @@ class Api::V1::ApiController < ApplicationController
   attr_accessor :current_user
 
   def not_found
-    content_not_found('not found')
+    content_not_found('route not found')
   end
 end

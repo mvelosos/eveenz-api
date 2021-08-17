@@ -1,9 +1,20 @@
 class Api::V1::RequestFollowsController < ApplicationController
-  before_action :request_follow, only: [:update]
+  before_action :request_follow, only: %i[update destroy]
 
   def update
-    @request_follow.update(request_follow_params)
-    respond_with_object_or_message_status(@request_follow, ApiUuidSuccessSerializer, root: 'request_follow')
+    if @request_follow.update(request_follow_params)
+      render json: { success: true }, status: :accepted
+    else
+      render json: { success: false }, status: :not_accepted
+    end
+  end
+
+  def destroy
+    if @request_follow.destroy!
+      render json: { success: true }, status: :accepted
+    else
+      render json: { success: false }, status: :not_accepted
+    end
   end
 
   def request_follow

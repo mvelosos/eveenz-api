@@ -46,7 +46,7 @@ Rails.application.routes.draw do
           post   '/events/:uuid', to: 'follows#follow_event'
           delete '/events/:uuid', to: 'follows#unfollow_event'
         end
-        resources :request_follows, param: :uuid, only: [:update]
+        resources :request_follows, param: :uuid, only: %i[update destroy]
       end
 
       resource :passwords, only: [] do
