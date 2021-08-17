@@ -162,12 +162,12 @@ GEM
       dry-equalizer (~> 0.2)
       dry-initializer (~> 3.0)
       dry-schema (~> 1.5, >= 1.5.2)
-    elasticsearch (7.14.0)
-      elasticsearch-api (= 7.14.0)
-      elasticsearch-transport (= 7.14.0)
-    elasticsearch-api (7.14.0)
+    elasticsearch (7.13.3)
+      elasticsearch-api (= 7.13.3)
+      elasticsearch-transport (= 7.13.3)
+    elasticsearch-api (7.13.3)
       multi_json
-    elasticsearch-transport (7.14.0)
+    elasticsearch-transport (7.13.3)
       faraday (~> 1)
       multi_json
     erubi (1.10.0)
@@ -406,6 +406,7 @@ DEPENDENCIES
   database_cleaner-active_record
   discard (~> 1.2)
   dotenv-rails
+  elasticsearch (< 7.14)
   factory_bot_rails
   faker
   faraday
