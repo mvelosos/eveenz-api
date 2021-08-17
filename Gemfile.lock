@@ -351,7 +351,7 @@ GEM
     ruby-vips (2.1.2)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
-    searchkick (4.5.2)
+    searchkick (4.4.4)
       activemodel (>= 5)
       elasticsearch (>= 6)
       hashie
@@ -426,7 +426,7 @@ DEPENDENCIES
   redis (~> 4.4)
   rspec-rails (~> 5.0)
   rubocop
-  searchkick (~> 4.5.0)
+  searchkick (~> 4.4.4)
   sentry-raven
   shoulda-matchers (~> 5.0)
   sidekiq
