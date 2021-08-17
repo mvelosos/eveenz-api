@@ -1,4 +1,4 @@
-class RequestFollowNotificationJob < ApplicationJob
+class RequestFollowPushNotificationJob < ApplicationJob
   queue_as :push_notifications
 
   def perform(request_follow)
