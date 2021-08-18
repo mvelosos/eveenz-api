@@ -27,7 +27,7 @@ class Notification < ApplicationRecord
 
   validates :notification_type, presence: true, inclusion: { in: NOTIFICATION_TYPES }
 
-  after_create { NotificationBroadcastJob.perform_later(self) }
+  after_create :broadcast_notification
 
   def follow_type?
     notification_type == FOLLOW_TYPE
@@ -35,5 +35,13 @@ class Notification < ApplicationRecord
 
   def request_follow_type?
     notification_type == REQUEST_FOLLOW_TYPE
+  end
+
+  private
+
+  def broadcast_notification
+    return unless Rails.env.production? || Rails.env.staging?
+
+    NotificationBroadcastJob.perform_later(self)
   end
 end
