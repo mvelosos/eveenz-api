@@ -25,7 +25,8 @@ class ProfileSerializer < ActiveModel::Serializer
              :events,
              :following,
              :followers,
-             :avatar_url
+             :avatar_url,
+             :private_account
 
   has_one :account_setting, serializer: AccountSettingSerializer
 
@@ -47,5 +48,9 @@ class ProfileSerializer < ActiveModel::Serializer
 
   def avatar_url
     rails_blob_url(object.avatar)
+  end
+
+  def private_account
+    object.account_setting.private?
   end
 end
