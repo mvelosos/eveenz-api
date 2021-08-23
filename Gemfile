@@ -27,7 +27,7 @@ gem 'rack-attack'
 gem 'rack-cors'
 gem 'rails', '~> 6.1.4'
 gem 'redis', '~> 4.4'
-gem 'searchkick', '~> 4.4.4'
+gem 'searchkick', '~> 4.6.0'
 gem 'sentry-raven'
 gem 'sidekiq'
 
