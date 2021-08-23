@@ -13,7 +13,7 @@ gem 'bcrypt', '~> 3.1.16'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'config'
 gem 'discard', '~> 1.2'
-gem 'elasticsearch', '< 7.14'
+gem 'elasticsearch', '< 7.15'
 gem 'faraday'
 gem 'haversine', '~> 0.3.2'
 gem 'image_processing', '~> 1.0'
