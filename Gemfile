@@ -43,7 +43,7 @@ end
 group :development do
   gem 'annotate'
   gem 'letter_opener_web', '~> 1.0'
-  gem 'listen', '>= 3.0.5', '< 3.7'
+  gem 'listen', '>= 3.0.5', '< 3.8'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
