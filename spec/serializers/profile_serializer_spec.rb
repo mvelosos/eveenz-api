@@ -35,6 +35,7 @@ describe ProfileSerializer, type: :serializer do
       followers
       avatarUrl
       accountSetting
+      privateAccount
     ].sort
   end
 end
