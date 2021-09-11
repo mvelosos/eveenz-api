@@ -11,8 +11,8 @@
 #
 FactoryBot.define do
   factory :request_follow do
-    requested_by_id { "" }
-    account { nil }
-    accepted { false }
+    requested_by { FactoryBot.create(:user).account }
+    account { FactoryBot.create(:user).account }
+    accepted { nil }
   end
 end

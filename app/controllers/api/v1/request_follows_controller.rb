@@ -17,6 +17,8 @@ class Api::V1::RequestFollowsController < ApplicationController
     end
   end
 
+  private
+
   def request_follow
     @request_follow = RequestFollow.find_by_uuid!(params[:uuid])
   rescue ActiveRecord::RecordNotFound
