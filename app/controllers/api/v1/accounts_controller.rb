@@ -8,12 +8,20 @@ class Api::V1::AccountsController < Api::V1::ApiController
 
   # GET /accounts/:username/followers
   def followers
-    render json: @account.followers_by_type('Account'), current_user: current_user, status: :ok
+    followers = @account.followers_by_type('Account')
+    followers = followers.joins(:user).where('users.username ILIKE ?', "%#{params[:query]}%") if params[:query].present?
+    followers = followers.with_attached_avatar.includes(:user)
+
+    render json: followers, each_serializer: AccountFollowSerializer, status: :ok
   end
 
   # GET /accounts/:username/following
   def following
-    render json: @account.following_by_type('Account'), current_user: current_user, status: :ok
+    following = @account.following_by_type('Account')
+    following = following.joins(:user).where('users.username ILIKE ?', "%#{params[:query]}%") if params[:query].present?
+    following = following.with_attached_avatar.includes(:user)
+
+    render json: following, each_serializer: AccountFollowSerializer, status: :ok
   end
 
   private
