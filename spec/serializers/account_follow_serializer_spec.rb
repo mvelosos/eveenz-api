@@ -15,20 +15,20 @@
 require 'rails_helper'
 
 describe AccountFollowSerializer, type: :serializer do
-  # before do
-  #   @account = FactoryBot.create(:user).account
-  # end
+  before do
+    @account = FactoryBot.create(:user).account
+  end
 
-  # let(:resource_key) { :account }
-  # let(:resource) { @account }
-  # let(:serializer_name) { 'AccountFollowNotification' }
+  let(:resource_key) { :account }
+  let(:resource) { @account }
+  let(:serializer_name) { 'AccountFollow' }
 
-  # let(:expected_fields) do
-  #   %i[
-  #     uuid
-  #     name
-  #     username
-  #     avatarUrl
-  #   ].sort
-  # end
+  let(:expected_fields) do
+    %i[
+      uuid
+      name
+      username
+      avatarUrl
+    ].sort
+  end
 end

@@ -18,7 +18,6 @@ class RequestFollow < ApplicationRecord
 
   after_create :request_follow_notification
   after_save :on_update_accepted, if: :saved_change_to_accepted?
-  after_destroy :destroy_related_notification
 
   private
 
@@ -36,10 +35,11 @@ class RequestFollow < ApplicationRecord
   def on_update_accepted
     Follow.create(followable: account, follower: requested_by) if accepted?
 
+    destroy_related_notification!
     destroy!
   end
 
-  def destroy_related_notification
-    Notification.find_by_notifiable_id(id).destroy!
+  def destroy_related_notification!
+    Notification.find_by(notifiable: self).destroy!
   end
 end
