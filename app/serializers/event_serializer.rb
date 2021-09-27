@@ -39,10 +39,12 @@ class EventSerializer < ActiveModel::Serializer
              :external_url,
              :minimum_age,
              :host_avatar,
-             :host_name
+             :host_name,
+             :host_username
 
-  has_one :address, serializer: AddressSerializer
-  has_one :localization, serializer: LocalizationSerializer
+  has_one  :address, serializer: AddressSerializer
+  has_one  :localization, serializer: LocalizationSerializer
+  has_many :categories
 
   def images
     images = []
@@ -70,5 +72,9 @@ class EventSerializer < ActiveModel::Serializer
 
   def host_name
     object.account.name
+  end
+
+  def host_username
+    object.account.user.username
   end
 end

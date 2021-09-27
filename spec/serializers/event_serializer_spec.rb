@@ -48,12 +48,14 @@ describe EventSerializer, type: :serializer do
       endTime
       hostAvatar
       hostName
+      hostUsername
       address
       localization
       undefinedEnd
       externalUrl
       minimumAge
       distance
+      categories
     ].sort
   end
 end

@@ -11,6 +11,7 @@ class Api::V1::EventsController < Api::V1::ApiController
 
   # GET /events/:uuid
   def show
+    @event = Event.with_attached_images.find_by_uuid!(@event.uuid)
     render json: @event, serializer: EventSerializer, account: current_user.account, status: :ok
   end
 
