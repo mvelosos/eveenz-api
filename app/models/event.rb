@@ -24,8 +24,8 @@
 
 class Event < ApplicationRecord
   include Discard::Model
+  include PgSearch::Model
 
-  searchkick
   acts_as_followable
 
   PUBLIC_PRIVACY  = 'public'.freeze
@@ -60,9 +60,14 @@ class Event < ApplicationRecord
 
   before_create :check_undefined_end
 
-  def search_data
-    { name: name }
-  end
+  pg_search_scope :search_name,
+                  against: :name,
+                  ignoring: :accents,
+                  using: {
+                    trigram: {
+                      threshold: 0.2
+                    }
+                  }
 
   private
 
