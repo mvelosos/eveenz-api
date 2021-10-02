@@ -62,10 +62,10 @@ jobs:
           sudo sysctl -w fs.file-max=262144
           sudo sysctl -w vm.max_map_count=262144
 
-      - name: Setup Elasticsearch
-        uses: elastic/elastic-github-actions/elasticsearch@master
-        with:
-          stack-version: 7.6.0
+      # - name: Setup Elasticsearch
+      #   uses: elastic/elastic-github-actions/elasticsearch@master
+      #   with:
+      #     stack-version: 7.6.0
 
       - name: Run tests
         run: COVERAGE=true bundle exec rspec  --require rails_helper
