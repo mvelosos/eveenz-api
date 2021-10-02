@@ -50,7 +50,7 @@ class Account < ApplicationRecord
                   ignoring: :accents,
                   using: {
                     trigram: {
-                      threshold: 0.2
+                      threshold: 0.1
                     }
                   }
 
