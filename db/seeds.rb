@@ -5,6 +5,3 @@
   user = FactoryBot.create(:user)
   FactoryBot.create(:event, account: user.account)
 end
-
-Account.reindex
-Event.reindex
