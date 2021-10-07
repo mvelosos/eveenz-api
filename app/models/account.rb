@@ -24,6 +24,7 @@ class Account < ApplicationRecord
   has_many :events,               dependent: :destroy
   has_many :requested_categories, class_name: 'RequestCategory', foreign_key: 'requested_by_id'
   has_many :notifications
+  has_many :event_presences
 
   has_one_base64_attached :avatar
 

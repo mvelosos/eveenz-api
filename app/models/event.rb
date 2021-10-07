@@ -26,8 +26,6 @@ class Event < ApplicationRecord
   include Discard::Model
   include PgSearch::Model
 
-  acts_as_followable
-
   PUBLIC_PRIVACY  = 'public'.freeze
   PRIVATE_PRIVACY = 'private'.freeze
   SECRET_PRIVACY  = 'secret'.freeze
@@ -44,6 +42,7 @@ class Event < ApplicationRecord
   has_one    :localization, as: :localizable, dependent: :destroy
   has_many   :event_categories, dependent: :destroy
   has_many   :categories, through: :event_categories
+  has_many   :event_presences
 
   has_many_base64_attached :images
 
