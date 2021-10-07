@@ -20,16 +20,16 @@ class Api::V1::FollowsController < Api::V1::ApiController
   end
 
   # POST /me/follows/events/:uuid
-  def follow_event
-    current_user.account.follow(@follow_event)
-    render json: { sucess: true, result: 'following' }, status: :created
-  end
+  # def follow_event
+  #   current_user.account.follow(@follow_event)
+  #   render json: { sucess: true, result: 'following' }, status: :created
+  # end
 
   # DELETE /me/follows/events/:uuid
-  def unfollow_event
-    current_user.account.stop_following(@follow_event)
-    render json: { sucess: true, result: 'unfollowing' }, status: :ok
-  end
+  # def unfollow_event
+  #   current_user.account.stop_following(@follow_event)
+  #   render json: { sucess: true, result: 'unfollowing' }, status: :ok
+  # end
 
   private
 
