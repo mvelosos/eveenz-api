@@ -1,6 +1,6 @@
 class Api::V1::FollowsController < Api::V1::ApiController
   before_action :set_follow_account, only: %i[follow_account unfollow_account]
-  before_action :set_follow_event, only: %i[follow_event unfollow_event]
+  # before_action :set_follow_event, only: %i[follow_event unfollow_event]
 
   # POST /me/follows/accounts/:uuid
   def follow_account
@@ -39,9 +39,9 @@ class Api::V1::FollowsController < Api::V1::ApiController
     render json: { errors: e.message }, status: :not_found
   end
 
-  def set_follow_event
-    @follow_event = Event.find_by_uuid!(params[:uuid])
-  rescue ActiveRecord::RecordNotFound => e
-    render json: { errors: e.message }, status: :not_found
-  end
+  # def set_follow_event
+  #   @follow_event = Event.find_by_uuid!(params[:uuid])
+  # rescue ActiveRecord::RecordNotFound => e
+  #   render json: { errors: e.message }, status: :not_found
+  # end
 end
