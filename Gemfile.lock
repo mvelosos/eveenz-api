@@ -225,7 +225,7 @@ GEM
       addressable (~> 2.7)
     letter_opener (1.7.0)
       launchy (~> 2.2)
-    letter_opener_web (1.4.0)
+    letter_opener_web (1.4.1)
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
@@ -240,7 +240,7 @@ GEM
     marcel (1.0.1)
     method_source (1.0.0)
     mini_magick (4.11.0)
-    mini_mime (1.1.1)
+    mini_mime (1.1.2)
     mini_portile2 (2.6.1)
     minitest (5.14.4)
     msgpack (1.4.2)
@@ -274,7 +274,7 @@ GEM
     public_suffix (4.0.6)
     puma (5.5.0)
       nio4r (~> 2.0)
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-attack (6.5.0)
       rack (>= 1.0, < 3)
@@ -381,7 +381,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.4.2)
+    zeitwerk (2.5.1)
 
 PLATFORMS
   ruby
@@ -409,7 +409,7 @@ DEPENDENCIES
   jwt
   kaminari
   koala
-  letter_opener_web (~> 1.0)
+  letter_opener_web (~> 1.4)
   listen (>= 3.0.5, < 3.8)
   pg (>= 0.18, < 2.0)
   pg_search (~> 2.3, >= 2.3.5)
