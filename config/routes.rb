@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
 
+      resource :home, controller: :home, only: [] do
+        get :cards
+      end
+
       resources :accounts, param: :username, only: %i[show], constraints: { username: /[0-z\.]+/ } do
         member do
           get :followers
