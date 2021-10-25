@@ -42,7 +42,7 @@ class Event < ApplicationRecord
   has_one    :localization, as: :localizable, dependent: :destroy
   has_many   :event_categories, dependent: :destroy
   has_many   :categories, through: :event_categories
-  has_many   :event_presences
+  has_many   :event_presences, dependent: :destroy
 
   has_many_base64_attached :images
 

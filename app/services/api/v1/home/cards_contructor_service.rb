@@ -21,6 +21,7 @@ class Api::V1::Home::CardsContructorService
                    .includes(:localization)
                    .joins(:localization)
                    .where("#{haversine} <= ?", @distance_radius)
+                   .kept
 
     response_data
   end
@@ -54,6 +55,7 @@ class Api::V1::Home::CardsContructorService
 
     collection.collect do |event|
       {
+        uuid: event.uuid,
         name: event.name,
         distance: calculate_distance(event.localization.latitude, event.localization.longitude),
         startDate: event.start_date,
@@ -68,7 +70,7 @@ class Api::V1::Home::CardsContructorService
           state: event.address.state,
           country: event.address.country
         },
-        image: rails_blob_url(event.images.first)
+        image: event.images.attached? ? rails_blob_url(event.images.first) : nil
       }
     end
   end
