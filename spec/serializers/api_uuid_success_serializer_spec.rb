@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-describe ApiSuccessSerializer, type: :serializer do
+describe ApiUuidSuccessSerializer, type: :serializer do
   before do
     @user = FactoryBot.create(:user)
   end
 
   let(:resource_key) { :user }
   let(:resource) { @user }
-  let(:serializer_name) { 'ApiSuccess' }
+  let(:serializer_name) { 'ApiUuidSuccess' }
 
   let(:expected_fields) do
     %i[
-      id
+      uuid
     ].sort
   end
 end

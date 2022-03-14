@@ -15,8 +15,7 @@
 
 class Account < ApplicationRecord
   include Discard::Model
-
-  searchkick
+  include PgSearch::Model
 
   belongs_to :user
   has_one  :account_setting,      dependent: :destroy
@@ -25,6 +24,7 @@ class Account < ApplicationRecord
   has_many :events,               dependent: :destroy
   has_many :requested_categories, class_name: 'RequestCategory', foreign_key: 'requested_by_id'
   has_many :notifications
+  has_many :event_presences
 
   has_one_base64_attached :avatar
 
@@ -45,9 +45,15 @@ class Account < ApplicationRecord
   acts_as_follower
   acts_as_followable
 
-  def search_data
-    { username: user.username, name: name }
-  end
+  pg_search_scope :search_name_or_username,
+                  against: :name,
+                  associated_against: { user: :username },
+                  ignoring: :accents,
+                  using: {
+                    trigram: {
+                      threshold: 0.1
+                    }
+                  }
 
   def set_default_avatar
     avatar.attach(io: File.open('./app/assets/images/default_avatar.png'), filename: 'default_avatar.png')

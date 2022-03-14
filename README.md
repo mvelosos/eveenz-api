@@ -1,41 +1,101 @@
-# README
+# Eveenz API
 
-- Need to be updated later...
+![eveenz logo](https://github.com/mvelosos/eveenz-api/blob/master/app/assets/images/home_logo.png?raw=true)
 
-Party API
+[eveenz.com](https://eveenz.com)
 
-* Rails: 6.0.3
+The Eveenz API provides all business rules and communication with the Eveenz Mobile APP. Follow the instructions to run the server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Install
 
-Things you may want to cover:
+### Clone the repository
 
-- Ruby version
-
-```
-  2.7.1
+```shell
+git clone https://github.com/mvelosos/eveenz-api.git
+cd eveenz-api
 ```
 
-- System dependencies
+### Check your Ruby version
 
-- Configuration
+```shell
+ruby -v
+```
 
-- Database creation
+The current ruby version used in this project is `ruby 2.7.2`
 
-- Database initialization
+If do not have this version, install the right ruby version using [rvm](https://rvm.io/) (it could take a while):
 
-- How to run the test suite
+```shell
+rvm install 2.7.2
+```
 
-- Services (job queues, cache servers, search engines, etc.)
+## Dependencies
 
-- Deployment instructions
+### PostgreSQL
+On MacOS, install (if you don't have it installed):
+```shell
+brew install postgresql
+```
+And start PostgreSQL service:
+```shell
+brew services start postgresql
+```
+### Redis
+On MacOS, install (if you don't have it installed):
+```shell
+brew install redis
+```
+And start Redis service:
+```shell
+brew services start redis
+```
+### ElasticSearch
+On MacOS, install (if you don't have it installed):
+```shell
+brew tap elastic/tap
+brew install elastic/tap/elasticsearch-full
+```
 
-- ....
+### ImageMagick
+On MacOS, install(if you don't have it installed):
+```shell
+brew install imagemagick
+```
 
-GitHub Actions
-Add test suits
-ElasticSearch
-...
+### Gems
+Lastly, using [Bundler](https://github.com/bundler/bundler), run the following command to install all gems used in this project
 
-.
+```shell
+bundle
+```
+
+### database.yml setttings
+By default we do not keep the default database.yml configurations due to non convergence between PostgreSQL settings. Run the following command to recreate the correct database.yml file
+```shell
+cp config/database_copy.yml config/database.yml
+```
+### Initialize the database
+
+```shell
+rails db:create db:migrate
+```
+
+### Populate Database
+Some needed records should be created to follow the project business rules, run the following tasks to populate the database:
+```shell
+rails populate_database:populate_categories
+```
+
+## Serve
+There is a shortcut command to execute all you need to run the server. In the project root run the following:
+```shell
+bash start.sh
+```
+
+## Test Suite
+This project uses RSpec as main suite test framework. To run all the tests suites, go in the root folder and type:
+```shell
+rspec
+```
+
+glhf :)

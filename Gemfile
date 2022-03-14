@@ -20,17 +20,18 @@ gem 'jwt'
 gem 'kaminari'
 gem 'koala'
 gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg_search', '~> 2.3', '>= 2.3.5'
 gem 'plissken', '~> 1.4'
-gem 'puma', '~> 5.4'
+gem 'puma', '~> 5.5'
 gem 'rack-attack'
 gem 'rack-cors'
 gem 'rails', '~> 6.1.4'
-gem 'redis', '~> 4.4'
-gem 'searchkick', '~> 4.5.0'
+gem 'redis', '~> 4.5'
 gem 'sentry-raven'
 gem 'sidekiq'
 
 group :development, :test do
+  gem 'bullet', '~> 6.1', '>= 6.1.5'
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
@@ -41,8 +42,8 @@ end
 
 group :development do
   gem 'annotate'
-  gem 'letter_opener_web', '~> 1.0'
-  gem 'listen', '>= 3.0.5', '< 3.7'
+  gem 'letter_opener_web', '~> 1.4'
+  gem 'listen', '>= 3.0.5', '< 3.8'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end

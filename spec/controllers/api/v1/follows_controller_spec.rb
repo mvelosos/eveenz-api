@@ -58,53 +58,53 @@ RSpec.describe Api::V1::FollowsController, type: :controller do
     end
   end
 
-  describe 'POST #follow_event' do
-    context 'when current user follows an event (confirm presence)' do
-      it 'should follow successfuly' do
-        post :follow_event, params: { uuid: @event.uuid }
-        expect(json['result']).to eq('following')
-        expect(@current_user.account.following?(@event)).to be(true)
-        expect(response).to have_http_status(:created)
-      end
-    end
+  # describe 'POST #follow_event' do
+  #   context 'when current user follows an event (confirm presence)' do
+  #     it 'should follow successfuly' do
+  #       post :follow_event, params: { uuid: @event.uuid }
+  #       expect(json['result']).to eq('following')
+  #       expect(@current_user.account.following?(@event)).to be(true)
+  #       expect(response).to have_http_status(:created)
+  #     end
+  #   end
 
-    context 'when current user follows the event again' do
-      it 'should return unfollow' do
-        @current_user.account.follow(@event)
-        post :follow_event, params: { uuid: @event.uuid }
-        expect(json['result']).to eq('following')
-        expect(@current_user.account.following?(@event)).to be(true)
-        expect(response).to have_http_status(:created)
-      end
-    end
+  #   context 'when current user follows the event again' do
+  #     it 'should return unfollow' do
+  #       @current_user.account.follow(@event)
+  #       post :follow_event, params: { uuid: @event.uuid }
+  #       expect(json['result']).to eq('following')
+  #       expect(@current_user.account.following?(@event)).to be(true)
+  #       expect(response).to have_http_status(:created)
+  #     end
+  #   end
 
-    context 'when event to follow do not exists' do
-      it 'should return not found' do
-        post :follow_event, params: { uuid: '123' }
-        expect(json['errors']).to be_truthy
-        expect(response).to have_http_status(:not_found)
-      end
-    end
-  end
+  #   context 'when event to follow do not exists' do
+  #     it 'should return not found' do
+  #       post :follow_event, params: { uuid: '123' }
+  #       expect(json['errors']).to be_truthy
+  #       expect(response).to have_http_status(:not_found)
+  #     end
+  #   end
+  # end
 
-  describe 'POST #unfollow_event' do
-    context 'when current user unfollow an event (deny presence)' do
-      it 'should unfollow successfuly' do
-        @current_user.account.follow(@event)
-        post :unfollow_event, params: { uuid: @event.uuid }
-        expect(json['result']).to eq('unfollowing')
-        expect(@current_user.account.following?(@event)).to be(false)
-        expect(response).to have_http_status(:ok)
-      end
-    end
+  # describe 'POST #unfollow_event' do
+  #   context 'when current user unfollow an event (deny presence)' do
+  #     it 'should unfollow successfuly' do
+  #       @current_user.account.follow(@event)
+  #       post :unfollow_event, params: { uuid: @event.uuid }
+  #       expect(json['result']).to eq('unfollowing')
+  #       expect(@current_user.account.following?(@event)).to be(false)
+  #       expect(response).to have_http_status(:ok)
+  #     end
+  #   end
 
-    context 'when current user unfollow a unfollowed event' do
-      it 'should return unfollow' do
-        post :unfollow_event, params: { uuid: @event.uuid }
-        expect(json['result']).to eq('unfollowing')
-        expect(@current_user.account.following?(@event)).to be(false)
-        expect(response).to have_http_status(:ok)
-      end
-    end
-  end
+  #   context 'when current user unfollow a unfollowed event' do
+  #     it 'should return unfollow' do
+  #       post :unfollow_event, params: { uuid: @event.uuid }
+  #       expect(json['result']).to eq('unfollowing')
+  #       expect(@current_user.account.following?(@event)).to be(false)
+  #       expect(response).to have_http_status(:ok)
+  #     end
+  #   end
+  # end
 end

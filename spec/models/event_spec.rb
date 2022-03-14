@@ -41,14 +41,6 @@ RSpec.describe Event, type: :model do
     it { is_expected.to validate_inclusion_of(:privacy).in_array(Event::PRIVACIES) }
   end
 
-  context 'methods' do
-    it 'search_data' do
-      event = FactoryBot.create(:event)
-      Event.reindex
-      expect(Event.search(event.name)).to be_truthy
-    end
-  end
-
   context 'callbacks' do
     it 'before_create #check_undefined_end' do
       event = FactoryBot.create(:event, undefined_end: true)

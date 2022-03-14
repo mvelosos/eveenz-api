@@ -10,10 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_15_032213) do
+ActiveRecord::Schema.define(version: 2021_10_06_185557) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
+  enable_extension "unaccent"
   enable_extension "uuid-ossp"
 
   create_table "account_settings", force: :cascade do |t|
@@ -104,6 +106,16 @@ ActiveRecord::Schema.define(version: 2021_08_15_032213) do
     t.index ["event_id"], name: "index_event_categories_on_event_id"
   end
 
+  create_table "event_presences", force: :cascade do |t|
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
+    t.bigint "event_id", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_event_presences_on_account_id"
+    t.index ["event_id"], name: "index_event_presences_on_event_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.bigint "account_id"
@@ -122,6 +134,7 @@ ActiveRecord::Schema.define(version: 2021_08_15_032213) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
+    t.datetime "published_at"
     t.index ["account_id"], name: "index_events_on_account_id"
     t.index ["discarded_at"], name: "index_events_on_discarded_at"
   end
@@ -190,6 +203,7 @@ ActiveRecord::Schema.define(version: 2021_08_15_032213) do
   end
 
   create_table "request_follows", force: :cascade do |t|
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.bigint "requested_by_id", null: false
     t.bigint "account_id", null: false
     t.boolean "accepted"
@@ -220,6 +234,8 @@ ActiveRecord::Schema.define(version: 2021_08_15_032213) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
+  add_foreign_key "event_presences", "accounts"
+  add_foreign_key "event_presences", "events"
   add_foreign_key "events", "accounts"
   add_foreign_key "notifications", "accounts"
   add_foreign_key "password_recoveries", "users"

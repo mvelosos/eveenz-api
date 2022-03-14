@@ -40,12 +40,4 @@ RSpec.describe Account, type: :model do
       end
     end
   end
-
-  context 'methods' do
-    it 'search_data' do
-      account = FactoryBot.create(:user).account
-      Account.reindex
-      expect(Account.search(account.name)).to be_truthy
-    end
-  end
 end

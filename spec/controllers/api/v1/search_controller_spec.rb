@@ -2,16 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::SearchController, type: :controller do
   before do
-    # We need to reindex and refresh index to make search works with Elasticsearch
-    Account.reindex
-    Event.reindex
-
     @current_user = FactoryBot.create(:user).reload
     @accounts = FactoryBot.create_list(:user, 10).collect { |user| user&.account }
     @events = FactoryBot.create_list(:event, 10, name: 'foobar event')
-
-    Account.search_index.refresh
-    Event.search_index.refresh
 
     authenticate_user_for_api(@current_user)
   end

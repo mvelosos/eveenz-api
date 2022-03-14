@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
 
+      resource :home, controller: :home, only: [] do
+        get :cards
+      end
+
       resources :accounts, param: :username, only: %i[show], constraints: { username: /[0-z\.]+/ } do
         member do
           get :followers
@@ -16,7 +20,9 @@ Rails.application.routes.draw do
       end
 
       resources :categories, only: %i[index]
-      resources :events, param: :uuid, only: %i[index show create update]
+      resources :events, param: :uuid, only: %i[index show create update] do
+        resources :event_presences, param: :uuid, only: %i[create destroy], as: :member
+      end
       resources :notifications, only: %i[index]
       resources :search, only: %i[index]
 
@@ -43,9 +49,10 @@ Rails.application.routes.draw do
         resource :follows, only: [] do
           post   '/accounts/:uuid', to: 'follows#follow_account'
           delete '/accounts/:uuid', to: 'follows#unfollow_account'
-          post   '/events/:uuid', to: 'follows#follow_event'
-          delete '/events/:uuid', to: 'follows#unfollow_event'
+          # post   '/events/:uuid', to: 'follows#follow_event'
+          # delete '/events/:uuid', to: 'follows#unfollow_event'
         end
+        resources :request_follows, param: :uuid, only: %i[update destroy]
       end
 
       resource :passwords, only: [] do

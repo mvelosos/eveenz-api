@@ -24,9 +24,7 @@
 
 class Event < ApplicationRecord
   include Discard::Model
-
-  searchkick
-  acts_as_followable
+  include PgSearch::Model
 
   PUBLIC_PRIVACY  = 'public'.freeze
   PRIVATE_PRIVACY = 'private'.freeze
@@ -44,6 +42,7 @@ class Event < ApplicationRecord
   has_one    :localization, as: :localizable, dependent: :destroy
   has_many   :event_categories, dependent: :destroy
   has_many   :categories, through: :event_categories
+  has_many   :event_presences, dependent: :destroy
 
   has_many_base64_attached :images
 
@@ -60,9 +59,14 @@ class Event < ApplicationRecord
 
   before_create :check_undefined_end
 
-  def search_data
-    { name: name }
-  end
+  pg_search_scope :search_name,
+                  against: :name,
+                  ignoring: :accents,
+                  using: {
+                    trigram: {
+                      threshold: 0.2
+                    }
+                  }
 
   private
 
