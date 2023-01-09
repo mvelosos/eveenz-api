@@ -31,7 +31,7 @@ gem 'sentry-raven'
 gem 'sidekiq'
 
 group :development, :test do
-  gem 'bullet', '~> 6.1', '>= 6.1.5'
+  gem 'bullet', '~> 7.0'
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
