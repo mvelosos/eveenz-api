@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::AuthController, type: :controller do
   before do
-    @user = FactoryBot.create(:user, username: 'foobar', email: 'foobar@eveenz.com', password: 'foo123')
+    @user = FactoryBot.create(:user, username: 'foobar', email: 'foobar@test.com', password: 'foo123')
     @fb_access_token = retrieve_facebook_test_token
   end
 
