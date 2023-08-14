@@ -9,7 +9,7 @@ gem 'acts_as_follower', github: 'mvelosos/acts_as_follower', branch: 'master'
 gem 'apple_auth', '~> 1.0'
 gem 'awrence'
 gem 'aws-sdk-s3'
-gem 'bcrypt', '~> 3.1.16'
+gem 'bcrypt', '~> 3.1.19'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'config'
 gem 'discard', '~> 1.2'
